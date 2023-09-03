@@ -4,10 +4,13 @@ import mainStyles from "./main.module.css"
 
 function AppMain() {
 return(
-  <main>
-    <h1>Соберите бургер</h1>
-    <BurgerIngredients />
-    <BurgerConstructor />
+  <main className={mainStyles.main}>
+    <h1 className="text text_type_main-large">Соберите бургер</h1>
+    <div className="container">
+        <BurgerIngredients />
+        <BurgerConstructor />
+    </div>
+    
   </main>
   )
 }

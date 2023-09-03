@@ -1,0 +1,17 @@
+.cart {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartPrice {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+.cartName {
+    min-height: 40px;
+    text-align: center;
+}

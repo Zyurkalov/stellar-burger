@@ -6,6 +6,12 @@
     align-items: center;
     gap: 8px;
 }
+.menuElem:first-child {
+    padding-left: 0px;
+}
+.menuElem:last-child {
+    padding-right: 0px;
+}
 .menuElem:hover {
     cursor: pointer;
 }

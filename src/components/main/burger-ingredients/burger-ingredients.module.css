@@ -1,0 +1,31 @@
+.cardSection {
+    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.scrollBar{
+    margin-top: 40px;
+    max-height: 75vh;
+    overflow-y: scroll;
+    border: none;
+  }
+.scrollBar::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+  }
+.scrollBar::-webkit-scrollbar-thumb {
+    height: 492px;
+    background-color: #8585AD;
+  }
+.cardSection > h2 {
+    min-width: 100%;
+}
+.cardContainer {
+    width: 100%;
+    display: flex;
+
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    row-gap: 52px;
+}
