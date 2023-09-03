@@ -1,10 +1,14 @@
 .app {
+  margin: 0 auto;
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  
   background-color: #131316;
   color: #f2f2f3;
 }
+
 .header {
   display:flex;
   flex-direction: row;

@@ -4,6 +4,7 @@
 
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 .menuElem:hover {
     cursor: pointer;
@@ -17,6 +18,5 @@ button {
     text-align: center;
 }
 button:hover {
-    cursor: pointer;
-    color: #8585AD;
+    cursor: pointer;  
 }

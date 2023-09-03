@@ -14,7 +14,9 @@ function App() {
     //   	Измените src/components/app/app.jsx и сохраните для обновления.
     //   </pre>
     // </div>
-    <AppHeader className={appStyles.header}/>
+    <body>
+      <AppHeader className={appStyles.header}/>
+    </body>
   );
 }
 
