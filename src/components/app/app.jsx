@@ -2,6 +2,7 @@ import styles from "./app.module.css";
 import { data } from "../../utils/data";
 
 import AppHeader from "../header/header"
+import AppMain from "../main/main"
 import appStyles from "./app.module.css"
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     // </div>
     <body>
       <AppHeader className={appStyles.header}/>
+      <AppMain />
     </body>
   );
 }
