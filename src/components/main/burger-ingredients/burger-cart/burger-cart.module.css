@@ -10,7 +10,7 @@
 .cartPrice {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     gap: 8px;
 }
 .cartName {

@@ -1,22 +1,15 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerCart from "./burger-cart/burger-cart";
-import { data } from "../../../utils/data";
 import style from "./burger-ingredients.module.css";
 import { checkPropTypes } from "prop-types";
 
-function BurgerIngredients(props) {
-  const [setIngredient, addIngredient] = React.useState([]);
-
-  const handleAddIngridient = (ingridients) => {
-    const updatedIngridients = [...setIngredient, ingridients];
-    addIngredient(updatedIngridients);
-
-    props.addNewIngridient(updatedIngridients);
-  }
+function BurgerIngredients({ addIngredient, data }) {
   const decompositionArr = (category) => {
     const filteredData = data.filter((item) => item.type === category);
-    return filteredData.map((item) => <BurgerCart key={item.key} addNewIngridient={handleAddIngridient} {...item} />);
+    return filteredData.map((item) => (
+      <BurgerCart key={item.key} addIngr={addIngredient} {...item} />
+    ));
   };
 
   const categories = ["bun", "sauce", "main"];
@@ -36,9 +29,9 @@ function BurgerIngredients(props) {
       </nav>
 
       <section className={`${style.cardSection} ${style.scrollBar}`}>
-        {categories.map((category) => (
-          <div key={category}>
-            <h2 className="mb-6 mt-10 text text_type_main-medium">
+        {categories.map((category, index) => (
+          <div key={index} className={`${style.categories}`}>
+            <h2 className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}>
               {category === "bun" ? "Булки" : category === "sauce" ? "Соусы" : "Начинки"}
             </h2>
             <div className={style.cardContainer}>{decompositionArr(category)}</div>

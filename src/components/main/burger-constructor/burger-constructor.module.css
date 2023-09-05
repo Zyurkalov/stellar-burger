@@ -3,8 +3,16 @@
 }
 
 .price {
-  composes: cartPrice from "../burger-ingredients/burger-cart/burger-cart.module.css";
+  display: flex;
+  flex-direction: row;
   justify-content: end;
+  align-items: center;
+  gap: 8px;
+}
+.price_icon>svg {
+  min-width: 36px;
+  min-height: 36px;
+  margin-right: 32px;
 }
 .cart {
     height: 80px;

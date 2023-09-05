@@ -1,30 +1,23 @@
-import React from "react";
+
 import style from './burger-cart.module.css'
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
+function BurgerCart(props) {
 
-class BurgerCart extends React.Component {
-    // constructor(props) {
-    //     super(props)
-    // }
-    addIngridient = () => {
-        this.props.addNewIngridient(this.props)
-    }
+  const addIngredient = () => {
+    props.addIngr({props});
+  };
 
-    render () {
-        const {name, image, price, _id} = this.props
-        return (
-            <div className={style.cart} key={_id} onClick={this.addIngridient}>              
-                <img src={image} alt={name}></img>
-                <div className={style.cartPrice}>
-                    <p className=" mt-2 text text_type_digits-default">{price}</p>
-                    <CurrencyIcon />
-                </div>
-                <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>{name}</h3>
-                
-            </div>
-        )
-    }
+  return (
+    <div className={style.cart} key={props._id} onClick={addIngredient}>
+      <img src={props.image} alt={props.name} />
+      <div className={style.cartPrice}>
+        <p className="mt-2 text text_type_digits-default">{props.price}</p>
+        <CurrencyIcon />
+      </div>
+      <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>{props.name}</h3>
+    </div>
+  );
 }
-
-export default BurgerCart
+  
+  export default BurgerCart;
