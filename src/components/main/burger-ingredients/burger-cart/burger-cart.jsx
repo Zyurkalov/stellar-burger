@@ -3,7 +3,6 @@ import style from './burger-cart.module.css'
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
 function BurgerCart(props) {
-
   const addIngredient = () => {
     props.addIngr({props});
   };
