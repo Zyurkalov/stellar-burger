@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-constructor.module.css";
 
-function BurgerConstructor({ ingredients, removeIngredient}) {
+function BurgerConstructor({ ingredients, removeIngredient, seeAnalysis}) {
   const totalPrice = ingredients.reduce((acc, ingredient) => acc + ingredient.props.price, 0);
   const handleRemoveIngredient = (index) => {
     removeIngredient(index);
@@ -17,7 +17,7 @@ function BurgerConstructor({ ingredients, removeIngredient}) {
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
       <ul>
         {ingredients.map((ingredient, index) => (
-          <li key={index} className={`mb-4 ${style.component}`}>
+          <li key={index} className={`mb-4 ${style.component}`} onClick={() => seeAnalysis(ingredient.props)}>
             <DragIcon />
             <div className={style.cart} >
               <img src={ingredient.props.image_mobile} className={style.image} alt={ingredient.props.name} />

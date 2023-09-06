@@ -45,6 +45,10 @@
 .ingrInfo {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+.span {
+  text-align: center;
 }
 
 .disabled {

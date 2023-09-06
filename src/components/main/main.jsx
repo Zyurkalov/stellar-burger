@@ -6,6 +6,7 @@ import mainStyles from "./main.module.css";
 
 function AppMain({ data }) {
   const [ingredients, setIngredients] = React.useState([]);
+  const [newAnalysis, getAnalysis] = React.useState([]);
 
   const addIngredient = (ingredient) => {
     setIngredients([...ingredients, ingredient]);
@@ -15,6 +16,9 @@ function AppMain({ data }) {
     const updatedIngredients = [...ingredients];
     updatedIngredients.splice(index, 1);
     setIngredients(updatedIngredients);
+  };
+  const seeAnalysis = (analysis) => {
+      getAnalysis([analysis])
   };
 
   return (
@@ -29,10 +33,11 @@ function AppMain({ data }) {
           <BurgerConstructor
             ingredients={ingredients}
             removeIngredient={removeIngredient}
+            seeAnalysis={seeAnalysis}
           />
         </div>
       </main>
-      <Template />
+      <Template analysis={newAnalysis}/>
     </>
   );
 }
