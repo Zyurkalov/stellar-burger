@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-constructor.module.css";
 
-function BurgerConstructor({ ingredients, removeIngredient, seeAnalysis}) {
+function BurgerConstructor({ ingredients, removeIngredient, seeAnalysis, orderStatus}) {
   const totalPrice = ingredients.reduce((acc, ingredient) => acc + ingredient.props.price, 0);
   const handleRemoveIngredient = (index) => {
     removeIngredient(index);
@@ -38,7 +38,7 @@ function BurgerConstructor({ ingredients, removeIngredient, seeAnalysis}) {
           <h3 className="text text_type_digits-medium">{totalPrice}</h3>
           <CurrencyIcon />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={orderStatus}>
           Оформить заказ
         </Button>
       </div>
