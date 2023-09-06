@@ -4,7 +4,6 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import image from "../../../images/done.svg"
 
 function OrderDetails({orderStatus, toggleStatus}) {
-    console.log(orderStatus)
     const checkStatus = () => {
         return orderStatus === false ? styles.disabled : styles.visible;
     }
