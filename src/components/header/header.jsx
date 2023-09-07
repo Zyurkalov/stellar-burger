@@ -9,14 +9,14 @@ function AppHeader() {
             <div className= {headerStyles.headContainer}>
                 <nav>
                     <ul className={headerStyles.headerList}>
-                        <MenuList text={'Конструктор'} icon={BurgerIcon}/>
-                        <MenuList text={'Лента заказов'} icon={ListIcon}/>
+                        <MenuList text={'Конструктор'} icon={BurgerIcon} active={true}/>
+                        <MenuList text={'Лента заказов'} icon={ListIcon} active={false}/>
                     </ul>
                 </nav>
                     <Logo />
                 <nav>
                     <ul className={headerStyles.headerList}>
-                        <MenuList text={'Личный кабинет'} icon={ProfileIcon}/>
+                        <MenuList text={'Личный кабинет'} icon={ProfileIcon} active={false}/>
                     </ul>
                 </nav>
             </div>

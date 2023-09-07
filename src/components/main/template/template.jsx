@@ -28,7 +28,10 @@ function Template({ analysis }) {
       <div className={`p-10 ${styles.ingrCont}`}>
         <div className={`mt-4 mb-6 ${styles.headCont}`}>
           <h2 className="text text_type_main-large">Детали ингредиента</h2>
-          <CloseIcon type="primary" onClick={toggleStatus} />
+          <div style={{cursor: "pointer"}} onClick={toggleStatus}>
+          <CloseIcon type="primary"  />
+          </div>
+          
         </div>
         <section className={styles.section}>
           <img
@@ -37,7 +40,7 @@ function Template({ analysis }) {
             alt={props.name}
           />
           <div>
-            <h3 className="mb-8 text text_type_main-medium">{props.name}</h3>
+            <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>{props.name}</h3>
             <ul className={styles.ingrList}>
               <li className={styles.ingrInfo}>
                 <p className="text text_type_main-default text_color_inactive">

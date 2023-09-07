@@ -10,7 +10,6 @@ import style from "../burger-constructor.module.css";
 import newStyle from "./get-bun.module.css";
 
 function GetBun({ bun, seeAnalysis, bordStyle}) {
-  console.log(bordStyle)
 
   let props = {
     "_id":"60666c42cc7b410027a1a9b1",
@@ -44,9 +43,14 @@ function GetBun({ bun, seeAnalysis, bordStyle}) {
           className={style.image}
           alt={props.name}
         />
-        <h3 className={`text text_type_main-default ${style.cardName} `}>
-        {bordStyle ? props.name + ' (вверх)' : props.name + ' (низ)'}
-        </h3>
+        <div className={`${newStyle.descrCont}`}>
+          <h3 className={`text text_type_main-default ${style.cardName} `}>
+          {props.name}
+          </h3>
+          <p className={`text text_type_main-default`}>
+            {bordStyle ? '(верх)' : '(низ)'}
+          </p>
+        </div>
         <div className={`${style.price}`}>
           <p className={"text text_type_digits-default"}>
             {props.price}

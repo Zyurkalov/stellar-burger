@@ -33,6 +33,9 @@
   display: flex;
   justify-content: space-between;
 }
+.name {
+  text-align: center;
+}
 .img {
   margin: 0 auto;
   min-width: 480px;
@@ -41,6 +44,7 @@
 .ingrList {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 .ingrInfo {
   display: flex;

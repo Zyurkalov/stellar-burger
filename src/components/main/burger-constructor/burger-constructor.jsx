@@ -45,15 +45,18 @@ function BurgerConstructor({
           seeAnalysis={seeAnalysis}
           bordStyle={borderStyleUp[0]}
         />
-        <ul>
+        <ul className="custom-scroll">
           {fillinFiltr().map((ingredient, index) => (
             <li
               key={index}
               className={`mb-4 ${style.component}`}
               onClick={() => seeAnalysis(ingredient.props)}
             >
-              <DragIcon />
-              <div className={style.cart}>
+              <div>
+                <DragIcon />
+              </div>
+              
+              <div className={` ${style.cart}`}>
                 <img
                   src={ingredient.props.image_mobile}
                   className={style.image}
@@ -68,7 +71,10 @@ function BurgerConstructor({
                   </p>
                   <CurrencyIcon />
                 </div>
-                <DeleteIcon onClick={() => handleRemoveIngredient(index)} />
+                <div style={{cursor: "pointer"}}>
+                  <DeleteIcon onClick={() => handleRemoveIngredient(index)} />
+                </div>
+                
               </div>
             </li>
           ))}
