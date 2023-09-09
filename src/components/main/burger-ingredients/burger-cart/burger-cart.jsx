@@ -3,10 +3,10 @@ import style from './burger-cart.module.css'
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components'
 
 function BurgerCart(props) {
+
   const addIngredient = () => {
     props.addIngr({props});
   };
-
   return (
     <div className={style.cart} key={props._id} onClick={addIngredient}>
       <Counter count={1} size="default" extraClass="m-1" />

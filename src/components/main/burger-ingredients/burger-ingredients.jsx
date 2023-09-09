@@ -32,25 +32,34 @@ function BurgerIngredients({ addIngredient, data }) {
     ));
   };
 
-  const categories = ["bun", "sauce", "main"];
+  const setCategories = ["bun", "sauce", "main"];
   const [current, setCurrent] = React.useState("one");
+
+  const setTab = (tab) => {
+    setCurrent(tab);
+    const element = document.getElementById(tab);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+  const idHeader = (category) => {
+    return category === "bun" ? "one" : category === "sauce" ? "two" : "three"
+  }
   return (
     <div>
       <nav style={{ display: "flex" }} className="mt-5">
-        <Tab value="one" active={current === "one"} onClick={setCurrent}>
+        <Tab id="one" value="one" active={current === "one"} onClick={() => setTab("one")}>
           Булки
         </Tab>
-        <Tab value="two" active={current === "two"} onClick={setCurrent}>
+        <Tab id="two" value="two" active={current === "two"} onClick={() => setTab("two")}>
           Соусы
         </Tab>
-        <Tab value="three" active={current === "three"} onClick={setCurrent}>
+        <Tab id="three" value="three" active={current === "three"} onClick={() => setTab("three")}>
           Начинки
         </Tab>
       </nav>
 
       <section className={`${style.cardSection} ${style.scrollBar}`}>
-        {categories.map((category, index) => (
-          <div key={index} className={`${style.categories}`}>
+        {setCategories.map((category, index) => (
+          <div id={idHeader(category)} key={index} className={`${style.categories}`}>
             <h2 className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}>
               {category === "bun" ? "Булки" : category === "sauce" ? "Соусы" : "Начинки"}
             </h2>
