@@ -22,6 +22,12 @@ function Template({ analysis }) {
   if (analysis && analysis.length > 0) {
     [props] = analysis;
   }
+  const maket = [
+    { label: "Калории, ккал", value: props.calories },
+    { label: "Белки, г", value: props.proteins },
+    { label: "Жиры, г", value: props.fat },
+    { label: "Углеводы, г", value: props.carbohydrates },
+  ]
 
   return (
     <template className={`${styles.templ} ${checkStatus()}`}>
@@ -31,7 +37,6 @@ function Template({ analysis }) {
           <div style={{cursor: "pointer"}} onClick={toggleStatus}>
           <CloseIcon type="primary"  />
           </div>
-          
         </div>
         <section className={styles.section}>
           <img
@@ -42,38 +47,16 @@ function Template({ analysis }) {
           <div>
             <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>{props.name}</h3>
             <ul className={styles.ingrList}>
-              <li className={styles.ingrInfo}>
+            {maket.map((item, index) => (
+              <li className={styles.ingrInfo} key={index}>
                 <p className="text text_type_main-default text_color_inactive">
-                  Калории,ккал
+                  {item.label}
                 </p>
                 <span className={`text text_type_digits-default text_color_inactive ${styles.span}`}>
-                  {props.calories}
+                  {item.value}
                 </span>
               </li>
-              <li className={styles.ingrInfo}>
-                <p className="text text_type_main-default text_color_inactive">
-                  Белки, г
-                </p>
-                <span className={`text text_type_digits-default text_color_inactive ${styles.span}`}>
-                  {props.proteins}
-                </span>
-              </li>
-              <li className={styles.ingrInfo}>
-                <p className="text text_type_main-default text_color_inactive">
-                Жиры, г
-                </p>
-                <span className={`text text_type_digits-default text_color_inactive ${styles.span}`}>
-                {props.fat}
-                </span>
-              </li>
-              <li className={styles.ingrInfo}>
-                <p className="text text_type_main-default text_color_inactive">
-                 Углеводы, г
-                </p>
-                <span className={`text text_type_digits-default text_color_inactive ${styles.span}`}>
-                {props.carbohydrates}
-                </span>
-              </li>
+            ))}
             </ul>
           </div>
         </section>

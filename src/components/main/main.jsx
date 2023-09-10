@@ -5,6 +5,8 @@ import BurgerIngredients from "./burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./burger-constructor/burger-constructor";
 import Template from "./template/template";
 import OrderDetails from "./order-details/order-details";
+import ModalOverlay from './modal-overlay/modal-overlay'
+
 import mainStyles from "./main.module.css";
 
 // значение для булки по умолчанию
@@ -87,6 +89,7 @@ function AppMain({ data }) {
           />
         </div>
       </main>
+      <ModalOverlay />
       <Template analysis={newAnalysis} />
       <OrderDetails orderStatus={status} toggleStatus={getOrderStatus} />
     </>
