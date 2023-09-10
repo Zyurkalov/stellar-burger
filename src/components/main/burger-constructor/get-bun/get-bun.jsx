@@ -28,7 +28,6 @@ function GetBun({ bun, seeAnalysis, bordStyle}) {
   if (bun.props !== undefined) {
     props = bun.props;
   }
-
   return (
 
     <li

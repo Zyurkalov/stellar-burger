@@ -25,3 +25,6 @@
     display: flex;
     flex-direction: row;
 }
+.menuElem{
+    padding-left: 168px;
+}

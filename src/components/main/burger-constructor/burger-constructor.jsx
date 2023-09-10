@@ -1,12 +1,11 @@
 import {
   CurrencyIcon,
   Button,
-  LockIcon,
-  DeleteIcon,
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useEffect } from "react";
+import React, { prop } from "react";
+import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 import GetBun from "./get-bun/get-bun";
 
@@ -16,11 +15,36 @@ function BurgerConstructor({
   seeAnalysis,
   orderStatus,
 }) {
-  console.log(ingredients)
-  const totalPrice = ingredients.reduce(
-    (acc, ingredient) => acc + ingredient.props.price,
-    0
+  const checkPropsIngre = PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      type: PropTypes.string,
+      proteins: PropTypes.number,
+      fat: PropTypes.number,
+      carbohydrates: PropTypes.number,
+      calories: PropTypes.number,
+      price: PropTypes.number,
+      image: PropTypes.string,
+      image_mobile: PropTypes.string,
+      image_large: PropTypes.string,
+      __v: PropTypes.number,
+    })
   );
+  BurgerConstructor.propTypes = {
+    ingredients: checkPropsIngre.isRequired,
+    removeIngredient: checkPropsIngre.isRequired,
+    seeAnalysis: PropTypes.func.isRequired,
+    orderStatus: PropTypes.func.isRequired,
+  };
+  const totalPrice = ingredients.reduce((acc, ingredient) => {
+    if (ingredient.props.type === "bun") {
+      return acc + ingredient.props.price * 2;
+    } else {
+      return acc + ingredient.props.price;
+    }
+  }, 0);
+
   const handleRemoveIngredient = (index) => {
     removeIngredient(index);
   };
@@ -32,53 +56,62 @@ function BurgerConstructor({
   const fillinFiltr = () => {
     return ingredients.filter((ingr) => ingr.props.type !== "bun") || {};
   };
-  let bun = ingredients[0].props
+  let bun = ingredients[0].props;
   // const borderStyleUp = [true, false];
 
   return (
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
       <ul>
-        <li className={`mb-4 ${style.component}`}>
-          <div style={{visibility: "hidden"}}>
+        <li
+          className={`mb-4 ${style.component}`}
+          onClick={() => seeAnalysis(bun)}
+        >
+          <div style={{ visibility: "hidden" }}>
             <DragIcon />
           </div>
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={bun.name}
+            text={`${bun.name} (верх)`}
             price={bun.price}
             thumbnail={bun.image_mobile}
           />
         </li>
-        <ul id="scrollBar" className={` ${style.listComponents} ${style.scrollBar}`}>
-        {fillinFiltr().map((ingredient, index) => (
-          <li key={index}
-          className={`mb-4 ${style.component}`}>
-            <div>
-              <DragIcon key={index}/>
-            </div>
-            <ConstructorElement
-            key={index}
-            text={ingredient.props.name}
-            price={ingredient.props.price}
-            thumbnail={ingredient.props.image_mobile}
-            handleClose={() => handleRemoveIngredient(index+1)}
-          />
-          </li>
-        ))}
+        <ul
+          id="scrollBar"
+          className={` ${style.listComponents} ${style.scrollBar}`}
+        >
+          {fillinFiltr().map((ingredient, index) => (
+            <li
+              key={index}
+              className={`mb-4 ${style.component}`}
+              onClick={() => seeAnalysis(ingredient.props)}
+            >
+              <div>
+                <DragIcon key={index} />
+              </div>
+              <ConstructorElement
+                key={index}
+                text={ingredient.props.name}
+                price={ingredient.props.price}
+                thumbnail={ingredient.props.image_mobile}
+                handleClose={() => handleRemoveIngredient(index + 1)}
+              />
+            </li>
+          ))}
         </ul>
-        <li className={`${style.component}`}>
-          <div style={{visibility: "hidden"}}>
+        <li className={`${style.component}`} onClick={() => seeAnalysis(bun)}>
+          <div style={{ visibility: "hidden" }}>
             <DragIcon />
           </div>
-        
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={bun.name}
-          price={bun.price}
-          thumbnail={bun.image_mobile}
-        />
+
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
+          />
         </li>
         {/* <GetBun
           bun={bunFiltr()}

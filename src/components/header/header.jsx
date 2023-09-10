@@ -15,7 +15,7 @@ function AppHeader() {
                 </nav>
                     <Logo />
                 <nav>
-                    <ul className={headerStyles.headerList}>
+                    <ul className={`${headerStyles.headerList} ${headerStyles.menuElem}`}>
                         <MenuList text={'Личный кабинет'} icon={ProfileIcon} active={false}/>
                     </ul>
                 </nav>
