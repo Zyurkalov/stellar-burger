@@ -1,0 +1,15 @@
+.cart_borderUp {
+  border-radius: 88px 88px 40px 40px;
+}
+.cart_borderBt {
+  border-radius: 40px 40px 88px 88px;
+}
+.cart_component > svg {
+  display: disabled;
+  opacity: 0;
+}
+.descrCont {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
