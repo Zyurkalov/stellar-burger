@@ -1,11 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 
+import ingredientPropType from "../../utils/prop-types"
 import BurgerIngredients from "./burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./burger-constructor/burger-constructor";
-import Template from "./template/template";
-import OrderDetails from "./order-details/order-details";
-import ModalOverlay from './modal-overlay/modal-overlay'
+import ModalOverlay from "./modal-overlay/modal-overlay";
 
 import mainStyles from "./main.module.css";
 
@@ -30,26 +28,11 @@ let defBun = {
 function AppMain({ data }) {
   const [ingredients, setIngredients] = React.useState([defBun]);
   const [newAnalysis, getAnalysis] = React.useState([]);
-  const [status, orderStatus] = React.useState(false);
-  const [count, setCount] = React.useState(0);
+  const [made, orderStatus] = React.useState(false);
+  const [status, setStatus] = React.useState(false);
 
   AppMain.propTypes = {
-    data: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number,
-      })
-    ).isRequired,
+    data: ingredientPropType,
   };
 
   const addIngredient = (ingr) => {
@@ -70,11 +53,20 @@ function AppMain({ data }) {
     updatedIngredients.splice(index, 1);
     setIngredients(updatedIngredients);
   };
+
   const seeAnalysis = (analysis) => {
+    setStatus(!status);
     getAnalysis([analysis]);
   };
-  const getOrderStatus = () => orderStatus(!status);
-
+  const toggleOrderStatus = () => {
+    setStatus(!status);
+    orderStatus(!made);
+  };
+  const removeStatus = () => {
+    setStatus(false);
+    orderStatus(false);
+    getAnalysis([]);
+  };
   return (
     <>
       <main className={mainStyles.main}>
@@ -85,13 +77,16 @@ function AppMain({ data }) {
             ingredients={ingredients}
             removeIngredient={removeIngredient}
             seeAnalysis={seeAnalysis}
-            orderStatus={getOrderStatus}
+            orderStatus={toggleOrderStatus}
           />
         </div>
       </main>
-      <ModalOverlay />
-      <Template analysis={newAnalysis} />
-      <OrderDetails orderStatus={status} toggleStatus={getOrderStatus} />
+      <ModalOverlay
+        status={status}
+        orderStatus={made}
+        analysis={newAnalysis}
+        removeStatus={removeStatus}
+      />
     </>
   );
 }

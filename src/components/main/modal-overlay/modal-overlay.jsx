@@ -1,31 +1,60 @@
+import ReactDOM from "react-dom";
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+
+import ingredientPropType from "../../../utils/prop-types";
+import OrderDetails from "./order-details/order-details";
+import Modal from "./modal/modal";
+import IngredientDetails from "./ingredient-details/ingredient-details";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderDetails from "./order-details/order-details"
 import styles from "./modal-overlay.module.css";
 
-function ModalOverlay()  {
-    const [status, setStatus] = React.useState(true);
-    const toggleStatus = () => {setStatus(!status)};
+function ModalOverlay({ status, orderStatus, analysis, removeStatus }) {
+  const portal = document.getElementById("portal");
 
-    const checkStatus = () => {
-        return status === false ? styles.disabled : styles.visible;
-      };
+  ModalOverlay.propTypes = {
+    status: PropTypes.bool,
+    orderStatus: PropTypes.bool,
+    analysis: ingredientPropType,
+    removeStatus: PropTypes.func,
+  };
 
-    return (
-        <template className={`${styles.templ} ${checkStatus()}`}>
+  const checkStatus = () => (status ? styles.visible : styles.disabled);
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === "Escape") {
+        removeStatus();
+      }
+    };
+    const hadleOutsideClick = (event) => {
+      if (event.target.id === "template") {
+        removeStatus();
+      }
+    };
+    window.addEventListener("keydown", handleEscKey);
+    window.addEventListener("click", hadleOutsideClick);
+    return () => {
+      window.removeEventListener("keydown", handleEscKey);
+      window.removeEventListener("click", hadleOutsideClick);
+    };
+  }, []);
+
+  return ReactDOM.createPortal(
+    <template className={`${styles.templ} ${checkStatus()}`} id={"template"}>
       <div className={`p-10 ${styles.ingrCont}`}>
-        
         <div className={`mt-4 mb-6 ${styles.headCont}`}>
-          <h2 className="text text_type_main-large"></h2>
-          <div style={{cursor: "pointer"}} onClick={toggleStatus}>
-          <CloseIcon type="primary"  />
-          </div>
+          <Modal orderStatus={orderStatus} removeStatus={removeStatus} />
         </div>
-        <OrderDetails />
-        
+        {orderStatus ? (
+          <OrderDetails />
+        ) : (
+          <IngredientDetails analysis={analysis} />
+        )}
       </div>
-    </template>
-    )
+    </template>,
+    portal
+  );
 }
 
-export default ModalOverlay
+export default ModalOverlay;
