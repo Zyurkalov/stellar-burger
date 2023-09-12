@@ -18,5 +18,9 @@ function Modal({ orderStatus, removeStatus }) {
     </>
   );
 }
+Modal.propTypes = {
+  orderStatus: PropTypes.bool,
+  removeStatus: PropTypes.func,
+};
 
 export default Modal;

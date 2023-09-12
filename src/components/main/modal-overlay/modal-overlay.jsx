@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
-import ingredientPropType from "../../../utils/prop-types";
+import {ingredientPropType} from "../../../utils/prop-types";
 import OrderDetails from "./order-details/order-details";
 import Modal from "./modal/modal";
 import IngredientDetails from "./ingredient-details/ingredient-details";
@@ -56,5 +56,11 @@ function ModalOverlay({ status, orderStatus, analysis, removeStatus }) {
     portal
   );
 }
+ModalOverlay.propTypes = {
+  status: PropTypes.bool,
+  orderStatus: PropTypes.bool,
+  analysis: ingredientPropType,
+  removeStatus: PropTypes.func,
+};
 
 export default ModalOverlay;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import ingredientPropType from "../../utils/prop-types"
+import {ingredientPropType} from "../../utils/prop-types"
 import BurgerIngredients from "./burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./burger-constructor/burger-constructor";
 import ModalOverlay from "./modal-overlay/modal-overlay";
@@ -31,9 +31,7 @@ function AppMain({ data }) {
   const [made, orderStatus] = React.useState(false);
   const [status, setStatus] = React.useState(false);
 
-  AppMain.propTypes = {
-    data: ingredientPropType,
-  };
+
 
   const addIngredient = (ingr) => {
     const updatedIngr = [...ingredients];
@@ -90,4 +88,7 @@ function AppMain({ data }) {
     </>
   );
 }
+  AppMain.propTypes = {
+    data: ingredientPropType,
+  };
 export default AppMain;

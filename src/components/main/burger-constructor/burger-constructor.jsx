@@ -4,7 +4,7 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientPropType from "../../../utils/prop-types"
+import {ingredientPropType, oneIngrPropType} from "../../../utils/prop-types"
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
@@ -14,12 +14,7 @@ function BurgerConstructor({
   seeAnalysis,
   orderStatus,
 }) {
-  BurgerConstructor.propTypes = {
-    ingredients: ingredientPropType,
-    removeIngredient: PropTypes.func.isRequired,
-    seeAnalysis: PropTypes.func.isRequired,
-    orderStatus: PropTypes.func.isRequired,
-  };
+  
   const totalPrice = ingredients.reduce((acc, ingredient) => {
     if (ingredient.props.type === "bun") {
       return acc + ingredient.props.price * 2;
@@ -109,5 +104,12 @@ function BurgerConstructor({
     </section>
   );
 }
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.exact({ props: oneIngrPropType.isRequired })),
+  removeIngredient: PropTypes.func.isRequired,
+  seeAnalysis: PropTypes.func.isRequired,
+  orderStatus: PropTypes.func.isRequired,
+};
 
 export default BurgerConstructor;

@@ -2,15 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientPropType from "../../../utils/prop-types";
+import {ingredientPropType} from "../../../utils/prop-types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
 function BurgerIngredients({ addIngredient, data }) {
-  BurgerIngredients.propTypes = {
-    addIngredient: PropTypes.func.isRequired,
-    data: ingredientPropType,
-  };
 
   const decompositionArr = (category) => {
     const filteredData = data.filter((item) => item.type === category);
@@ -84,5 +80,9 @@ function BurgerIngredients({ addIngredient, data }) {
     </div>
   );
 }
+BurgerIngredients.propTypes = {
+  addIngredient: PropTypes.func.isRequired,
+  data: ingredientPropType,
+};
 
 export default BurgerIngredients;

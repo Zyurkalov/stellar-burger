@@ -1,10 +1,8 @@
-import ingredientPropType from "../../../../utils/prop-types";
+import {ingredientPropType} from "../../../../utils/prop-types";
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({ analysis }) {
-  IngredientDetails.propTypes = {
-    analysis: ingredientPropType,
-  };
+  
   if (analysis && analysis.length > 0) {
     [analysis] = analysis;
   }
@@ -45,4 +43,7 @@ function IngredientDetails({ analysis }) {
     </section>
   );
 }
+IngredientDetails.propTypes = {
+  analysis: ingredientPropType,
+};
 export default IngredientDetails;
