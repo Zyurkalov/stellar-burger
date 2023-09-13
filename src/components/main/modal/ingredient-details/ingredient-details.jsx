@@ -13,6 +13,7 @@ function IngredientDetails({ analysis }) {
     { label: "Жиры, г", value: analysis.fat },
     { label: "Углеводы, г", value: analysis.carbohydrates },
   ];
+  console.log(analysis)
 
   return (
     <section className={styles.section}>
@@ -27,7 +28,7 @@ function IngredientDetails({ analysis }) {
         </h3>
         <ul className={styles.ingrList}>
           {maket.map((item, index) => (
-            <li className={styles.ingrInfo} key={index}>
+            <li className={`mb-5 ${styles.ingrInfo}`} key={index}>
               <p className="text text_type_main-default text_color_inactive">
                 {item.label}
               </p>

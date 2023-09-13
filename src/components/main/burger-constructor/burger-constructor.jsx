@@ -11,8 +11,8 @@ import style from "./burger-constructor.module.css";
 function BurgerConstructor({
   ingredients,
   removeIngredient,
-  seeAnalysis,
-  orderStatus,
+  toggleIngrModal,
+  toggleOrderModal,
 }) {
   
   const totalPrice = ingredients.reduce((acc, ingredient) => {
@@ -37,7 +37,7 @@ function BurgerConstructor({
       <ul>
         <li
           className={`mb-4 ${style.component}`}
-          onClick={() => seeAnalysis(bun)}
+          onClick={() => toggleIngrModal(bun)}
         >
           <div style={{ visibility: "hidden" }}>
             <DragIcon />
@@ -58,7 +58,7 @@ function BurgerConstructor({
             <li
               key={index}
               className={`mb-4 ${style.component}`}
-              onClick={() => seeAnalysis(ingredient.props)}
+              onClick={() => toggleIngrModal(ingredient.props)}
             >
               <div>
                 <DragIcon key={index} />
@@ -73,7 +73,7 @@ function BurgerConstructor({
             </li>
           ))}
         </ul>
-        <li className={`${style.component}`} onClick={() => seeAnalysis(bun)}>
+        <li className={`${style.component}`} onClick={() => toggleIngrModal(bun)}>
           <div style={{ visibility: "hidden" }}>
             <DragIcon />
           </div>
@@ -96,7 +96,7 @@ function BurgerConstructor({
           htmlType="button"
           type="primary"
           size="large"
-          onClick={orderStatus}
+          onClick={toggleOrderModal}
         >
           Оформить заказ
         </Button>
@@ -108,8 +108,8 @@ function BurgerConstructor({
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.exact({ props: oneIngrPropType.isRequired })),
   removeIngredient: PropTypes.func.isRequired,
-  seeAnalysis: PropTypes.func.isRequired,
-  orderStatus: PropTypes.func.isRequired,
+  toggleIngrModal: PropTypes.func.isRequired,
+  toggleOrderModal: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

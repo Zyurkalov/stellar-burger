@@ -1,26 +1,13 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import styles from "./../modal-overlay/modal-overlay.module.css"
 
-function Modal({ orderStatus, removeStatus }) {
-  Modal.propTypes = {
-    orderStatus: PropTypes.bool,
-    removeStatus: PropTypes.func,
-  };
+function ModalOverlay({children}) {
 
   return (
-    <>
-      <h2 className="text text_type_main-large">
-        {!orderStatus ? "Детали ингредиента" : null}
-      </h2>
-      <div style={{ cursor: "pointer" }}>
-        <CloseIcon type="primary" onClick={removeStatus} />
-      </div>
-    </>
+    <template className={`${styles.overlay}`} id={"template"}>
+      {children}
+    </template>
   );
 }
-Modal.propTypes = {
-  orderStatus: PropTypes.bool,
-  removeStatus: PropTypes.func,
-};
-
-export default Modal;
+export default ModalOverlay;

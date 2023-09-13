@@ -9,27 +9,27 @@ import IngredientDetails from "./ingredient-details/ingredient-details";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
 
-function Modal({ status, orderStatus, analysis, removeStatus }) {
+function Modal({ opener, analysis, primaryStatus, title, children }) {
   const portal = document.getElementById("portal");
 
   Modal.propTypes = {
-    status: PropTypes.bool,
+    opener: PropTypes.bool,
     orderStatus: PropTypes.bool,
     analysis: ingredientPropType,
-    removeStatus: PropTypes.func,
+    primaryStatus: PropTypes.func,
   };
 
-  const checkStatus = () => (status ? styles.visible : styles.disabled);
+  const checkStatus = () => (opener ? styles.visible : styles.disabled);
 
   useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === "Escape") {
-        removeStatus();
+        primaryStatus();
       }
     };
     const hadleOutsideClick = (event) => {
       if (event.target.id === "template") {
-        removeStatus();
+        primaryStatus();
       }
     };
     window.addEventListener("keydown", handleEscKey);
@@ -41,26 +41,44 @@ function Modal({ status, orderStatus, analysis, removeStatus }) {
   }, []);
 
   return ReactDOM.createPortal(
-    <template className={`${styles.templ} ${checkStatus()}`} id={"template"}>
+    // <template className={`${styles.templ} ${checkStatus()}`} id={"template"}>
+    //   <div className={`p-10 ${styles.ingrCont}`}>
+    //     <div className={`mt-4 mb-6 ${styles.headCont}`}>
+    //     <h2 className="text text_type_main-large">
+    //       {"Детали ингредиента"}
+    //     </h2>
+    //     <div style={{ cursor: "pointer" }}>
+    //       <CloseIcon type="primary" onClick={primaryStatus} />
+    //     </div>
+    //     </div>
+    //     {/* {orderStatus ? (
+    //       <OrderDetails />
+    //     ) : (
+    //       <IngredientDetails analysis={analysis} />
+    //     )} */}
+    //   </div>
+    // </template>,
+    <ModalOverlay >
       <div className={`p-10 ${styles.ingrCont}`}>
         <div className={`mt-4 mb-6 ${styles.headCont}`}>
-          <ModalOverlay orderStatus={orderStatus} removeStatus={removeStatus} />
+          <h2 className="text text_type_main-large">
+            {title || null}
+          </h2>
+          <div style={{ cursor: "pointer" }}>
+            <CloseIcon type="primary" onClick={primaryStatus} />
+          </div>
         </div>
-        {orderStatus ? (
-          <OrderDetails />
-        ) : (
-          <IngredientDetails analysis={analysis} />
-        )}
+        {children}
       </div>
-    </template>,
+      </ModalOverlay>,
     portal
   );
 }
 Modal.propTypes = {
-  status: PropTypes.bool,
+  opener: PropTypes.bool,
   orderStatus: PropTypes.bool,
   analysis: ingredientPropType,
-  removeStatus: PropTypes.func,
+  primaryStatus: PropTypes.func,
 };
 
 export default Modal;

@@ -6,6 +6,8 @@ import BurgerConstructor from "./burger-constructor/burger-constructor";
 import Modal from "./modal/modal";
 
 import mainStyles from "./main.module.css";
+import IngredientDetails from "./modal/ingredient-details/ingredient-details";
+import OrderDetails from "./modal/order-details/order-details"
 
 // значение для булки по умолчанию
 let defBun = {
@@ -26,12 +28,16 @@ let defBun = {
 };
 
 function AppMain({ data }) {
+  const defaultStatus = {
+    orderStatus: { status: false },
+    ingrStatus: { status: false, ingr: {} },
+    profileStatus: { status: false },
+  };
+  const [state, setState] = React.useState(defaultStatus);
   const [ingredients, setIngredients] = React.useState([defBun]);
-  const [newAnalysis, getAnalysis] = React.useState([]);
+  const [newAnalysis, setNewAnalysis] = React.useState([]);
   const [made, orderStatus] = React.useState(false);
-  const [status, setStatus] = React.useState(false);
-
-
+  const [opener, setOpener] = React.useState(false);
 
   const addIngredient = (ingr) => {
     const updatedIngr = [...ingredients];
@@ -53,18 +59,40 @@ function AppMain({ data }) {
   };
 
   const seeAnalysis = (analysis) => {
-    setStatus(!status);
-    getAnalysis([analysis]);
+    // setOpener(!opener);
+    setNewAnalysis([analysis]);
   };
-  const toggleOrderStatus = () => {
-    setStatus(!status);
+  const activateOrderStatus = () => {
+    setOpener(!opener);
     orderStatus(!made);
   };
   const removeStatus = () => {
-    setStatus(false);
+    setOpener(false);
     orderStatus(false);
-    getAnalysis([]);
+    // setNewAnalysis([]);
   };
+
+  
+  function toggleOrderStatus() {
+    setState({
+      ...state,
+      orderStatus: { status: true },
+    });
+  }
+  function toggleIngrStatus(analysis) {
+    setState((prevStatus) => ({
+      ...prevStatus,
+      ingrStatus: { status: true, ingr: [analysis] },
+    }));
+  }
+  function primaryStatus() {
+    setState(defaultStatus);
+  }
+
+const stateModal = Object.values(state).some((obj) => obj.status === true)
+  // React.useEffect(() => {
+  //   console.log(status.ingrStatus.ingr);
+  // }, [status]);
   return (
     <>
       <main className={mainStyles.main}>
@@ -74,17 +102,25 @@ function AppMain({ data }) {
           <BurgerConstructor
             ingredients={ingredients}
             removeIngredient={removeIngredient}
-            seeAnalysis={seeAnalysis}
-            orderStatus={toggleOrderStatus}
+            toggleIngrModal={toggleIngrStatus}
+            toggleOrderModal={toggleOrderStatus}
           />
         </div>
       </main>
-      <Modal
-        status={status}
+      {/* <Modal
+        opener={opener}
         orderStatus={made}
         analysis={newAnalysis}
         removeStatus={removeStatus}
-      />
+      /> */}
+      <button onClick={toggleOrderStatus}>Click me!</button>
+      {stateModal && (
+      <Modal primaryStatus={primaryStatus} title={state.ingrStatus.status ? "Детали ингредиента": null}>
+        {state.orderStatus.status ? <OrderDetails /> : null}
+        {state.ingrStatus.status ? <IngredientDetails analysis={state.ingrStatus.ingr}/> : null}
+      </Modal>
+      )}
+
     </>
   );
 }
