@@ -1,4 +1,3 @@
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import styles from "./../modal-overlay/modal-overlay.module.css"
 
@@ -10,4 +9,7 @@ function ModalOverlay({children}) {
     </template>
   );
 }
+ModalOverlay.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 export default ModalOverlay;

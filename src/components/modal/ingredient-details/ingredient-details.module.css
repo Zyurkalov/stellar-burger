@@ -1,0 +1,27 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.name {
+  text-align: center;
+}
+.img {
+  margin: 0 auto;
+  min-width: 480px;
+  min-height: 240px;
+}
+.ingrList {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.ingrInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.span {
+  text-align: center;
+}

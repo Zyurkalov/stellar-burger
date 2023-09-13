@@ -1,4 +1,4 @@
-import {ingredientPropType} from "../../../../utils/prop-types";
+import {ingredientPropType} from "../../../utils/prop-types";
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({ analysis }) {
@@ -13,7 +13,6 @@ function IngredientDetails({ analysis }) {
     { label: "Жиры, г", value: analysis.fat },
     { label: "Углеводы, г", value: analysis.carbohydrates },
   ];
-  console.log(analysis)
 
   return (
     <section className={styles.section}>

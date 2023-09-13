@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./burger-cart.module.css";
-import {oneIngrPropType} from "../../../../utils/prop-types"
+import { oneIngrPropType } from "../../../../utils/prop-types";
 import {
   CurrencyIcon,
   Counter,
@@ -36,6 +35,6 @@ function BurgerCart(props) {
   );
 }
 
-BurgerCart.propTypes = oneIngrPropType.isRequired
+BurgerCart.propTypes = oneIngrPropType.isRequired;
 
 export default BurgerCart;

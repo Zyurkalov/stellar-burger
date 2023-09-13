@@ -4,7 +4,7 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientPropType, oneIngrPropType} from "../../../utils/prop-types"
+import { ingredientPropType, oneIngrPropType } from "../../../utils/prop-types";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
@@ -14,7 +14,6 @@ function BurgerConstructor({
   toggleIngrModal,
   toggleOrderModal,
 }) {
-  
   const totalPrice = ingredients.reduce((acc, ingredient) => {
     if (ingredient.props.type === "bun") {
       return acc + ingredient.props.price * 2;
@@ -73,7 +72,10 @@ function BurgerConstructor({
             </li>
           ))}
         </ul>
-        <li className={`${style.component}`} onClick={() => toggleIngrModal(bun)}>
+        <li
+          className={`${style.component}`}
+          onClick={() => toggleIngrModal(bun)}
+        >
           <div style={{ visibility: "hidden" }}>
             <DragIcon />
           </div>
@@ -106,7 +108,9 @@ function BurgerConstructor({
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.exact({ props: oneIngrPropType.isRequired })),
+  ingredients: PropTypes.arrayOf(
+    PropTypes.exact({ props: oneIngrPropType.isRequired })
+  ),
   removeIngredient: PropTypes.func.isRequired,
   toggleIngrModal: PropTypes.func.isRequired,
   toggleOrderModal: PropTypes.func.isRequired,
