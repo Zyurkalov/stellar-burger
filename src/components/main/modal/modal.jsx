@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 
 import {ingredientPropType} from "../../../utils/prop-types";
 import OrderDetails from "./order-details/order-details";
-import Modal from "./modal/modal";
+import Modal from "./modal-overlay/modal-overlay";
 import IngredientDetails from "./ingredient-details/ingredient-details";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./modal-overlay.module.css";
+import styles from "./modal.module.css";
 
 function ModalOverlay({ status, orderStatus, analysis, removeStatus }) {
   const portal = document.getElementById("portal");

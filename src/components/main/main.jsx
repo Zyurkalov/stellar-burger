@@ -3,7 +3,7 @@ import React from "react";
 import {ingredientPropType} from "../../utils/prop-types"
 import BurgerIngredients from "./burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./burger-constructor/burger-constructor";
-import ModalOverlay from "./modal-overlay/modal-overlay";
+import ModalOverlay from "./modal/modal";
 
 import mainStyles from "./main.module.css";
 
