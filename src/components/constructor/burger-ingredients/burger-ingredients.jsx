@@ -6,12 +6,12 @@ import {ingredientPropType} from "../../../utils/prop-types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
-function BurgerIngredients({ addIngredient, data }) {
+function BurgerIngredients({ addIngredient, data, toggleIngrModal}) {
 
   const decompositionArr = (category) => {
     const filteredData = data.filter((item) => item.type === category);
     return filteredData.map((item) => (
-      <BurgerCart key={item.key} addIngr={addIngredient} {...item} />
+      <BurgerCart key={item.key} addIngr={addIngredient} toggleIngrModal={toggleIngrModal} {...item} />
     ));
   };
 
@@ -82,6 +82,7 @@ function BurgerIngredients({ addIngredient, data }) {
 }
 BurgerIngredients.propTypes = {
   addIngredient: PropTypes.func.isRequired,
+  toggleIngrModal: PropTypes.func.isRequired,
   data: ingredientPropType,
 };
 

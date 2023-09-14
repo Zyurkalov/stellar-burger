@@ -11,7 +11,6 @@ import style from "./burger-constructor.module.css";
 function BurgerConstructor({
   ingredients,
   removeIngredient,
-  toggleIngrModal,
   toggleOrderModal,
 }) {
   const totalPrice = ingredients.reduce((acc, ingredient) => {
@@ -36,7 +35,6 @@ function BurgerConstructor({
       <ul>
         <li
           className={`mb-4 ${style.component}`}
-          onClick={() => toggleIngrModal(bun)}
         >
           <div style={{ visibility: "hidden" }}>
             <DragIcon />
@@ -57,7 +55,6 @@ function BurgerConstructor({
             <li
               key={index}
               className={`mb-4 ${style.component}`}
-              onClick={() => toggleIngrModal(ingredient.props)}
             >
               <div>
                 <DragIcon key={index} />
@@ -74,7 +71,6 @@ function BurgerConstructor({
         </ul>
         <li
           className={`${style.component}`}
-          onClick={() => toggleIngrModal(bun)}
         >
           <div style={{ visibility: "hidden" }}>
             <DragIcon />

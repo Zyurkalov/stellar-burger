@@ -2,7 +2,6 @@ import {ingredientPropType} from "../../../utils/prop-types";
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({ analysis }) {
-  
   if (analysis && analysis.length > 0) {
     [analysis] = analysis;
   }

@@ -8,8 +8,16 @@ import {
 
 function BurgerCart(props) {
   const [count, setCount] = React.useState(0);
-
+  const ingr = {
+    name: props.name, 
+    image_large: props.image_large,
+    calories: props.calories,
+    proteins: props.proteins,
+    fat: props.fat,
+    carbohydrates: props.carbohydrates,
+}
   const addIngredient = () => {
+    props.toggleIngrModal(ingr)
     setCount(count + 1);
     props.addIngr({ props });
   };

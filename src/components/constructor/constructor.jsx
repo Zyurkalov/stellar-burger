@@ -34,11 +34,14 @@ function Constructor({ data, toggleOrderModal, toggleIngrModal }) {
     <main className={mainStyles.main}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={mainStyles.container}>
-        <BurgerIngredients addIngredient={addIngredient} data={data} />
+        <BurgerIngredients 
+          addIngredient={addIngredient} 
+          data={data} 
+          toggleIngrModal={toggleIngrModal}
+        />
         <BurgerConstructor
           ingredients={ingredients}
           removeIngredient={removeIngredient}
-          toggleIngrModal={toggleIngrModal}
           toggleOrderModal={toggleOrderModal}
         />
       </div>
