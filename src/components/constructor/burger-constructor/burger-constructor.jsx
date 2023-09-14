@@ -108,7 +108,6 @@ BurgerConstructor.propTypes = {
     PropTypes.exact({ props: oneIngrPropType.isRequired })
   ),
   removeIngredient: PropTypes.func.isRequired,
-  toggleIngrModal: PropTypes.func.isRequired,
   toggleOrderModal: PropTypes.func.isRequired,
 };
 
