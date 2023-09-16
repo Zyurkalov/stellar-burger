@@ -2,34 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import {ingredientPropType} from "../../../utils/prop-types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
-function BurgerIngredients({ addIngredient, data }) {
-  BurgerIngredients.propTypes = {
-    addIngredient: PropTypes.func.isRequired,
-    data: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number,
-      })
-    ).isRequired,
-  };
+function BurgerIngredients({ addIngredient, data, toggleIngrModal}) {
 
   const decompositionArr = (category) => {
     const filteredData = data.filter((item) => item.type === category);
     return filteredData.map((item) => (
-      <BurgerCart key={item.key} addIngr={addIngredient} {...item} />
+      <BurgerCart key={item.key} addIngr={addIngredient} toggleIngrModal={toggleIngrModal} {...item} />
     ));
   };
 
@@ -98,5 +80,10 @@ function BurgerIngredients({ addIngredient, data }) {
     </div>
   );
 }
+BurgerIngredients.propTypes = {
+  addIngredient: PropTypes.func.isRequired,
+  toggleIngrModal: PropTypes.func.isRequired,
+  data: ingredientPropType,
+};
 
 export default BurgerIngredients;

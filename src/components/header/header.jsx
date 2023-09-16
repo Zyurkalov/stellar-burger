@@ -3,7 +3,7 @@ import headerStyles from "./header.module.css"
 
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
-function AppHeader() {
+function Header() {
     return(
         <header className= {`m-15 ${headerStyles.header}`}>
             <div className= {headerStyles.headContainer}>
@@ -24,4 +24,4 @@ function AppHeader() {
     )
 }
 
-export default AppHeader;
+export default Header;

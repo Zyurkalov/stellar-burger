@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./burger-cart.module.css";
+import { oneIngrPropType } from "../../../../utils/prop-types";
 import {
   CurrencyIcon,
   Counter,
@@ -8,26 +8,16 @@ import {
 
 function BurgerCart(props) {
   const [count, setCount] = React.useState(0);
-
-  BurgerCart.propTypes = {
-      props: PropTypes.shape({
-        addIngr: PropTypes.func,
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number,
-      }).isRequired,
-  };
-
+  const ingr = {
+    name: props.name, 
+    image_large: props.image_large,
+    calories: props.calories,
+    proteins: props.proteins,
+    fat: props.fat,
+    carbohydrates: props.carbohydrates,
+}
   const addIngredient = () => {
+    props.toggleIngrModal(ingr)
     setCount(count + 1);
     props.addIngr({ props });
   };
@@ -52,5 +42,7 @@ function BurgerCart(props) {
     </div>
   );
 }
+
+BurgerCart.propTypes = oneIngrPropType.isRequired;
 
 export default BurgerCart;
