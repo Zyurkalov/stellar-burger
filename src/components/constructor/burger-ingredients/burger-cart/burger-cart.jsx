@@ -24,7 +24,7 @@ function BurgerCart(props) {
     props.toggleIngrModal(ingr)
     setCount(count + 1);
     props.addIngr({ props });
-  },[props.toggleIngrModal, count]);
+  },[props.addIngr, count]);
 
   let counterComponent = null;
   if (count !== 0) {

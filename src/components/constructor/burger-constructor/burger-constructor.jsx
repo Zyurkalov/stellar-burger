@@ -22,14 +22,18 @@ function BurgerConstructor({
     }
   }, 0);
 
-  const handleRemoveIngredient = (index) => {
+  const handleRemoveIngredient = useCallback((index) => {
     removeIngredient(index);
-  };
+  },[removeIngredient]);
 
   const fillinFiltr = () => {
     return ingredients.filter((ingr) => ingr.props.type !== "bun") || {};
   };
-  let bun = ingredients[0].props;
+  const findBun = () => {
+    return ingredients.find((ingr) => ingr.props.type === "bun") || {};
+  };
+  let test = ingredients[0].props;
+  let bun = findBun()
   
   const compCurrencyIcon = useMemo(() => (
     <CurrencyIcon />
@@ -41,7 +45,8 @@ function BurgerConstructor({
   return (
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
       <ul>
-        <li
+        {bun.props != null ? (
+          <li
           className={`mb-4 ${style.component}`}
         >
           <div style={{ visibility: "hidden" }}>
@@ -50,11 +55,12 @@ function BurgerConstructor({
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
+            text={`${bun.props.name} (верх)`}
+            price={bun.props.price}
+            thumbnail={bun.props.image_mobile}
           />
         </li>
+        ) : null}
         <ul
           id="scrollBar"
           className={` ${style.listComponents} ${style.scrollBar}`}
@@ -77,6 +83,7 @@ function BurgerConstructor({
             </li>
           ))}
         </ul>
+        {bun.props != null ? (
         <li
           className={`${style.component}`}
         >
@@ -87,11 +94,12 @@ function BurgerConstructor({
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
+            text={`${bun.props.name} (низ)`}
+            price={bun.props.price}
+            thumbnail={bun.props.image_mobile}
           />
         </li>
+        ): null}
       </ul>
       <div className={`mt-8 mr-4 ${style.price}`}>
         <div className={`${style.price} ${style.price_icon}`}>

@@ -9,7 +9,15 @@ import mainStyles from "./constructor.module.css";
 import defBun from "../../utils/defaultBun";
 
 function Constructor({ data, toggleOrderModal, toggleIngrModal }) {
-  const [ingredients, setIngredients] = React.useState([defBun]);
+
+  // const findBun = () => {
+  //   return data.find((ingr) => ingr.type === "bun")
+  // }
+  // const newDefBun = {props: findBun()}
+  // console.log(newDefBun.props)
+  // console.log(defBun.props)
+  
+  const [ingredients, setIngredients] = React.useState([]);
 
   const addIngredient = (ingr) => {
     const updatedIngr = [...ingredients];
@@ -23,6 +31,8 @@ function Constructor({ data, toggleOrderModal, toggleIngrModal }) {
     }
     setIngredients(updatedIngr);
   };
+  const ingredientsLength = ingredients.length
+  console.log(ingredientsLength)
 
   const removeIngredient = (index) => {
     const updatedIngredients = [...ingredients];
@@ -38,12 +48,16 @@ function Constructor({ data, toggleOrderModal, toggleIngrModal }) {
           addIngredient={addIngredient} 
           data={data} 
           toggleIngrModal={toggleIngrModal}
+          ingrLength={ingredientsLength}
         />
+         {ingredients.length > 0 ? (
         <BurgerConstructor
           ingredients={ingredients}
           removeIngredient={removeIngredient}
           toggleOrderModal={toggleOrderModal}
         />
+    ) : null}
+        
       </div>
     </main>
   );

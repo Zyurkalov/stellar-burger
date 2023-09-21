@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import Header from "../header/header";
 import Constructor from "../constructor/constructor";
@@ -43,21 +43,25 @@ function App() {
   };
   const [state, setState] = React.useState(defaultStatus);
 
-  function toggleOrderModal() {
+  const toggleOrderModal = useCallback(() => {
     setState({
       ...state,
       orderStatus: { status: true },
     });
-  }
-  function toggleIngrModal(analysis) {
-    setState((prevStatus) => ({
-      ...prevStatus,
-      ingrStatus: { status: true, ingr: [analysis] },
-    }));
-  }
-  function primaryModal() {
+  }, [setState]);
+  const toggleIngrModal = useCallback(
+    (analysis) => {
+      setState((prevStatus) => ({
+        ...prevStatus,
+        ingrStatus: { status: true, ingr: [analysis] },
+      }));
+    },
+    [setState]
+  );
+  const primaryModal = useCallback(() => {
     setState(defaultStatus);
-  }
+  }, [useState]);
+
   const stateModal = Object.values(state).some((obj) => obj.status === true);
 
   return (
