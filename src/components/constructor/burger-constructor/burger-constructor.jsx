@@ -1,3 +1,4 @@
+import React, {useMemo, useCallback} from 'react'
 import {
   CurrencyIcon,
   Button,
@@ -29,6 +30,13 @@ function BurgerConstructor({
     return ingredients.filter((ingr) => ingr.props.type !== "bun") || {};
   };
   let bun = ingredients[0].props;
+  
+  const compCurrencyIcon = useMemo(() => (
+    <CurrencyIcon />
+  ),[])
+  const compDragIcon = useMemo((index) => (
+    <DragIcon key={index} />
+  ),[])
 
   return (
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
@@ -57,7 +65,7 @@ function BurgerConstructor({
               className={`mb-4 ${style.component}`}
             >
               <div>
-                <DragIcon key={index} />
+                {compDragIcon}
               </div>
               <ConstructorElement
                 key={index}
@@ -88,7 +96,7 @@ function BurgerConstructor({
       <div className={`mt-8 mr-4 ${style.price}`}>
         <div className={`${style.price} ${style.price_icon}`}>
           <h3 className="text text_type_digits-medium">{totalPrice}</h3>
-          <CurrencyIcon />
+          {compCurrencyIcon}
         </div>
         <Button
           htmlType="button"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,12 +8,12 @@ import style from "./burger-ingredients.module.css";
 
 function BurgerIngredients({ addIngredient, data, toggleIngrModal}) {
 
-  const decompositionArr = (category) => {
+  const decompositionArr = useCallback((category) => {
     const filteredData = data.filter((item) => item.type === category);
     return filteredData.map((item) => (
       <BurgerCart key={item.key} addIngr={addIngredient} toggleIngrModal={toggleIngrModal} {...item} />
     ));
-  };
+  }, [addIngredient, data, toggleIngrModal]);
 
   const setCategories = ["bun", "sauce", "main"];
   const [current, setCurrent] = React.useState("one");
