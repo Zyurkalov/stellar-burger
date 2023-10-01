@@ -33,9 +33,9 @@
   row-gap: 52px;
 }
 .disabled {
-opacity: 0.4;
-pointer-events: none
+  opacity: 0.4;
+  pointer-events: none;
 }
 .included {
   opacity: 1;
-  }
+}

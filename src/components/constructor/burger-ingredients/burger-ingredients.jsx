@@ -1,17 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientPropType } from "../../../utils/prop-types";
 import BurgerCart from "./burger-cart/burger-cart";
+import DataContext from "../../../service/dataContext.js"
 import style from "./burger-ingredients.module.css";
 
 function BurgerIngredients({
   addIngredient,
-  data,
   toggleIngrModal,
   ingrLength,
 }) {
+  const data = useContext(DataContext)
   const decompositionArr = useCallback(
     (category) => {
       const filteredData = data.filter((item) => item.type === category);
@@ -72,6 +73,7 @@ function BurgerIngredients({
           <div
           id={idHeader(category)}
           key={index}
+          // className={`${style.categories}`}
           className={`${style.categories} ${
             ingrLength === 0 && category !== "bun"
               ? style.disabled
