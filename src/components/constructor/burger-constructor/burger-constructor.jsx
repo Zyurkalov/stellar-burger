@@ -36,7 +36,7 @@ function BurgerConstructor({
   const findBun = () => {
     return ingredients.find((ingr) => ingr.props.type === "bun") || {};
   };
-  let bun = findBun();
+  const bun = findBun();
 
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
   const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);

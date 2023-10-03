@@ -13,22 +13,25 @@ import { makeOrderApi } from "../../utils/makeOrder-api";
 
 function App() {
   // --- запрос данных с сервера ---
-
   const [data, setData] = React.useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const errorState = {status: false, text: ''}
+  const [error, setError] = useState(errorState);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
+        setError(errorState)
         const data = await getIngrApi();
+
         if (data.success && data.data && data.data.length > 0) {
           setData(data.data);
         } else {
           throw new Error("Что-то не так с полученными данными");
         }
       } catch (error) {
-        setError(true);
+        setError({status: true, text: `Не удалось загрузить данные с сервера: ${error}`});
         console.error("Не удалось загрузить данные с сервера:", error);
       } finally {
         setIsLoading(false);
@@ -51,7 +54,6 @@ function App() {
       makeOrderApi(value)
         .then((res) => {
           const orderNumber = res.order.number;
-          console.log("Order Number:", orderNumber);
 
           setState({
             ...state,

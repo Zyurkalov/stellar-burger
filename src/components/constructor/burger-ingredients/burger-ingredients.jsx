@@ -18,7 +18,8 @@ function BurgerIngredients({
       const filteredData = data.filter((item) => item.type === category);
       return filteredData.map((item) => (
         <BurgerCart
-          key={item.key}
+          // key={item.key}
+          key={item._id}
           addIngr={addIngredient}
           toggleIngrModal={toggleIngrModal}
           {...item}
