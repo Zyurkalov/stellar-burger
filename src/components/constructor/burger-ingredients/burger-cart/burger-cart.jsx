@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo, useCallback} from "react";
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
 import {
@@ -8,19 +8,23 @@ import {
 
 function BurgerCart(props) {
   const [count, setCount] = React.useState(0);
-  const ingr = {
+  const ingr = useMemo(() => ({
     name: props.name, 
     image_large: props.image_large,
     calories: props.calories,
     proteins: props.proteins,
     fat: props.fat,
     carbohydrates: props.carbohydrates,
-}
-  const addIngredient = () => {
+  }), [])
+
+  const compCurrencyIcon = useMemo(() =>(
+    <CurrencyIcon />
+  ), []);
+  const addIngredient = useCallback(() => {
     props.toggleIngrModal(ingr)
     setCount(count + 1);
     props.addIngr({ props });
-  };
+  },[props.addIngr, count]);
 
   let counterComponent = null;
   if (count !== 0) {
@@ -34,7 +38,7 @@ function BurgerCart(props) {
       <img src={props.image} alt={props.name} />
       <div className={style.cartPrice}>
         <p className="mt-2 text text_type_digits-default">{props.price}</p>
-        <CurrencyIcon />
+        {compCurrencyIcon}
       </div>
       <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>
         {props.name}

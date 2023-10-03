@@ -12,42 +12,44 @@
   align-items: center;
   gap: 8px;
 }
-.price_icon>svg {
+.price_icon > svg {
   min-width: 36px;
   min-height: 36px;
   margin-right: 32px;
 }
 .cart {
-    height: 80px;
-    width: 100%;
-    padding: 16px 32px 16px 24px;
-    box-sizing:border-box;
+  height: 80px;
+  width: 100%;
+  padding: 16px 32px 16px 24px;
+  box-sizing: border-box;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 
-    border-radius: 40px;
-    background-color: #1C1C21;
+  border-radius: 40px;
+  background-color: #1c1c21;
+}
+.listComponents {
+  min-height: 194px;
 }
 .listComponents:last-child {
   margin: 0;
 }
 .component {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .cardName {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .image {
-    max-height: 40px;
+  max-height: 40px;
 }
 .scrollBar {
-  min-height: 0;
   max-height: 480px;
   overflow-y: scroll;
   border: none;
@@ -59,4 +61,29 @@
 .scrollBar::-webkit-scrollbar-thumb {
   height: 10px;
   background-color: #8585ad;
+}
+.defaultBorder {
+  margin-bottom: 16px;
+  margin-left: 32px;
+  height: 368px;
+  width: 536px;
+  background-color: var(--interface-modal-bg, #1c1c21);
+  border-radius: 88px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+.defaultBorder_medium {
+  height: 178px;
+  border-radius: 40px;
+}
+.defaultBorder_small {
+  height: 80px;
+  border-radius: 40px;
+}
+.defaultText {
+  max-width: 336px;
+  color: rgb(133, 133, 173);
 }
