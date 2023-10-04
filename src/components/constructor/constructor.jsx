@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useDispatch, useSelector, } from "react-redux";
 import PropTypes from "prop-types";
 
 import { ingredientPropType } from "../../utils/prop-types";
@@ -10,7 +11,6 @@ import mainStyles from "./constructor.module.css";
 import defBun from "../../utils/defaultBun";
 
 function Constructor({ toggleOrderModal, toggleIngrModal }) {
-  const data = useContext(DataContext);
 
   const [ingredients, setIngredients] = React.useState([]);
   const addIngredient = (ingr) => {
@@ -39,7 +39,8 @@ function Constructor({ toggleOrderModal, toggleIngrModal }) {
       <div className={mainStyles.container}>
         <BurgerIngredients
           addIngredient={addIngredient}
-          data={data}
+          // data={resultListIngr}
+          // data={count.dataList.data}
           toggleIngrModal={toggleIngrModal}
           ingrLength={ingredientsLength}
         />

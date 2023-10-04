@@ -1,4 +1,5 @@
 import React, { useCallback, useContext } from "react";
+import { useDispatch, useSelector, } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,9 +13,16 @@ function BurgerIngredients({
   toggleIngrModal,
   ingrLength,
 }) {
-  const data = useContext(DataContext)
+  // const data = useContext(DataContext)
+  const data = useSelector((state) => state.dataList.data)
+
   const decompositionArr = useCallback(
     (category) => {
+      if(!data) {
+        return (
+          <div className={`mb-6 mt-10 text text_type_main-medium`}>Загрузка...</div>
+        )
+      }
       const filteredData = data.filter((item) => item.type === category);
       return filteredData.map((item) => (
         <BurgerCart

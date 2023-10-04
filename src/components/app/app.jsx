@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
+import { useDispatch, useSelector, } from "react-redux";
 
 import Header from "../header/header";
 import Constructor from "../constructor/constructor";
+import Modal from "../modal/modal";
+
 import appStyles from "./app.module.css";
 import getIngrApi from "../../utils/burger-api";
-
-import Modal from "../modal/modal";
 import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import OrderDetails from "../modal/order-details/order-details";
 import DataContext from "../../service/dataContext.js";
 import { makeOrderApi } from "../../utils/makeOrder-api";
+import { getData } from "../../service/actions/app";
+
 
 function App() {
   // --- запрос данных с сервера ---
@@ -17,6 +20,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const errorState = {status: false, text: ''}
   const [error, setError] = useState(errorState);
+  
+  
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +33,7 @@ function App() {
 
         if (data.success && data.data && data.data.length > 0) {
           setData(data.data);
+          dispatch(getData(data.data))
         } else {
           throw new Error("Что-то не так с полученными данными");
         }
@@ -83,13 +90,13 @@ function App() {
   return (
     <>
       <Header className={appStyles.header} />
-      <DataContext.Provider value={data}>
+      {/* <DataContext.Provider value={data}> */}
         <Constructor
           // data={data}
           toggleIngrModal={toggleIngrModal}
           toggleOrderModal={toggleOrderModal}
         />
-      </DataContext.Provider>
+      {/* </DataContext.Provider> */}
       {stateModal && (
         <Modal
           primaryModal={primaryModal}
