@@ -1,40 +1,35 @@
-import React, { useCallback, useContext } from "react";
-import { useDispatch, useSelector, } from "react-redux";
+import React, { useCallback } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientPropType } from "../../../utils/prop-types";
 import BurgerCart from "./burger-cart/burger-cart";
-import DataContext from "../../../service/dataContext.js"
 import style from "./burger-ingredients.module.css";
 
-function BurgerIngredients({
-  addIngredient,
-  toggleIngrModal,
-  ingrLength,
-}) {
-  // const data = useContext(DataContext)
-  const data = useSelector((state) => state.dataList.data)
+function BurgerIngredients({ toggleIngrModal }) {
+  const data = useSelector((state) => state.dataList.data);
+  const ingrList = useSelector((state) => state.ingrList.ingrList);
 
   const decompositionArr = useCallback(
     (category) => {
-      if(!data) {
+      if (!data) {
         return (
-          <div className={`mb-6 mt-10 text text_type_main-medium`}>Загрузка...</div>
-        )
+          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+            Загрузка...
+          </div>
+        );
       }
       const filteredData = data.filter((item) => item.type === category);
       return filteredData.map((item) => (
         <BurgerCart
-          // key={item.key}
           key={item._id}
-          addIngr={addIngredient}
           toggleIngrModal={toggleIngrModal}
           {...item}
         />
       ));
     },
-    [addIngredient, data, toggleIngrModal]
+    [data, toggleIngrModal]
   );
 
   const setCategories = ["bun", "sauce", "main"];
@@ -80,16 +75,14 @@ function BurgerIngredients({
       <section className={`${style.cardSection} ${style.scrollBar}`}>
         {setCategories.map((category, index) => (
           <div
-          id={idHeader(category)}
-          key={index}
-          // className={`${style.categories}`}
-          className={`${style.categories} ${
-            ingrLength === 0 && category !== "bun"
-              ? style.disabled
-              : ''
-          }`}
-          disabled={ingrLength === 0 && category !== "bun"}
-        >
+            id={idHeader(category)}
+            key={index}
+            // className={`${style.categories}`}
+            className={`${style.categories} ${
+              ingrList.length === 0 && category !== "bun" ? style.disabled : ""
+            }`}
+            disabled={ingrList.length === 0 && category !== "bun"}
+          >
             <h2
               className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}
             >

@@ -1,53 +1,66 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   CurrencyIcon,
   Button,
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { deleteIngredient } from "../../../service/actions/constructor";
 import { ingredientPropType, oneIngrPropType } from "../../../utils/prop-types";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
 function BurgerConstructor({
   ingredients,
-  removeIngredient,
+  // removeIngredient,
   toggleOrderModal,
 }) {
-  const totalPrice = ingredients.reduce((acc, ingredient) => {
-    if (ingredient.props.type === "bun") {
-      return acc + ingredient.props.price * 2;
+  const dispatch = useDispatch();
+  const ingrList = useSelector((state) => state.ingrList.ingrList);
+
+  const totalPrice = ingrList.reduce((acc, ingredient) => {
+    if (ingredient.type === "bun") {
+      return acc + ingredient.price * 2;
     } else {
-      return acc + ingredient.props.price;
+      return acc + ingredient.price;
     }
   }, 0);
 
-  const handleRemoveIngredient = useCallback(
-    (index) => {
-      removeIngredient(index);
-    },
-    [removeIngredient]
-  );
+  // const totalPrice = ingredients.reduce((acc, ingredient) => {
+  //   if (ingredient.props.type === "bun") {
+  //     return acc + ingredient.props.price * 2;
+  //   } else {
+  //     return acc + ingredient.props.price;
+  //   }
+  // }, 0);
+
+  // const handleRemoveIngredient = useCallback(
+  //   (index) => {
+  //     removeIngredient(index);
+  //   },
+  //   [removeIngredient]
+  // );
 
   const fillinFiltr = () => {
-    return ingredients.filter((ingr) => ingr.props.type !== "bun") || {};
+    return ingrList.filter((ingr) => ingr.type !== "bun") || {};
   };
-
   const findBun = () => {
-    return ingredients.find((ingr) => ingr.props.type === "bun") || {};
+    return ingrList.find((ingr) => ingr.type === "bun") || {};
   };
   const bun = findBun();
 
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
   const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);
 
-  const arrIngrID = ingredients.map((ingr) => ingr.props._id);
+  const arrIngrID = ingrList.map((ingr) => ingr._id);
   return (
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
-      {ingredients.length > 0 ? (
+      {ingrList.length > 0 ? (
         <>
           <ul>
-            {bun.props != null ? (
+            {bun != null ? (
               <li className={`mb-4 ${style.component}`}>
                 <div style={{ visibility: "hidden" }}>
                   <DragIcon />
@@ -55,13 +68,13 @@ function BurgerConstructor({
                 <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={`${bun.props.name} (верх)`}
-                  price={bun.props.price}
-                  thumbnail={bun.props.image_mobile}
+                  text={`${bun.name} (верх)`}
+                  price={bun.price}
+                  thumbnail={bun.image_mobile}
                 />
               </li>
             ) : null}
-            {ingredients.length < 2 ? (
+            {ingrList.length < 2 ? (
               <>
                 <div
                   className={`${style.defaultBorder} ${style.defaultBorder_medium}`}
@@ -80,24 +93,28 @@ function BurgerConstructor({
               >
                 {fillinFiltr().map((ingredient, index) => (
                   <>
-                    <li key={index} className={`mb-4 ${style.component}`}>
+                    <li className={`mb-4 ${style.component}`}>
                       <div>{compDragIcon}</div>
+
                       <ConstructorElement
                         key={index}
-                        text={ingredient.props.name}
-                        price={ingredient.props.price}
-                        thumbnail={ingredient.props.image_mobile}
-                        handleClose={() => handleRemoveIngredient(index + 1)}
+                        text={ingredient.name}
+                        price={ingredient.price}
+                        thumbnail={ingredient.image_mobile}
+                        // handleClose={() => handleRemoveIngredient(index + 1)}
+                        handleClose={() =>
+                          dispatch(deleteIngredient(index + 1))
+                        }
                       />
                     </li>
-                    {ingredients.length <= 2 ? (
+                    {ingrList.length <= 2 ? (
                       <div
                         className={`${style.defaultBorder} ${style.defaultBorder_small}`}
                       >
                         <p
                           className={`text text_type_main-medium ${style.defaultText}`}
                         >
-                          {ingredients[1].props.type === "main"
+                          {ingrList[1].type === "main"
                             ? "Не забудьте соус"
                             : "А как же начинка?"}
                         </p>
@@ -108,7 +125,7 @@ function BurgerConstructor({
               </ul>
             )}
 
-            {bun.props != null ? (
+            {bun != null ? (
               <li className={`${style.component}`}>
                 <div style={{ visibility: "hidden" }}>
                   <DragIcon />
@@ -116,9 +133,9 @@ function BurgerConstructor({
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={`${bun.props.name} (низ)`}
-                  price={bun.props.price}
-                  thumbnail={bun.props.image_mobile}
+                  text={`${bun.name} (низ)`}
+                  price={bun.price}
+                  thumbnail={bun.image_mobile}
                 />
               </li>
             ) : null}

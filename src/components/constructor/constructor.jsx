@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
-import { useDispatch, useSelector, } from "react-redux";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { ingredientPropType } from "../../utils/prop-types";
 import BurgerIngredients from "./burger-ingredients/burger-ingredients";
 import BurgerConstructor from "./burger-constructor/burger-constructor";
-import DataContext from "../../service/dataContext.js";
 
 import mainStyles from "./constructor.module.css";
-import defBun from "../../utils/defaultBun";
 
 function Constructor({ toggleOrderModal, toggleIngrModal }) {
+
 
   const [ingredients, setIngredients] = React.useState([]);
   const addIngredient = (ingr) => {

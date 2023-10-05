@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
-import { useDispatch, useSelector, } from "react-redux";
+import React, { useEffect, useState, useCallback,} from "react";
+import { useDispatch } from "react-redux";
 
 import Header from "../header/header";
 import Constructor from "../constructor/constructor";
@@ -9,14 +9,13 @@ import appStyles from "./app.module.css";
 import getIngrApi from "../../utils/burger-api";
 import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import OrderDetails from "../modal/order-details/order-details";
-import DataContext from "../../service/dataContext.js";
 import { makeOrderApi } from "../../utils/makeOrder-api";
 import { getData } from "../../service/actions/app";
 
 
 function App() {
   // --- запрос данных с сервера ---
-  const [data, setData] = React.useState([]);
+  // const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const errorState = {status: false, text: ''}
   const [error, setError] = useState(errorState);
@@ -32,7 +31,7 @@ function App() {
         const data = await getIngrApi();
 
         if (data.success && data.data && data.data.length > 0) {
-          setData(data.data);
+          // setData(data.data);
           dispatch(getData(data.data))
         } else {
           throw new Error("Что-то не так с полученными данными");

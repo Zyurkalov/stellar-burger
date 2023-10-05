@@ -1,7 +1,8 @@
 import {createStore, combineReducers} from "redux"
-import {ingredientsCountReducer} from "../reducers/ingredientsCountReducer"
+import {ingredientsCountReducer} from "./ingredientsCount"
 import { composeEnhancers } from "../../utils/reduxDevTools"
-import { getDataReducer } from "./getData";
+import { getDataReducer } from "./app";
+import { ingredientReducer } from "./constructor";
 
 // альтернативный путь, через внешний импорт
 // import { composeWithDevTools } from '@redux-devtools/extension';
@@ -10,7 +11,8 @@ import { getDataReducer } from "./getData";
 const enhancer = composeEnhancers();
 
 const rootReducer = combineReducers({
-    ingrCount: ingredientsCountReducer,
     dataList: getDataReducer,
+    ingrCount: ingredientsCountReducer,
+    ingrList: ingredientReducer,
 })
 export const store = createStore(rootReducer, enhancer)
