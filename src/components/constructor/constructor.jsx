@@ -45,7 +45,7 @@ function Constructor({ toggleOrderModal, toggleIngrModal }) {
         <BurgerConstructor
           ingredients={ingredients}
           removeIngredient={removeIngredient}
-          toggleOrderModal={toggleOrderModal}
+          // toggleOrderModal={toggleOrderModal}
         />
       </div>
     </main>

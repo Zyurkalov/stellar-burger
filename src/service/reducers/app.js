@@ -1,4 +1,4 @@
-import { GET_DATA, GET_DATA_FAILED, GET_DATA_SUCCESS } from "../actions/app";
+import { AWAIT_DATA, GET_DATA_FAILED, GET_DATA_SUCCESS } from "../actions/app";
 // const initialState = {
 //     data: null,
 //   };
@@ -24,7 +24,7 @@ const initialState = {
 };
 export const getDataReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DATA: {
+    case AWAIT_DATA: {
       return {
         ...state,
         dataRequest: true,

@@ -1,6 +1,6 @@
 import { API_URL } from "../../constatnts/apiUrl";
 
-export const GET_DATA = "GET_DATA"
+export const AWAIT_DATA = "AWAIT_DATA"
 export const GET_DATA_SUCCESS = "GET_DATA_SUCCESS"
 export const GET_DATA_FAILED = "GET_DATA_FAILED"
 
@@ -12,7 +12,7 @@ export const GET_DATA_FAILED = "GET_DATA_FAILED"
 export function getApiData() {
   return function (dispatch) {
     dispatch({
-      type: GET_DATA
+      type: AWAIT_DATA
     })
     fetch(`${API_URL}/ingredients`)
       .then((res) => {

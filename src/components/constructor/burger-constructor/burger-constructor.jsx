@@ -1,5 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { makeOrderApi } from "../../../service/actions/burger-constructor";
 
 import {
   CurrencyIcon,
@@ -8,6 +9,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteIngredient } from "../../../service/actions/constructor";
+import { openOrderModal } from "../../../service/actions/modal";
 import { ingredientPropType, oneIngrPropType } from "../../../utils/prop-types";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
@@ -19,6 +21,7 @@ function BurgerConstructor({
 }) {
   const dispatch = useDispatch();
   const ingrList = useSelector((state) => state.ingrList.ingrList);
+  // const makeOrder = useSelector((state) => state.makeOrder)
 
   const totalPrice = ingrList.reduce((acc, ingredient) => {
     if (ingredient.type === "bun") {
@@ -42,6 +45,7 @@ function BurgerConstructor({
   //   },
   //   [removeIngredient]
   // );
+ 
 
   const fillinFiltr = () => {
     return ingrList.filter((ingr) => ingr.type !== "bun") || {};
@@ -55,6 +59,18 @@ function BurgerConstructor({
   const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);
 
   const arrIngrID = ingrList.map((ingr) => ingr._id);
+
+  const toggleModal = () => {
+    dispatch(openOrderModal())
+    dispatch(makeOrderApi(arrIngrID))
+  }
+  // const makeOrder = () => {
+  //   const {orderRequest, orderFailed, orderNumber} = useSelector(state => state.makeOrder)
+
+  //   useEffect(() => {
+  //     dispatch(makeOrderApi(arrIngrID))
+  //   })
+  // }
   return (
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
       {ingrList.length > 0 ? (
@@ -150,7 +166,8 @@ function BurgerConstructor({
               type="primary"
               size="large"
               // onClick={toggleOrderModal}
-              onClick={() => toggleOrderModal(arrIngrID)}
+              // onClick={() => toggleOrderModal(arrIngrID)
+              onClick={() => toggleModal()}
             >
               Оформить заказ
             </Button>
