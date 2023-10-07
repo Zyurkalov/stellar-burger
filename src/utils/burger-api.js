@@ -1,4 +1,4 @@
-const API_URL = "https://norma.nomoreparties.space/api";
+import { API_URL } from "../constatnts/apiUrl";
 
 function getIngrApi() {
   return fetch(`${API_URL}/ingredients`)

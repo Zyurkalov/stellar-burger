@@ -1,4 +1,5 @@
-import {createStore, combineReducers} from "redux"
+import {createStore, combineReducers, applyMiddleware} from "redux"
+import thunk from "redux-thunk";
 import {ingredientsCountReducer} from "./ingredientsCount"
 import { composeEnhancers } from "../../utils/reduxDevTools"
 import { getDataReducer } from "./app";
@@ -8,11 +9,11 @@ import { ingredientReducer } from "./constructor";
 // import { composeWithDevTools } from '@redux-devtools/extension';
 // const enhancer = composeWithDevTools(); 
 
-const enhancer = composeEnhancers();
+// const enhancer = composeEnhancers(applyMiddleware());
 
 const rootReducer = combineReducers({
     dataList: getDataReducer,
     ingrCount: ingredientsCountReducer,
     ingrList: ingredientReducer,
 })
-export const store = createStore(rootReducer, enhancer)
+export const store = createStore(rootReducer, applyMiddleware(thunk))

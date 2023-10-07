@@ -8,18 +8,14 @@ import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
 function BurgerIngredients({ toggleIngrModal }) {
-  const data = useSelector((state) => state.dataList.data);
+  const { data, dataFailed, dataRequest, error } = useSelector(
+    (state) => state.dataList
+  );
+  // const data = useSelector((state) => state.dataList.data);
   const ingrList = useSelector((state) => state.ingrList.ingrList);
 
   const decompositionArr = useCallback(
     (category) => {
-      if (!data) {
-        return (
-          <div className={`mb-6 mt-10 text text_type_main-medium`}>
-            Загрузка...
-          </div>
-        );
-      }
       const filteredData = data.filter((item) => item.type === category);
       return filteredData.map((item) => (
         <BurgerCart
@@ -73,30 +69,41 @@ function BurgerIngredients({ toggleIngrModal }) {
       </nav>
 
       <section className={`${style.cardSection} ${style.scrollBar}`}>
-        {setCategories.map((category, index) => (
-          <div
-            id={idHeader(category)}
-            key={index}
-            // className={`${style.categories}`}
-            className={`${style.categories} ${
-              ingrList.length === 0 && category !== "bun" ? style.disabled : ""
-            }`}
-            disabled={ingrList.length === 0 && category !== "bun"}
-          >
-            <h2
-              className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}
-            >
-              {category === "bun"
-                ? "Булки"
-                : category === "sauce"
-                ? "Соусы"
-                : "Начинки"}
-            </h2>
-            <div className={style.cardContainer}>
-              {decompositionArr(category)}
-            </div>
+        {dataRequest ? (
+          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+            Загрузка...
           </div>
-        ))}
+        ) : dataFailed ? (
+          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+            Произошла ошибка: {error}
+          </div>
+        ) : (
+          setCategories.map((category, index) => (
+            <div
+              id={idHeader(category)}
+              key={index}
+              className={`${style.categories} ${
+                ingrList.length === 0 && category !== "bun"
+                  ? style.disabled
+                  : ""
+              }`}
+              disabled={ingrList.length === 0 && category !== "bun"}
+            >
+              <h2
+                className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}
+              >
+                {category === "bun"
+                  ? "Булки"
+                  : category === "sauce"
+                  ? "Соусы"
+                  : "Начинки"}
+              </h2>
+              <div className={style.cardContainer}>
+                {decompositionArr(category)}
+              </div>
+            </div>
+          ))
+        )}
       </section>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback,} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../header/header";
 import Constructor from "../constructor/constructor";
@@ -11,6 +11,7 @@ import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import OrderDetails from "../modal/order-details/order-details";
 import { makeOrderApi } from "../../utils/makeOrder-api";
 import { getData } from "../../service/actions/app";
+import { getApiData } from "../../service/actions/app";
 
 
 function App() {
@@ -20,38 +21,42 @@ function App() {
   const errorState = {status: false, text: ''}
   const [error, setError] = useState(errorState);
   
-  
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        setError(errorState)
-        const data = await getIngrApi();
+    dispatch(getApiData())
+  }, [])
 
-        if (data.success && data.data && data.data.length > 0) {
-          // setData(data.data);
-          dispatch(getData(data.data))
-        } else {
-          throw new Error("Что-то не так с полученными данными");
-        }
-      } catch (error) {
-        setError({status: true, text: `Не удалось загрузить данные с сервера: ${error}`});
-        console.error("Не удалось загрузить данные с сервера:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setIsLoading(true)
+  //       setError(errorState)
+  //       const data = await getIngrApi();
+
+  //       if (data.success && data.data && data.data.length > 0) {
+  //         // setData(data.data);
+  //         dispatch(getData(data.data))
+  //       } else {
+  //         throw new Error("Что-то не так с полученными данными");
+  //       }
+  //     } catch (error) {
+  //       setError({status: true, text: `Не удалось загрузить данные с сервера: ${error}`});
+  //       console.error("Не удалось загрузить данные с сервера:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   // --- модули для Modal ---
   const defaultStatus = {
     orderStatus: { status: false, number: "" },
     ingrStatus: { status: false, ingr: {} },
-    profileStatus: { status: false },
-    errorStatus: {status: false, text: ''}
+    // profileStatus: { status: false },
+    // errorStatus: {status: false, text: ''}
   };
   const [state, setState] = React.useState(defaultStatus);
 
