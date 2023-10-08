@@ -7,7 +7,9 @@ import {
 const initialState = {
   orderRequest: false,
   orderFailed: false,
+  orderSuccess: false,
   orderNumber: null,
+  text: '',
 };
 
 export const makeOrderReducer = (state = initialState, action) => {
@@ -17,19 +19,23 @@ export const makeOrderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: true,
         orderFailed: false,
+        orderSuccess: false,
+        orderNumber: null,
+        text: ''
       };
     }
     case MAKE_ORDER_SUCCES: {
       return {
         orderRequest: false,
-        orderFailed: false,
-        orderNumber: action.number,
+        orderSuccess: true,
+        orderNumber: action.orderNumber,
       };
     }
     case MAKE_ORDER_FAILED: {
       return {
         orderRequest: false,
         orderFailed: true,
+        text: action.textErr,
       };
     }
     default: {

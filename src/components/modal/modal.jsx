@@ -8,28 +8,21 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
 
-function Modal({ primaryModal, title, children }) {
+function Modal({ title, children }) {
   const portal = document.getElementById("portal");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === "Escape") {
-        dispatch(closeModal())
-        // primaryModal();
+    const handleCloseModal = (event) => {
+      if ((event.key === "Escape") || (event.target.id === "template")) {
+        dispatch(closeModal());
       }
     };
-    const hadleOutsideClick = (event) => {
-      if (event.target.id === "template") {
-        dispatch(closeModal())
-        // primaryModal();
-      }
-    };
-    window.addEventListener("keydown", handleEscKey);
-    window.addEventListener("click", hadleOutsideClick);
+    window.addEventListener("keydown", handleCloseModal);
+    window.addEventListener("click", handleCloseModal);
     return () => {
-      window.removeEventListener("keydown", handleEscKey);
-      window.removeEventListener("click", hadleOutsideClick);
+      window.removeEventListener("keydown", handleCloseModal);
+      window.removeEventListener("click", handleCloseModal);
     };
   }, []);
 
@@ -39,7 +32,7 @@ function Modal({ primaryModal, title, children }) {
         <div className={`mt-4 mb-6 ${styles.headCont}`}>
           <h2 className="text text_type_main-large">{title || null}</h2>
           <div className={styles.cursorPointer}>
-            <CloseIcon type="primary" onClick={primaryModal} />
+            <CloseIcon type="primary" onClick={() => dispatch(closeModal())} />
           </div>
         </div>
         {children}
@@ -49,9 +42,9 @@ function Modal({ primaryModal, title, children }) {
   );
 }
 Modal.propTypes = {
-  primaryModal: PropTypes.func.isRequired,
-  title: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.string]).isRequired,
-  children: PropTypes.node.isRequired
+  title: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.string])
+    .isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Modal;

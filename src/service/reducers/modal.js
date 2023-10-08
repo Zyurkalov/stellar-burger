@@ -1,7 +1,8 @@
 import { MODAL_ORDER_OPEN, MODAL_INGR_OPEN, MODAL_CLOSE } from "../actions/modal"
 const initialState = {
-    orderStatus: false,
-    ingrStatus: false,
+    modalOrderStatus: false,
+    modalIngrStatus: false,
+    compIngr: {}
 }
 
 export const modalReducer = (state = initialState, action) => {
@@ -9,19 +10,21 @@ export const modalReducer = (state = initialState, action) => {
         case MODAL_ORDER_OPEN: {
             return {
                 ...state,
-                orderStatus: true,
+                modalOrderStatus: true,
             }
         }
         case MODAL_INGR_OPEN: {
             return {
                 ...state,
-                ingrStatus: true,
+                modalIngrStatus: true,
+                compIngr: action.ingrList
             }
         }
         case MODAL_CLOSE: {
             return {
-                orderStatus: false,
-                ingrStatus: false,
+                modalOrderStatus: false,
+                modalIngrStatus: false,
+                compIngr: {},
             }
         }
         default: return state

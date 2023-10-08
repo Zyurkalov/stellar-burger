@@ -1,31 +1,27 @@
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from "../../../utils/prop-types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
-function BurgerIngredients({ toggleIngrModal }) {
+import PropTypes from "prop-types";
+import { ingredientPropType } from "../../../utils/prop-types";
+
+function BurgerIngredients() {
   const { data, dataFailed, dataRequest, error } = useSelector(
     (state) => state.dataList
   );
-  // const data = useSelector((state) => state.dataList.data);
   const ingrList = useSelector((state) => state.ingrList.ingrList);
 
   const decompositionArr = useCallback(
     (category) => {
       const filteredData = data.filter((item) => item.type === category);
       return filteredData.map((item) => (
-        <BurgerCart
-          key={item._id}
-          toggleIngrModal={toggleIngrModal}
-          {...item}
-        />
+        <BurgerCart key={item._id} {...item} />
       ));
     },
-    [data, toggleIngrModal]
+    [data]
   );
 
   const setCategories = ["bun", "sauce", "main"];
@@ -108,10 +104,8 @@ function BurgerIngredients({ toggleIngrModal }) {
     </div>
   );
 }
-BurgerIngredients.propTypes = {
-  addIngredient: PropTypes.func.isRequired,
-  toggleIngrModal: PropTypes.func.isRequired,
-  data: ingredientPropType,
-};
+// BurgerIngredients.propTypes = {
+//   data: ingredientPropType,
+// };
 
 export default BurgerIngredients;

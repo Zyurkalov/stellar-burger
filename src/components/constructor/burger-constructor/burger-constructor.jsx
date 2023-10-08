@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrderApi } from "../../../service/actions/burger-constructor";
 
@@ -10,18 +10,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { deleteIngredient } from "../../../service/actions/constructor";
 import { openOrderModal } from "../../../service/actions/modal";
-import { ingredientPropType, oneIngrPropType } from "../../../utils/prop-types";
+import { oneIngrPropType } from "../../../utils/prop-types";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
-function BurgerConstructor({
-  ingredients,
-  // removeIngredient,
-  toggleOrderModal,
-}) {
+function BurgerConstructor() {
+
   const dispatch = useDispatch();
   const ingrList = useSelector((state) => state.ingrList.ingrList);
-  // const makeOrder = useSelector((state) => state.makeOrder)
 
   const totalPrice = ingrList.reduce((acc, ingredient) => {
     if (ingredient.type === "bun") {
@@ -30,22 +26,6 @@ function BurgerConstructor({
       return acc + ingredient.price;
     }
   }, 0);
-
-  // const totalPrice = ingredients.reduce((acc, ingredient) => {
-  //   if (ingredient.props.type === "bun") {
-  //     return acc + ingredient.props.price * 2;
-  //   } else {
-  //     return acc + ingredient.props.price;
-  //   }
-  // }, 0);
-
-  // const handleRemoveIngredient = useCallback(
-  //   (index) => {
-  //     removeIngredient(index);
-  //   },
-  //   [removeIngredient]
-  // );
- 
 
   const fillinFiltr = () => {
     return ingrList.filter((ingr) => ingr.type !== "bun") || {};
@@ -64,13 +44,7 @@ function BurgerConstructor({
     dispatch(openOrderModal())
     dispatch(makeOrderApi(arrIngrID))
   }
-  // const makeOrder = () => {
-  //   const {orderRequest, orderFailed, orderNumber} = useSelector(state => state.makeOrder)
-
-  //   useEffect(() => {
-  //     dispatch(makeOrderApi(arrIngrID))
-  //   })
-  // }
+  
   return (
     <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
       {ingrList.length > 0 ? (
@@ -117,7 +91,7 @@ function BurgerConstructor({
                         text={ingredient.name}
                         price={ingredient.price}
                         thumbnail={ingredient.image_mobile}
-                        // handleClose={() => handleRemoveIngredient(index + 1)}
+
                         handleClose={() =>
                           dispatch(deleteIngredient(index + 1))
                         }
@@ -165,8 +139,6 @@ function BurgerConstructor({
               htmlType="button"
               type="primary"
               size="large"
-              // onClick={toggleOrderModal}
-              // onClick={() => toggleOrderModal(arrIngrID)
               onClick={() => toggleModal()}
             >
               Оформить заказ
@@ -185,11 +157,9 @@ function BurgerConstructor({
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(
-    PropTypes.exact({ props: oneIngrPropType.isRequired })
+  ingrList: PropTypes.arrayOf(
+    PropTypes.exact(oneIngrPropType.isRequired )
   ),
-  removeIngredient: PropTypes.func.isRequired,
-  toggleOrderModal: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

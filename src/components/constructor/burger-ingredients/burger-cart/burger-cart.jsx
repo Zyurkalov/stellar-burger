@@ -1,5 +1,6 @@
-import React, {useMemo} from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { openIngrModal } from "../../../../service/actions/modal";
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
@@ -10,38 +11,39 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerCart(props) {
-  const dispatch = useDispatch()
-  // const [count, setCount] = React.useState(0);
-  const ingr = useMemo(() => ({
-    _id: props._id,
-    name: props.name, 
-    type: props.type,
-    image_large: props.image_large,
-    image: props.image,
-    image_mobile: props.image_mobile,
+  const dispatch = useDispatch();
 
-    calories: props.calories,
-    proteins: props.proteins,
-    fat: props.fat,
-    carbohydrates: props.carbohydrates,
 
-    price: props.price,
-    count: 0,
-  }), [])
+  const addIngr = (value) => {
+    dispatch(addIngredient(value));
+    dispatch(openIngrModal(value));
+  };
+  const ingr = useMemo(
+    () => ({
+      _id: props._id,
+      name: props.name,
+      type: props.type,
+      image_large: props.image_large,
+      image: props.image,
+      image_mobile: props.image_mobile,
 
-  const compCurrencyIcon = useMemo(() =>(
-    <CurrencyIcon />
-  ), []);
-  // const addIngredient = useCallback(() => {
-  //   props.toggleIngrModal(ingr)
-  //   setCount(count + 1);
-  //   props.addIngr({ props });
-  // },[props.addIngr, count]);
-  
+      calories: props.calories,
+      proteins: props.proteins,
+      fat: props.fat,
+      carbohydrates: props.carbohydrates,
+
+      price: props.price,
+      count: 0,
+    }),
+    []
+  );
+
+  const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
+
   // логика подсчета количества ингредиентов
-  const ingrList = useSelector((state) => state.ingrList.ingrList)
-  const findedTwins = ingrList.find(({_id}) => _id === props._id)
-  
+  const ingrList = useSelector((state) => state.ingrList.ingrList);
+  const findedTwins = ingrList.find(({ _id }) => _id === props._id);
+
   let counterComponent = null;
   if (findedTwins !== undefined) {
     counterComponent = (
@@ -49,8 +51,7 @@ function BurgerCart(props) {
     );
   }
   return (
-    // <div className={style.cart} key={props._id} onClick={addIngredient}>
-    <div className={style.cart} key={props._id} onClick={() => dispatch(addIngredient(ingr))}>
+    <div className={style.cart} key={props._id} onClick={() => addIngr(ingr)}>
       {counterComponent}
       <img src={props.image} alt={props.name} />
       <div className={style.cartPrice}>
@@ -64,6 +65,8 @@ function BurgerCart(props) {
   );
 }
 
-BurgerCart.propTypes = oneIngrPropType.isRequired;
+BurgerCart.propTypes = {
+  props: oneIngrPropType.isRequired,
+};
 
 export default BurgerCart;

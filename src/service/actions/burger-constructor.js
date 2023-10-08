@@ -20,14 +20,13 @@ export function makeOrderApi(value) {
         }
       })
       .then((data) => {
-        console.log(data.order.number)
         dispatch({
             type: MAKE_ORDER_SUCCES,
-            number: data.order.number,
+            orderNumber: data.order.number,
           });
       })
       .catch((err) => {
-        dispatch({ type: MAKE_ORDER_FAILED, text: err });
+        dispatch({ type: MAKE_ORDER_FAILED, textErr: err });
       });
   };
 }
