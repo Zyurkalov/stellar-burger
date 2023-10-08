@@ -1,18 +1,50 @@
-import React, { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
+import { switchTab } from "../../../service/actions/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
-import PropTypes from "prop-types";
-import { ingredientPropType } from "../../../utils/prop-types";
+// import PropTypes from "prop-types";
+// import { ingredientPropType } from "../../../utils/prop-types";
+// import { store } from "../../../service/reducers";
 
 function BurgerIngredients() {
+  const dispatch = useDispatch();
   const { data, dataFailed, dataRequest, error } = useSelector(
     (state) => state.dataList
   );
   const ingrList = useSelector((state) => state.ingrList.ingrList);
+  const currentTab = useSelector((state) => state.tab.current);
+
+  const tabRef = useRef(null);
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
+
+  const handleScroll = () => {
+    const tabBottom = tabRef.current?.getBoundingClientRect().bottom;
+    const bunTop = bunRef.current?.getBoundingClientRect().top;
+    const sauceTop = sauceRef.current?.getBoundingClientRect().top;
+    const mainTop = mainRef.current?.getBoundingClientRect().top;
+
+    if (!tabBottom || !bunTop || !tabBottom || !sauceTop || !mainTop) {
+      return;
+    }
+    const bunDelta = Math.abs(bunTop - tabBottom);
+    const sauceDelta = Math.abs(sauceTop - tabBottom);
+    const mainDelta = Math.abs(mainTop - tabBottom);
+
+    const min = Math.min(bunDelta, sauceDelta, mainDelta);
+    const newTab =
+      min === bunDelta ? "bun" : min === sauceDelta ? "sauce" : "main";
+
+    if (newTab !== currentTab) {
+      dispatch(switchTab(newTab));
+    }
+  };
 
   const decompositionArr = useCallback(
     (category) => {
@@ -25,46 +57,44 @@ function BurgerIngredients() {
   );
 
   const setCategories = ["bun", "sauce", "main"];
-  const [current, setCurrent] = React.useState("one");
-
   const setTab = (tab) => {
-    setCurrent(tab);
+    dispatch(switchTab(tab));
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
-  const idHeader = (category) => {
-    return category === "bun" ? "one" : category === "sauce" ? "two" : "three";
-  };
+
   return (
     <div>
-      <nav style={{ display: "flex" }} className="mt-5">
+      <nav style={{ display: "flex" }} className="mt-5" ref={tabRef}>
         <Tab
-          id="one"
-          value="one"
-          active={current === "one"}
-          onClick={() => setTab("one")}
+          id="bun"
+          value="bun"
+          active={currentTab === "bun"}
+          onClick={() => setTab("bun")}
         >
           Булки
         </Tab>
         <Tab
-          id="two"
-          value="two"
-          active={current === "two"}
-          onClick={() => setTab("two")}
+          id="sauce"
+          value="sauce"
+          active={currentTab === "sauce"}
+          onClick={() => setTab("sauce")}
         >
           Соусы
         </Tab>
         <Tab
-          id="three"
-          value="three"
-          active={current === "three"}
-          onClick={() => setTab("three")}
+          id="main"
+          value="main"
+          active={currentTab === "main"}
+          onClick={() => setTab("main")}
         >
           Начинки
         </Tab>
       </nav>
-
-      <section className={`${style.cardSection} ${style.scrollBar}`}>
+      <section
+        className={`${style.cardSection} ${style.scrollBar}`}
+        onScroll={handleScroll}
+      >
         {dataRequest ? (
           <div className={`mb-6 mt-10 text text_type_main-medium`}>
             Загрузка...
@@ -76,14 +106,21 @@ function BurgerIngredients() {
         ) : (
           setCategories.map((category, index) => (
             <div
-              id={idHeader(category)}
+              id={category}
               key={index}
               className={`${style.categories} ${
                 ingrList.length === 0 && category !== "bun"
                   ? style.disabled
-                  : ""
+                  : null
               }`}
-              disabled={ingrList.length === 0 && category !== "bun"}
+              // disabled={ingrList.length === 0 && category !== "bun"}
+              ref={
+                category === "bun"
+                  ? bunRef
+                  : category === "sauce"
+                  ? sauceRef
+                  : mainRef
+              }
             >
               <h2
                 className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}
