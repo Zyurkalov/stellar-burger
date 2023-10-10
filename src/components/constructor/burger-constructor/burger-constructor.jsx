@@ -1,6 +1,10 @@
 import { useMemo } from "react";
+import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrderApi } from "../../../service/actions/burger-constructor";
+import { useDrop, useDrag } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
+import { addIngredient } from "../../../service/actions/constructor";
 
 import {
   CurrencyIcon,
@@ -8,6 +12,7 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorCart } from "./constructor-cart/constructor-cart";
 import { deleteIngredient } from "../../../service/actions/constructor";
 import { openOrderModal } from "../../../service/actions/modal";
 import { oneIngrPropType } from "../../../utils/prop-types";
@@ -15,7 +20,8 @@ import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
 function BurgerConstructor() {
-
+  const ref = useRef(null);
+  const refIngrList = useRef(null)
   const dispatch = useDispatch();
   const ingrList = useSelector((state) => state.ingrList.ingrList);
 
@@ -40,16 +46,38 @@ function BurgerConstructor() {
 
   const arrIngrID = ingrList.map((ingr) => ingr._id);
 
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: ["ingredient", "draggingIngr"],
+    drop(ingr) {
+      dispatch(addIngredient(ingr));
+    },
+  });
+
   const toggleModal = () => {
-    dispatch(openOrderModal())
-    dispatch(makeOrderApi(arrIngrID))
-  }
-  
+    dispatch(openOrderModal());
+    dispatch(makeOrderApi(arrIngrID));
+  };
+  // useEffect(() => {
+  //   if (ingrList.length >= 2) {
+  //     const boundingRect = refIngrList.current?.getBoundingClientRect();
+  //     console.log('TopList:', boundingRect.top);
+  //     console.log('BottomList:', boundingRect.bottom);
+  //  }
+  // },);
+
   return (
-    <section aria-label="Конструктор" className={`mt-5 ${style.section}`}>
+    <section
+      aria-label="Конструктор"
+      className={`mt-5 ${style.section}`}
+      ref={(node) => {
+        // refIngrList.current = node;
+        dropTarget(node);
+      }}
+      
+    >
       {ingrList.length > 0 ? (
         <>
-          <ul>
+          <ul >
             {bun != null ? (
               <li className={`mb-4 ${style.component}`}>
                 <div style={{ visibility: "hidden" }}>
@@ -80,23 +108,11 @@ function BurgerConstructor() {
               <ul
                 id="scrollBar"
                 className={` ${style.listComponents} ${style.scrollBar}`}
+                ref={refIngrList}
               >
                 {fillinFiltr().map((ingredient, index) => (
                   <>
-                    <li className={`mb-4 ${style.component}`}>
-                      <div>{compDragIcon}</div>
-
-                      <ConstructorElement
-                        key={index}
-                        text={ingredient.name}
-                        price={ingredient.price}
-                        thumbnail={ingredient.image_mobile}
-
-                        handleClose={() =>
-                          dispatch(deleteIngredient(index + 1))
-                        }
-                      />
-                    </li>
+                    <ConstructorCart ingredient={ingredient} index={index} ref={ref}/>
                     {ingrList.length <= 2 ? (
                       <div
                         className={`${style.defaultBorder} ${style.defaultBorder_small}`}
@@ -157,9 +173,7 @@ function BurgerConstructor() {
 }
 
 BurgerConstructor.propTypes = {
-  ingrList: PropTypes.arrayOf(
-    PropTypes.exact(oneIngrPropType.isRequired )
-  ),
+  ingrList: PropTypes.arrayOf(PropTypes.exact(oneIngrPropType.isRequired)),
 };
 
 export default BurgerConstructor;

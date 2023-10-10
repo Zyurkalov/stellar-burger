@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openIngrModal } from "../../../../service/actions/modal";
+import { useDrag } from "react-dnd";
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
@@ -13,11 +14,10 @@ import {
 function BurgerCart(props) {
   const dispatch = useDispatch();
 
-
-  const addIngr = (value) => {
-    dispatch(addIngredient(value));
-    dispatch(openIngrModal(value));
-  };
+  // const addIngr = (value) => {
+  //   dispatch(addIngredient(value));
+  //   dispatch(openIngrModal(value));
+  // };
   const ingr = useMemo(
     () => ({
       _id: props._id,
@@ -38,6 +38,14 @@ function BurgerCart(props) {
     []
   );
 
+  const [{isDrag}, dragRef] = useDrag({
+    type: "ingredient",
+    item: ingr,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+    })
+  })
+
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
 
   // логика подсчета количества ингредиентов
@@ -51,7 +59,7 @@ function BurgerCart(props) {
     );
   }
   return (
-    <div className={style.cart} key={props._id} onClick={() => addIngr(ingr)}>
+    <div className={style.cart} key={props._id} onClick={() => dispatch(openIngrModal(ingr))} ref={dragRef}>
       {counterComponent}
       <img src={props.image} alt={props.name} />
       <div className={style.cartPrice}>

@@ -1,0 +1,10 @@
+.component {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+.dragging {
+  min-height: 1px;
+  margin: -8px 45px 8px 60px;
+  background-color: rgb(75, 95, 211);
+}

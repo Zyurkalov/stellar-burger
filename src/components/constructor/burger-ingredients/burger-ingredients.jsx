@@ -29,7 +29,7 @@ function BurgerIngredients() {
     const bunTop = bunRef.current?.getBoundingClientRect().top;
     const sauceTop = sauceRef.current?.getBoundingClientRect().top;
     const mainTop = mainRef.current?.getBoundingClientRect().top;
-
+    
     if (!tabBottom || !bunTop || !tabBottom || !sauceTop || !mainTop) {
       return;
     }
