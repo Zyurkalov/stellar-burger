@@ -49,9 +49,11 @@ function BurgerIngredients() {
   const decompositionArr = useCallback(
     (category) => {
       const filteredData = data.filter((item) => item.type === category);
-      return filteredData.map((item) => (
-        <BurgerCart key={item._id} {...item} />
-      ));
+      if (filteredData) {
+        return filteredData.map((item) => (
+          <BurgerCart key={item._id} item={item} />
+        ));
+      }
     },
     [data]
   );

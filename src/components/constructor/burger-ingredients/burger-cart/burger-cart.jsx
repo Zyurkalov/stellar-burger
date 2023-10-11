@@ -12,7 +12,7 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerCart(props) {
+function BurgerCart({item}) {
   const dispatch = useDispatch();
 
   // const addIngr = (value) => {
@@ -21,19 +21,19 @@ function BurgerCart(props) {
   // };
   const ingr = useMemo(
     () => ({
-      _id: props._id,
-      name: props.name,
-      type: props.type,
-      image_large: props.image_large,
-      image: props.image,
-      image_mobile: props.image_mobile,
+      _id: item._id,
+      name: item.name,
+      type: item.type,
+      image_large: item.image_large,
+      image: item.image,
+      image_mobile: item.image_mobile,
 
-      calories: props.calories,
-      proteins: props.proteins,
-      fat: props.fat,
-      carbohydrates: props.carbohydrates,
+      calories: item.calories,
+      proteins: item.proteins,
+      fat: item.fat,
+      carbohydrates: item.carbohydrates,
 
-      price: props.price,
+      price: item.price,
       count: 0,
     }),
     []
@@ -51,7 +51,7 @@ function BurgerCart(props) {
 
   // логика подсчета количества ингредиентов
   const ingrList = useSelector((state) => state.ingrList.ingrList);
-  const findedTwins = ingrList.find(({ _id }) => _id === props._id);
+  const findedTwins = ingrList.find(({ _id }) => _id === item._id);
 
   let counterComponent = null;
   if (findedTwins !== undefined) {
@@ -60,22 +60,22 @@ function BurgerCart(props) {
     );
   }
   return (
-    <div className={style.cart} key={props._id} onClick={() => dispatch(openIngrModal(ingr))} ref={dragRef}>
+    <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(ingr))} ref={dragRef}>
       {counterComponent}
-      <img src={props.image} alt={props.name} />
+      <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>
-        <p className="mt-2 text text_type_digits-default">{props.price}</p>
+        <p className="mt-2 text text_type_digits-default">{item.price}</p>
         {compCurrencyIcon}
       </div>
       <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>
-        {props.name}
+        {item.name}
       </h3>
     </div>
   );
 }
 
 BurgerCart.propTypes = {
-  props: PropTypes.oneOfType([oneIngrPropType, PropTypes.oneOf([null])]).isRequired,
+  item: oneIngrPropType.isRequired
 };
 
 export default BurgerCart;

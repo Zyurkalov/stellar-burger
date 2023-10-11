@@ -2,6 +2,7 @@ import {
   DELETE_INGREDIENT,
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
+  CLEANING_INGREDIENT_LIST,
 } from "../actions/constructor";
 
 const ingredients = {
@@ -46,6 +47,10 @@ export const ingredientReducer = (state = ingredients, action) => {
         ...state,
         ingrList: ingredientsList,
       };
+    case CLEANING_INGREDIENT_LIST:
+      return {
+        ingrList: [],
+      }
 
     default:
       return state;

@@ -1,7 +1,11 @@
 import { API_URL } from "../../constatnts/apiUrl";
+import checkResponse from "../../utils/checkResponse";
+
+import { CLEANING_INGREDIENT_LIST } from "./constructor";
 export const AWAIT_ORDER = "AWAIT_ORDER";
 export const MAKE_ORDER_SUCCES = "MAKE_ORDER_SUCCES";
 export const MAKE_ORDER_FAILED = "MAKE_ORDER_FAILED";
+
 
 export function makeOrderApi(value) {
   const data = { ingredients: value };
@@ -13,16 +17,17 @@ export function makeOrderApi(value) {
       body: JSON.stringify(data),
     })
       .then((res) => {
-        if (res.ok) {
-            return res.json()
-        } else {
-          dispatch({ type: MAKE_ORDER_FAILED });
-        }
+        return checkResponse(res, dispatch, MAKE_ORDER_FAILED)
       })
       .then((data) => {
         dispatch({
             type: MAKE_ORDER_SUCCES,
             orderNumber: data.order.number,
+          });
+      })
+      .then(() => {
+        dispatch({
+            type: CLEANING_INGREDIENT_LIST
           });
       })
       .catch((err) => {
