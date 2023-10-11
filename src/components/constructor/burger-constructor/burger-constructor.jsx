@@ -47,7 +47,7 @@ function BurgerConstructor() {
   const arrIngrID = ingrList.map((ingr) => ingr._id);
 
   const [{ isHover }, dropTarget] = useDrop({
-    accept: ["ingredient", "draggingIngr"],
+    accept: ["ingredient"],
     drop(ingr) {
       dispatch(addIngredient(ingr));
     },

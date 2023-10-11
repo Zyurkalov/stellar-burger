@@ -1,4 +1,8 @@
-import { DELETE_INGREDIENT, ADD_INGREDIENT } from "../actions/constructor";
+import {
+  DELETE_INGREDIENT,
+  ADD_INGREDIENT,
+  MOVE_INGREDIENT,
+} from "../actions/constructor";
 
 const ingredients = {
   ingrList: [],
@@ -30,6 +34,20 @@ export const ingredientReducer = (state = ingredients, action) => {
       return {
         ...state,
         ingrList: updatedIngr,
+      };
+    case MOVE_INGREDIENT:
+      const dragIndex = action.data.dragIndex + 1;
+      const hoverIndex = action.data.hoverIndex + 1;
+      // здесь мы добавляем входящим индексам +1
+      // поскольку ingrList - общий массив игредиентов, а индексы мы получаем
+      // из отфильтрованного масива, отличающийся от родительского ingrList одним элементом - bun[0]
+
+      const ingredientsList = [...state.ingrList];
+      const [movedIngredient] = ingredientsList.splice(dragIndex, 1);
+      ingredientsList.splice(hoverIndex, 0, movedIngredient);
+      return {
+        ...state,
+        ingrList: ingredientsList,
       };
 
     default:
