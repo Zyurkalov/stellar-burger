@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openIngrModal } from "../../../../service/actions/modal";
 import { useDrag } from "react-dnd";
+import PropTypes from 'prop-types';
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
@@ -74,7 +75,7 @@ function BurgerCart(props) {
 }
 
 BurgerCart.propTypes = {
-  props: oneIngrPropType.isRequired,
+  props: PropTypes.oneOfType([oneIngrPropType, PropTypes.oneOf([null])]).isRequired,
 };
 
 export default BurgerCart;

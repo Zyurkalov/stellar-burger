@@ -1,9 +1,8 @@
 import { useMemo } from "react";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrderApi } from "../../../service/actions/burger-constructor";
 import { useDrop, useDrag } from "react-dnd";
-import { v4 as uuidv4 } from "uuid";
 import { addIngredient } from "../../../service/actions/constructor";
 
 import {
@@ -52,18 +51,10 @@ function BurgerConstructor() {
       dispatch(addIngredient(ingr));
     },
   });
-
   const toggleModal = () => {
     dispatch(openOrderModal());
     dispatch(makeOrderApi(arrIngrID));
   };
-  // useEffect(() => {
-  //   if (ingrList.length >= 2) {
-  //     const boundingRect = refIngrList.current?.getBoundingClientRect();
-  //     console.log('TopList:', boundingRect.top);
-  //     console.log('BottomList:', boundingRect.bottom);
-  //  }
-  // },);
 
   return (
     <section

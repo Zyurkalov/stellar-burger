@@ -14,34 +14,31 @@ export const ingredientReducer = (state = ingredients, action) => {
     case ADD_INGREDIENT:
       if (
         updatedIngr.length > 0 &&
-        updatedIngr[0].type === action.payload.type
+        updatedIngr[0].type === action.ingr.type
       ) {
-        updatedIngr[0] = action.payload;
-        action.payload.count = 1;
+        updatedIngr[0] = action.ingr;
+        action.ingr.count = 1;
       } else {
         const findedTwins = updatedIngr.filter((ingr) => {
-          return ingr._id === action.payload._id;
+          return ingr._id === action.ingr._id;
         });
-        action.payload.count = findedTwins.length + 1;
-        updatedIngr.push(action.payload);
+        action.ingr.count = findedTwins.length + 1;
+        updatedIngr.push(action.ingr);
       }
 
       return { ...state, ingrList: updatedIngr };
 
     case DELETE_INGREDIENT:
-      updatedIngr[action.payload].count = 1;
-      updatedIngr.splice(action.payload, 1);
+      updatedIngr[action.ingr].count = 1;
+      updatedIngr.splice(action.ingr, 1);
       return {
         ...state,
         ingrList: updatedIngr,
       };
     case MOVE_INGREDIENT:
-      const dragIndex = action.data.dragIndex + 1;
-      const hoverIndex = action.data.hoverIndex + 1;
-      // здесь мы добавляем входящим индексам +1
-      // поскольку ingrList - общий массив игредиентов, а индексы мы получаем
-      // из отфильтрованного масива, отличающийся от родительского ingrList одним элементом - bun[0]
-
+      const dragIndex = action.dragIndex;
+      const hoverIndex = action.hoverIndex;
+      
       const ingredientsList = [...state.ingrList];
       const [movedIngredient] = ingredientsList.splice(dragIndex, 1);
       ingredientsList.splice(hoverIndex, 0, movedIngredient);

@@ -1,8 +1,19 @@
 .component {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.component:hover {
+  cursor: pointer;
+  background: rgb(148, 187, 233);
+  background: linear-gradient(
+    90deg,
+    rgba(148, 187, 233, 0) 0%,
+    rgba(35, 48, 153, 0.7539390756302521) 18%,
+    rgba(36, 56, 207, 1) 48%,
+    rgba(99, 114, 209, 0) 80%
+  );
+}
 .dragging {
   min-height: 1px;
   margin: -8px 45px 8px 60px;
