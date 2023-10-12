@@ -34,6 +34,7 @@ function BurgerCart({item}) {
       carbohydrates: item.carbohydrates,
 
       price: item.price,
+      __v: 0,
       count: 0,
     }),
     []

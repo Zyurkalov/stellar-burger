@@ -30,7 +30,7 @@ export const ingredientReducer = (state = ingredients, action) => {
       return { ...state, ingrList: updatedIngr };
 
     case DELETE_INGREDIENT:
-      updatedIngr[action.ingr].count = 1;
+      updatedIngr[action.ingr].count -= 1;
       updatedIngr.splice(action.ingr, 1);
       return {
         ...state,

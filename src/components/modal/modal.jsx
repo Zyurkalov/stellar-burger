@@ -11,6 +11,7 @@ import styles from "./modal.module.css";
 function Modal({ title, children }) {
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
+  console.log(title)
 
   useEffect(() => {
     const handleCloseModal = (event) => {
@@ -42,8 +43,7 @@ function Modal({ title, children }) {
   );
 }
 Modal.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.string])
-    .isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

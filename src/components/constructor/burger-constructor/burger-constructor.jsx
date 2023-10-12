@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeOrderApi } from "../../../service/actions/burger-constructor";
 import { useDrop, useDrag } from "react-dnd";
@@ -102,8 +101,8 @@ function BurgerConstructor() {
                 ref={refIngrList}
               >
                 {fillinFiltr().map((ingredient, index) => (
-                  <>
-                    <ConstructorCart ingredient={ingredient} index={index} ref={ref}/>
+                  <React.Fragment key={index}>
+                    <ConstructorCart ingredient={ingredient} index={index}/>
                     {ingrList.length <= 2 ? (
                       <div
                         className={`${style.defaultBorder} ${style.defaultBorder_small}`}
@@ -117,7 +116,7 @@ function BurgerConstructor() {
                         </p>
                       </div>
                     ) : null}
-                  </>
+                  </React.Fragment>
                 ))}
               </ul>
             )}
