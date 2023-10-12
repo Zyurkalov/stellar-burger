@@ -22,6 +22,7 @@ function BurgerConstructor() {
   const refIngrList = useRef(null)
   const dispatch = useDispatch();
   const ingrList = useSelector((state) => state.ingrList.ingrList);
+  const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
 
   const totalPrice = ingrList.reduce((acc, ingredient) => {
     if (ingredient.type === "bun") {
@@ -101,7 +102,7 @@ function BurgerConstructor() {
                 ref={refIngrList}
               >
                 {fillinFiltr().map((ingredient, index) => (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={ingredient.uniqueId}>
                     <ConstructorCart ingredient={ingredient} index={index}/>
                     {ingrList.length <= 2 ? (
                       <div
@@ -153,9 +154,14 @@ function BurgerConstructor() {
         </>
       ) : (
         <div className={`${style.defaultBorder}`}>
-          <p className={`text text_type_main-medium ${style.defaultText}`}>
-            Выберите или перетащите сюда булочку
+         { orderStatus ? (<p className={`text text_type_main-medium ${style.defaultText}`}>
+            Благодарим за заказ! 
+            Состояние заказа можно посмотреть в разделе «Лента заказов».
           </p>
+          ) : (<p className={`text text_type_main-medium ${style.defaultText}`}>
+            Выберите или перетащите сюда булочку
+          </p>)}
+          
         </div>
       )}
     </section>

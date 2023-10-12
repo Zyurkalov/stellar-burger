@@ -18,12 +18,12 @@ export const ingredientReducer = (state = ingredients, action) => {
         updatedIngr[0].type === action.ingr.type
       ) {
         updatedIngr[0] = action.ingr;
-        action.ingr.count = 1;
+        // action.ingr.count = 1;
       } else {
         const findedTwins = updatedIngr.filter((ingr) => {
           return ingr._id === action.ingr._id;
         });
-        action.ingr.count = findedTwins.length + 1;
+        // action.ingr.count = findedTwins.length + 1;
         updatedIngr.push(action.ingr);
       }
 

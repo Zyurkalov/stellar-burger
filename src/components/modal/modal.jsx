@@ -11,7 +11,6 @@ import styles from "./modal.module.css";
 function Modal({ title, children }) {
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
-  console.log(title)
 
   useEffect(() => {
     const handleCloseModal = (event) => {

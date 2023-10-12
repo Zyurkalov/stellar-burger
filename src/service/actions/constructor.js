@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const MOVE_INGREDIENT = "MOVE_INGREDIENT";
@@ -5,7 +6,10 @@ export const CLEANING_INGREDIENT_LIST = "CLEANING_INGREDIENT_LIST"
 
 export const addIngredient = (ingr) => ({
   type: ADD_INGREDIENT,
-  ingr: ingr,
+  ingr: {
+    ...ingr,
+    uniqueId: uuidv4()
+  }
 });
 
 export const deleteIngredient = (index) => ({

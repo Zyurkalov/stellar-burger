@@ -85,5 +85,6 @@
 }
 .defaultText {
   max-width: 336px;
+  text-align: center; 
   color: rgb(133, 133, 173);
 }

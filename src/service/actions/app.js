@@ -1,4 +1,5 @@
-import { API_URL } from "../../constatnts/apiUrl";
+
+import request from "../../utils/request";
 import checkResponse from "../../utils/checkResponse";
 
 export const AWAIT_DATA = "AWAIT_DATA"
@@ -10,10 +11,8 @@ export function getApiData() {
     dispatch({
       type: AWAIT_DATA
     });
-    fetch(`${API_URL}/ingredients`)
-      .then((res) => {
-        return checkResponse(res, dispatch, GET_DATA_FAILED );
-      })
+    request("GET", 'ingredients')
+      .then((res) => checkResponse(res, dispatch, GET_DATA_FAILED))
       .then((data) => {
         const answer = data.data;
         dispatch({

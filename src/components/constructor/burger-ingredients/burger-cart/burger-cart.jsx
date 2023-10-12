@@ -15,34 +15,9 @@ import {
 function BurgerCart({item}) {
   const dispatch = useDispatch();
 
-  // const addIngr = (value) => {
-  //   dispatch(addIngredient(value));
-  //   dispatch(openIngrModal(value));
-  // };
-  const ingr = useMemo(
-    () => ({
-      _id: item._id,
-      name: item.name,
-      type: item.type,
-      image_large: item.image_large,
-      image: item.image,
-      image_mobile: item.image_mobile,
-
-      calories: item.calories,
-      proteins: item.proteins,
-      fat: item.fat,
-      carbohydrates: item.carbohydrates,
-
-      price: item.price,
-      __v: 0,
-      count: 0,
-    }),
-    []
-  );
-
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
-    item: ingr,
+    item: item,
     collect: monitor => ({
       isDrag: monitor.isDragging()
     })
@@ -52,16 +27,19 @@ function BurgerCart({item}) {
 
   // логика подсчета количества ингредиентов
   const ingrList = useSelector((state) => state.ingrList.ingrList);
-  const findedTwins = ingrList.find(({ _id }) => _id === item._id);
+  // const findedTwins = ingrList.find(({ _id }) => _id === item._id);
+  const findedCopy = ingrList.filter((ingr) => {
+    return ingr._id === item._id;
+  });
 
   let counterComponent = null;
-  if (findedTwins !== undefined) {
+  if (findedCopy.length > 0) {
     counterComponent = (
-      <Counter count={findedTwins.count} size="default" extraClass="m-1" />
+      <Counter count={findedCopy.length} size="default" extraClass="m-1" />
     );
   }
   return (
-    <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(ingr))} ref={dragRef}>
+    <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(item))} ref={dragRef}>
       {counterComponent}
       <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>

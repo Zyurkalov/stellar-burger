@@ -5,5 +5,6 @@ export default function checkResponse(res, dispatch, type) {
       dispatch({
         type: type,
       });
+      return Promise.reject(`Ошибка ${res.status}`);
     }
   }
