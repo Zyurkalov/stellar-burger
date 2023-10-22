@@ -1,52 +1,60 @@
-import React, {useMemo, useCallback} from "react";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openIngrModal } from "../../../../service/actions/modal";
+import { useDrag } from "react-dnd";
+import PropTypes from 'prop-types';
+
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
+import { addIngredient } from "../../../../service/actions/constructor";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerCart(props) {
-  const [count, setCount] = React.useState(0);
-  const ingr = useMemo(() => ({
-    name: props.name, 
-    image_large: props.image_large,
-    calories: props.calories,
-    proteins: props.proteins,
-    fat: props.fat,
-    carbohydrates: props.carbohydrates,
-  }), [])
+function BurgerCart({item}) {
+  const dispatch = useDispatch();
 
-  const compCurrencyIcon = useMemo(() =>(
-    <CurrencyIcon />
-  ), []);
-  const addIngredient = useCallback(() => {
-    props.toggleIngrModal(ingr)
-    setCount(count + 1);
-    props.addIngr({ props });
-  },[props.addIngr, count]);
+  const [{isDrag}, dragRef] = useDrag({
+    type: "ingredient",
+    item: item,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+    })
+  })
+
+  const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
+
+  // логика подсчета количества ингредиентов
+  const ingrList = useSelector((state) => state.ingrList.ingrList);
+  // const findedTwins = ingrList.find(({ _id }) => _id === item._id);
+  const findedCopy = ingrList.filter((ingr) => {
+    return ingr._id === item._id;
+  });
 
   let counterComponent = null;
-  if (count !== 0) {
+  if (findedCopy.length > 0) {
     counterComponent = (
-      <Counter count={count} size="default" extraClass="m-1" />
+      <Counter count={findedCopy.length} size="default" extraClass="m-1" />
     );
   }
   return (
-    <div className={style.cart} key={props._id} onClick={addIngredient}>
+    <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(item))} ref={dragRef}>
       {counterComponent}
-      <img src={props.image} alt={props.name} />
+      <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>
-        <p className="mt-2 text text_type_digits-default">{props.price}</p>
+        <p className="mt-2 text text_type_digits-default">{item.price}</p>
         {compCurrencyIcon}
       </div>
       <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>
-        {props.name}
+        {item.name}
       </h3>
     </div>
   );
 }
 
-BurgerCart.propTypes = oneIngrPropType.isRequired;
+BurgerCart.propTypes = {
+  item: oneIngrPropType.isRequired
+};
 
 export default BurgerCart;
