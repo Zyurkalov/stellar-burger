@@ -24,6 +24,7 @@
 .headerList {
     display: flex;
     flex-direction: row;
+    gap: 40px
 }
 .menuElem{
     padding-left: 168px;

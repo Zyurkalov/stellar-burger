@@ -10,7 +10,7 @@ class MenuList extends React.Component {
       styles: {color: "#8585AD"}
     };
   }
-  
+
   handleMouseEnter = () => {
     this.setState({type: "primary", styles: {color: "#F2F2F3"}});
   };

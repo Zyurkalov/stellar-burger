@@ -1,0 +1,23 @@
+.сontainer {
+    max-width: 1240px;
+    min-width: 20px;
+
+    margin: 120px auto 0;
+    display: flex;
+    gap: 60px;
+}
+.сontainer__leftMenu {
+    max-width: 320px;
+}
+.leftMenuBox {
+    display: flex;
+    flex-direction: column;
+}
+.linkText {
+    box-sizing:content-box;
+    max-height: 64px;
+    padding: 18px 0;
+}
+.linkText:last-child {
+    margin-bottom: 80px;
+}

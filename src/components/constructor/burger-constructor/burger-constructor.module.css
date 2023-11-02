@@ -50,7 +50,7 @@
   max-height: 40px;
 }
 .scrollBar {
-  max-height: 480px;
+  max-height: 384px;
   overflow-y: scroll;
   border: none;
 }

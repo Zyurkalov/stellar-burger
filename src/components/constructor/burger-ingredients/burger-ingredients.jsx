@@ -98,11 +98,11 @@ function BurgerIngredients() {
         onScroll={handleScroll}
       >
         {dataRequest ? (
-          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+          <div className={`mb-6 text text_type_main-medium`}>
             Загрузка...
           </div>
         ) : dataFailed ? (
-          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+          <div className={`mb-6 text text_type_main-medium`}>
             Произошла ошибка: {error}
           </div>
         ) : (
@@ -110,9 +110,9 @@ function BurgerIngredients() {
             <div
               id={category}
               key={index}
-              className={`${style.categories} ${
+              className={`mt-10 ${style.categories} ${
                 ingrList.length === 0 && category !== "bun"
-                  ? style.disabled
+                  ? `${style.disabled}`
                   : null
               }`}
               // disabled={ingrList.length === 0 && category !== "bun"}
@@ -125,7 +125,7 @@ function BurgerIngredients() {
               }
             >
               <h2
-                className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}
+                className={`mb-6 text text_type_main-medium ${style.cardSection__header}`}
               >
                 {category === "bun"
                   ? "Булки"

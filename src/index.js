@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom'
 
 import "./index.css";
 import {store} from "./service/reducers/index"
@@ -9,7 +10,9 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );
