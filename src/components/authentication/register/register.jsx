@@ -4,17 +4,16 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RegisterLink } from "./register-link";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import style from "./register.module.css";
 
 export function RegisterComponent() {
-  const [name, setName] = useState();
-  const onChangeName = (e) => {
-    setName(e.target.value);
+  const [user, setUser] = useState('');
+  const onChangeUser = (e) => {
+    setUser(e.target.value);
   };
 
-  const [mail, setMail] = useState();
+  const [mail, setMail] = useState('');
   const onChangeMail = (e) => {
     setMail(e.target.value);
   };
@@ -28,16 +27,14 @@ export function RegisterComponent() {
       <Input
         type={"text"}
         placeholder={"Имя"}
-        onChange={onChangeName}
-        value={name}
+        onChange={onChangeUser}
+        value={user}
         name={"name"}
-        isIcon={false}
       />
       <EmailInput
         onChange={onChangeMail}
         value={mail}
         name={"email"}
-        isIcon={false}
       />
       <PasswordInput
         onChange={onChangePassword}

@@ -6,7 +6,7 @@ import { useState } from "react";
 import style from "./forgot-password.module.css"
 
 export function ForgotPassworComponent() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('');
   const onChange = (e) => {
     setValue(e.target.value);
   };

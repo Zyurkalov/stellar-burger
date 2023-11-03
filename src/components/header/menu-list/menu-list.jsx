@@ -1,49 +1,42 @@
 import style from "./menu-list.module.css";
-import React from "react";
+import { useState } from "react";
 
-class MenuList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHovered: false,
-      type: "secondary",
-      styles: {color: "#8585AD"}
-    };
-  }
+function MenuList(props) {
+  const { text, icon: Component, active } = props;
 
-  handleMouseEnter = () => {
-    this.setState({type: "primary", styles: {color: "#F2F2F3"}});
+  const color = {
+    active: "#F2F2F3",
+    disabled: "#8585AD",
   };
-  handleMouseLeave = () => {
-    this.setState({type: "secondary", styles: {color: "#8585AD"}});
+  const type = {
+    active: "primary",
+    disabled: "secondary",
   };
- 
-  render() {
-    const { icon: Component, text, link, active} = this.props;
 
-    if (active) {
-      return (
-        <li className={style.menuElem}>
-        <Component type={{type: "primary"}} />
-        <button onClick={link} className={"text text_type_main-default"} style={{color: "#F2F2F3"}}>
-          {text}
-        </button>
-      </li>
-      )
-    }
-    return (
-      <li
-        className={style.menuElem}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
+  const [hover, setHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHover(true);
+  };
+  const handleMouseLeave = () => {
+    setHover(false);
+  };
+  return (
+    <li
+      className={style.menuElem}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+    >
+      <Component type={hover || active ? type.active : type.disabled} />
+      <button
+        className={`text text_type_main-default ${style.transition}`}
+        style={
+          hover || active ? { color: color.active } : { color: color.disabled }
+        }
       >
-        <Component type={this.state.type} />
-        <button onClick={link} className={"text text_type_main-default"} style={this.state.styles}>
-          {text}
-        </button>
-      </li>
-    );
-  }
+        {text}
+      </button>
+    </li>
+  );
 }
-
 export default MenuList;

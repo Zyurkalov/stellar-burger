@@ -21,3 +21,11 @@
 .linkText:last-child {
     margin-bottom: 80px;
 }
+.linkDisabled {
+    color: #8585AD;
+    text-decoration: none;
+}
+.linkActive {
+    color: #F2F2F3;
+    text-decoration: none;
+}

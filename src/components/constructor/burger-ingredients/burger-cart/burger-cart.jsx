@@ -2,11 +2,9 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openIngrModal } from "../../../../service/actions/modal";
 import { useDrag } from "react-dnd";
-import PropTypes from 'prop-types';
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
-import { addIngredient } from "../../../../service/actions/constructor";
 import {
   CurrencyIcon,
   Counter,
@@ -35,7 +33,7 @@ function BurgerCart({item}) {
   let counterComponent = null;
   if (findedCopy.length > 0) {
     counterComponent = (
-      <Counter count={findedCopy.length} size="default" extraClass="m-1" />
+      <Counter count={item.type === "bun" ? findedCopy.length*2 : findedCopy.length} size="default" extraClass="m-1" />
     );
   }
   return (

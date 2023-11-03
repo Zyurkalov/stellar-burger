@@ -26,3 +26,6 @@ button {
 button:hover {
     cursor: pointer;  
 }
+.transition{
+    transition: color 0.35s ease-out;
+}

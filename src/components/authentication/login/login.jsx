@@ -3,12 +3,11 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useRef } from "react";
-import { LoginLink } from "./login-link";
+import { useState } from "react";
 import style from "./login.module.css";
 
 export function LoginComponent() {
-  const [mail, setMail] = useState();
+  const [mail, setMail] = useState('');
   const onChangeMail = (e) => {
     setMail(e.target.value);
   };
@@ -29,7 +28,6 @@ export function LoginComponent() {
         onChange={onChangePassword}
         value={password}
         name={"password"}
-        // extraClass="mb-2"
       />
       <Button htmlType="button" type="primary" size="medium">
         Войти

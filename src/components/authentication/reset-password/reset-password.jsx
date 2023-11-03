@@ -7,8 +7,8 @@ import {
 import style from "./reset-password.module.css"
 
 export function ResetPasswordComponent() {
-  const [value, setValue] = useState();
-  const [code, setCode] = useState();
+  const [value, setValue] = useState('');
+  const [code, setCode] = useState('');
   const onChange = (e) => {
     setValue(e.target.value);
   };
