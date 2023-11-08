@@ -13,6 +13,7 @@
 }
 .link {
     text-decoration: none;
+    
 }
 .headContainer {
     width: 1240px;
@@ -30,5 +31,5 @@
     gap: 40px
 }
 .menuElem{
-    padding-left: 136px;
+    padding-left: 165px;
 }

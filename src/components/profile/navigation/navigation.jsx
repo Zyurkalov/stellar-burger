@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { logout } from "../../../service/actions/authorisation";
 import style from "./navigation.module.css";
 
 export function ProfileNavigation() {

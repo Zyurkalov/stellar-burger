@@ -6,6 +6,8 @@ import { ingredientReducer } from "./constructor";
 import { makeOrderReducer } from "./burger-constructor";
 import { modalReducer } from "./modal";
 import { switchTabReducer } from "./burger-ingredients";
+import { authReducer } from "./authorisation";
+
 
 // альтернативный путь, через внешний импорт
 // import { composeWithDevTools } from '@redux-devtools/extension';
@@ -18,6 +20,7 @@ const rootReducer = combineReducers({
     ingrList: ingredientReducer,
     makeOrder: makeOrderReducer,
     modal: modalReducer,
-    tab: switchTabReducer 
+    tab: switchTabReducer ,
+    userStatus: authReducer,
 })
 export const store = createStore(rootReducer, applyMiddleware(thunk))

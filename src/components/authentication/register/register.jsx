@@ -4,45 +4,46 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./register.module.css";
 
 export function RegisterComponent() {
-  const [user, setUser] = useState('');
+  const [form, setForm] = useState({"email": "", "password": "password", "name": "" });
+  
   const onChangeUser = (e) => {
-    setUser(e.target.value);
+    setForm({...form, name: e.target.value})
   };
-
-  const [mail, setMail] = useState('');
   const onChangeMail = (e) => {
-    setMail(e.target.value);
+    setForm({...form, email: e.target.value})
   };
-
-  const [password, setPassword] = useState("password");
   const onChangePassword = (e) => {
-    setPassword(e.target.value);
+    setForm({...form, password: e.target.value})
   };
+  const sendForm = () => {
+    console.log(form)
+  }
+
   return (
     <div className={style.container}>
       <Input
         type={"text"}
         placeholder={"Имя"}
         onChange={onChangeUser}
-        value={user}
+        value={form.name}
         name={"name"}
       />
       <EmailInput
         onChange={onChangeMail}
-        value={mail}
+        value={form.email}
         name={"email"}
       />
       <PasswordInput
         onChange={onChangePassword}
-        value={password}
+        value={form.password}
         name={"password"}
         // extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium">
+      <Button htmlType="button" type="primary" size="medium" onClick={sendForm}>
         Зарегистрироваться
       </Button>
       {/* <RegisterLink /> */}
