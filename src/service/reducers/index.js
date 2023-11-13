@@ -6,7 +6,7 @@ import { ingredientReducer } from "./constructor";
 import { makeOrderReducer } from "./burger-constructor";
 import { modalReducer } from "./modal";
 import { switchTabReducer } from "./burger-ingredients";
-import { authReducer } from "./authorisation";
+import { authReducer } from "./user-auth";
 
 
 // альтернативный путь, через внешний импорт

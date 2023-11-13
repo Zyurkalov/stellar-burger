@@ -3,43 +3,54 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./login.module.css";
-import { login } from "../../../service/actions/authorisation";
+import { login } from "../../../service/actions/user-auth";
 import { Navigate } from "react-router-dom";
+import { checkUserAuth } from "../../../service/actions/user-auth";
 
 export function LoginComponent() {
   const dispatch = useDispatch();
-  const { userAuthStatus } = useSelector((state) => state.userStatus);
+  const { userAuthStatus, userData } = useSelector((state) => state.userStatus);
 
-  const [mail, setMail] = useState('');
+  const [inputValue, setInputValue] = useState({
+    email: "Kent@mail.ru",
+    password: "password",
+  });
+
   const onChangeMail = (e) => {
-    setMail(e.target.value);
+    setInputValue({...inputValue, email: e.target.value});
   };
-
-  const [password, setPassword] = useState("password");
   const onChangePassword = (e) => {
-    setPassword(e.target.value);
+    setInputValue({...inputValue, password: e.target.value});
   };
+  useEffect(() => {
+    dispatch(checkUserAuth())
+  },[])
 
-  if(userAuthStatus){
-    return <Navigate to='/' replace />
+  if (userData.name || userData.email) {
+    return <Navigate to="/" replace />;
   }
   return (
     <div className={style.container}>
       <EmailInput
         onChange={onChangeMail}
-        value={mail}
+        value={inputValue.email}
         name={"email"}
         isIcon={false}
       />
       <PasswordInput
         onChange={onChangePassword}
-        value={password}
+        value={inputValue.password}
         name={"password"}
       />
-      <Button htmlType="button" type="primary" size="medium" onClick={() => dispatch(login(true))}>
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={() => dispatch(login(inputValue))}
+      >
         Войти
       </Button>
     </div>

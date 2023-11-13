@@ -4,11 +4,14 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { registration } from "../../../service/actions/user-auth";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import style from "./register.module.css";
 
 export function RegisterComponent() {
   const [form, setForm] = useState({"email": "", "password": "password", "name": "" });
+  const dispatch = useDispatch()
   
   const onChangeUser = (e) => {
     setForm({...form, name: e.target.value})
@@ -19,9 +22,9 @@ export function RegisterComponent() {
   const onChangePassword = (e) => {
     setForm({...form, password: e.target.value})
   };
-  const sendForm = () => {
-    console.log(form)
-  }
+  // const sendForm = () => {
+  //   console.log(form)
+  // }
 
   return (
     <div className={style.container}>
@@ -43,7 +46,7 @@ export function RegisterComponent() {
         name={"password"}
         // extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium" onClick={sendForm}>
+      <Button htmlType="button" type="primary" size="medium" onClick={() => dispatch(registration(form))}>
         Зарегистрироваться
       </Button>
       {/* <RegisterLink /> */}
