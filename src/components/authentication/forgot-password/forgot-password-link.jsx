@@ -13,7 +13,7 @@ export function ForgotPasswordLink() {
           type="secondary"
           size="medium"
           extraClass={style.button}
-          onClick={()=> navigate('/register')}
+          onClick={()=> navigate('/login')}
         >
           Войти
         </Button>

@@ -2,6 +2,7 @@ import style from "./authentication.module.css";
 import { RegisterLink } from "./register/register-link";
 import { LoginLink } from "./login/login-link";
 import { ForgotPasswordLink } from "./forgot-password/forgot-password-link";
+import PropTypes from "prop-types";
 
 export function Authentication(props) {
   const { title, children } = props;
@@ -24,3 +25,7 @@ export function Authentication(props) {
     </>
   );
 }
+Authentication.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+};

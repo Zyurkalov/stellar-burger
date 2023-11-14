@@ -13,7 +13,7 @@ function App() {
   const { modalOrderStatus, modalIngrStatus } = useSelector(
     (state) => state.modal
   );
-  const { userAuthStatus } = useSelector(
+  const { userAuthStatus, userData, loading } = useSelector(
     (state) => state.userStatus
   );
   const navigate = useNavigate();
@@ -21,11 +21,9 @@ function App() {
 
   useEffect(() => {
     dispatch(getApiData());
+    !userData.name || !userData.emai ? navigate('login') : navigate('/')
   }, []);
 
-  useEffect(() => {
-    !userAuthStatus ? navigate('login') : navigate('/')
-  }, [])
 
   const stateModal = () => {
     if (modalIngrStatus || modalOrderStatus) return true;

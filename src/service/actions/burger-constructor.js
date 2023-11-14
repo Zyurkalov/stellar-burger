@@ -1,6 +1,6 @@
 
 import request from "../../utils/request";
-import checkResponse from "../../utils/checkResponse";
+import { checkResponseParam } from "../../utils/check-response ";
 
 import { CLEANING_INGREDIENT_LIST } from "./constructor";
 export const AWAIT_ORDER = "AWAIT_ORDER";
@@ -11,7 +11,7 @@ export function makeOrderApi(value) {
   return function (dispatch) {
     dispatch({ type: AWAIT_ORDER });
     request("POST", 'orders', value )
-      .then((res) =>checkResponse(res, dispatch, MAKE_ORDER_FAILED))
+      .then((res) =>checkResponseParam(res, dispatch, MAKE_ORDER_FAILED))
       .then((data) => {
         dispatch({
             type: MAKE_ORDER_SUCCES,

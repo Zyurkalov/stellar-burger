@@ -14,8 +14,12 @@ function Header() {
     const compFeed = useMemo(() => <MenuList text={'Лента заказов'} icon={ListIcon} active={path === '/feed'}/>, [path]);
     const compProfile = useMemo(() => <MenuList text={'Личный кабинет'} icon={ProfileIcon} active={path === '/profile'}/>, [path]);
 
+    const { loading } = useSelector(
+        (state) => state.userStatus
+      );
+
     return(
-        <>
+        <div className={headerStyles.position}>
             <header className= {`m-10 ${headerStyles.header}`}>
                 <div className= {headerStyles.headContainer}>
                     <nav>
@@ -38,8 +42,11 @@ function Header() {
                     </nav>
                 </div>
             </header>
+            <div className={`${headerStyles.statusLoading} ${loading.status ? headerStyles.statusLoading_active : headerStyles.statusLoading_disabled}`}>
+                <span className={`text text_type_main-medium`}>{loading.message}</span>
+            </div>
             <Outlet />
-        </>
+        </div>
     )
 }
 

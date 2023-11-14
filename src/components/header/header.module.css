@@ -1,7 +1,13 @@
+.position {
+    position: relative;
+    display: flex;
+    flex-direction:column;
+}
 .header {
     height: 88px;
 
     display: flex;
+
     align-items: center;
 
     background: var(--interface-modal-bg, #1C1C21);
@@ -33,3 +39,27 @@
 .menuElem{
     padding-left: 165px;
 }
+.statusLoading {
+    margin-top: 25px;
+    position: absolute;
+    height: 100%;
+    width: 100vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+
+    background-color: #131316c2;
+}
+.statusLoading :first-child {
+    padding-left: 25px;
+}
+.statusLoading_disabled {
+    overflow: hidden;
+    display: none;
+}
+.statusLoading_active {
+    overflow: visible;
+}
+

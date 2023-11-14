@@ -1,4 +1,4 @@
-import { checkReponse } from "./check-reponse ";
+import { checkReponse } from "./check-response ";
 
 const URL = "https://norma.nomoreparties.space/api";
 const AUTH_URL = `${URL}/auth/user`;
@@ -87,48 +87,20 @@ const fetchWithRefresh = async (url, options) => {
 const getUser = async() => {return await fetchWithRefresh(AUTH_URL, optionGetUser)}
 const editProfile = async(inputForm) => {return await fetchWithRefresh(AUTH_URL, optionEditProfile(inputForm))}
 
-// const getUser = () => {
-//   return fetch(`${URL}/auth/user`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       authorization: localStorage.getItem("accessToken"),
-//     },
-//   }).then(checkReponse);
-// };
-// const editProfile = (form) => {
-//   return fetch(`${URL}/auth/user`, {
-//     method: "PATCH",
-//     headers: {
-//       "Content-Type": "application/json",
-//       authorization: localStorage.getItem("accessToken"),
-//     },
-//     body: JSON.stringify(form),
-//   }).then(checkReponse);
-// };
-
-// const optionEditProfile =(form) => ({
-//   method: "PATCH",
-//   headers: {
-//     "Content-Type": "application/json",
-//     authorization: localStorage.getItem("accessToken"),
-//   },
-//   body: JSON.stringify(form),
-// });
-
 const forgotPassword = (form) => {
   return fetch(`${URL}/password-reset`, {
-    method: "PATCH",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(form),
-  }).then(checkReponse);
+  })
+  .then(checkReponse)
 };
 
 const passwordReset = (form) => {
   return fetch(`${URL}/password-reset/reset`, {
-    method: "PATCH",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },

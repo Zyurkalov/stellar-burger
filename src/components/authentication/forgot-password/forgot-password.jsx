@@ -2,26 +2,50 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
-import style from "./forgot-password.module.css"
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useInput } from "../../../utils/use-Input";
+import { forgotPassword } from "../../../service/actions/user-auth";
+import style from "./forgot-password.module.css";
 
 export function ForgotPassworComponent() {
-  const [value, setValue] = useState('');
+  const [input, setInput, changedInput, active, modifiedInput] = useInput({
+    email: "",
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onChange = (e) => {
-    setValue(e.target.value);
+    modifiedInput(e);
+  };
+  const sendEmail = (input) => {
+    if (input.email) {
+      forgotPassword(input).then((data) => {
+        if (data.success) {
+          changedInput(false)
+          navigate("/reset-password");
+        }
+      });
+    }
   };
   return (
     <div className={style.container}>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <EmailInput
           onChange={onChange}
-          value={value}
+          value={input.email}
           name={"email"}
           placeholder="Укажите e-mail"
           isIcon={false}
         />
       </div>
-      <Button htmlType="button" type="primary" size="medium">
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={() => sendEmail(input)}
+        extraClass={active ? style.active : style.disabled}
+      >
         Восстановить
       </Button>
     </div>

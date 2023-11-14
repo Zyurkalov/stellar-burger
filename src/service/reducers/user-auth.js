@@ -5,11 +5,13 @@ import {
   USER_LOADING,
   USER_DATA,
   USER_AUTH_STATUS,
+  LOADING_STATUS,
 } from "../actions/user-auth";
 
 const authState = {
   userAuthStatus: false,
-  userData: {email: '', name: ''}
+  userData: {email: '', name: ''},
+  loading: {status: false, message: ''}
 };
 
 export const authReducer = (state = authState, action) => {
@@ -19,7 +21,8 @@ export const authReducer = (state = authState, action) => {
     case USER_LOGOUT: {
       return {
         userAuthStatus: false,
-        userData: {email: '', name: ''}
+        userData: {email: '', name: ''},
+        loading: {status: false, message: ''}
       }
     }
     case USER_AUTH_STATUS: {
@@ -32,6 +35,12 @@ export const authReducer = (state = authState, action) => {
       return {
         ...state,
         userData: action.payload,
+      }
+    }
+    case LOADING_STATUS: {
+      return {
+        ...state,
+        loading: action.payload,
       }
     }
     default:
