@@ -1,12 +1,15 @@
 import MenuList from "./menu-list/menu-list"
 import headerStyles from "./header.module.css"
 import { useSelector } from "react-redux"
-
+import Modal from "../modal/modal"
+import ModalLoading from "../modal/modal-loading/modal-loading"
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import { NavLink, Outlet, useLocation } from "react-router-dom"
 import { useMemo, useRef } from "react";
 
-function Header() {
+function Header(props) {
+    const {modalLoadingStatus, modalErrorStatus} = props.state
+ 
     const location = useLocation();
     const path = location.pathname;
 
@@ -42,9 +45,14 @@ function Header() {
                     </nav>
                 </div>
             </header>
-            <div className={`${headerStyles.statusLoading} ${loading.status ? headerStyles.statusLoading_active : headerStyles.statusLoading_disabled}`}>
+            {/* <div className={`${headerStyles.statusLoading} ${loading.status ? headerStyles.statusLoading_active : headerStyles.statusLoading_disabled}`}>
                 <span className={`text text_type_main-medium`}>{loading.message}</span>
-            </div>
+            </div> */}
+            {modalLoadingStatus || modalErrorStatus ? (
+                <Modal title={null}>        
+                    <ModalLoading />
+                </Modal>
+            ) : null}
             <Outlet />
         </div>
     )

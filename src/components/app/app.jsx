@@ -10,7 +10,7 @@ import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, Forgo
 
 
 function App() {
-  const { modalOrderStatus, modalIngrStatus } = useSelector(
+  const { modalOrderStatus, modalIngrStatus, modalErrorStatus, errorMessage, modalLoadingStatus, loadingMessage } = useSelector(
     (state) => state.modal
   );
   const { userAuthStatus, userData, loading } = useSelector(
@@ -33,11 +33,18 @@ function App() {
     modalOrderStatus,
     modalIngrStatus,
     userAuthStatus, 
+    modalErrorStatus,
   };
+  const loadingState = {
+    modalErrorStatus,
+    modalLoadingStatus,
+    errorMessage,
+    loadingMessage,
+  }
   return (
     <>
       <Routes>
-        <Route path="/" element={<Header state={userAuthStatus} className={appStyles.header} />}>
+        <Route path="/" element={<Header state={loadingState} className={appStyles.header} />}>
           <Route index element={<ProtectedRoute element={<Home state={homeState}/>}/>} />
           <Route path="feed" element={<ProtectedRoute element={<Feed />}/>} />
           <Route path="profile" element={<ProtectedRoute element={<Profile />}/>} />

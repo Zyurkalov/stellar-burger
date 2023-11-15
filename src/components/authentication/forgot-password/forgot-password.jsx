@@ -20,12 +20,18 @@ export function ForgotPassworComponent() {
   };
   const sendEmail = (input) => {
     if (input.email) {
-      forgotPassword(input).then((data) => {
-        if (data.success) {
-          changedInput(false)
-          navigate("/reset-password");
-        }
-      });
+      dispatch(forgotPassword(input))
+        .then((data) => {
+          if (data.success) {
+            changedInput(false);
+            navigate("/reset-password");
+          } else {
+            console.error(data.error);
+          }
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
     }
   };
   return (

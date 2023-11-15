@@ -1,4 +1,5 @@
 import { api } from "../../utils/user-auth-api";
+import { closeModal, showLoading, showModalError } from "./modal";
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_REGISTER = "USER_REGISTER";
@@ -26,7 +27,7 @@ export const loadingStatus = (type) => ({
 
 export const login = (data) => {
   return (dispatch) => {
-    dispatch(loadingStatus({status: true, message: 'загрузка...'}))
+    dispatch(showLoading('стыковка...'))
     return api
       .login(data)
       .then((res) => {
@@ -37,18 +38,22 @@ export const login = (data) => {
           dispatch(setAuthStatus(true));
         }
       })
-      .catch((err) => console.log(err))
-      .finally(() => delayedExecution(dispatch) )
+      .then(() => {delayedExecution(dispatch)})
+      .catch((err) => {
+        dispatch(showModalError(`Стыковка не разрешена. Неверный логин или пароль. T_T`))
+        console.log(err)
+      })
   };
 };
 const delayedExecution = (dispatch) => {
   setTimeout(() => {
-    return dispatch(loadingStatus({status: false}));
-  }, 500); 
+    dispatch(closeModal());
+  }, 250); 
 };
 
 export const registration = (data) => {
   return (dispatch) => {
+    dispatch(showLoading('запускаем. идентификацию'))
     return api
       .registration(data)
       .then((res) => {
@@ -59,7 +64,10 @@ export const registration = (data) => {
           dispatch(setAuthStatus(true));
         }
       })
-      .catch((err) => console.log(err));
+      .then(() => {delayedExecution(dispatch)})
+      .catch((err) => {
+        dispatch(showModalError(err.message))
+      })
   };
 };
 
@@ -75,8 +83,8 @@ export const logout = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-      });
+        dispatch(showModalError(err.message))
+      })
   };
 };
 
@@ -93,13 +101,12 @@ export const checkUserAuth = () => {
       console.log('токен есть')
     return api.getUser()
       .then((res) => {
-        console.log(res) // не забыть удалить
         dispatch(setUserData(res.user));
         dispatch(setAuthStatus(true));
       })
-        .catch(() => {
-          console.log('что то не так')
-        })
+      .catch((err) => {
+        dispatch(showModalError(err.message))
+      })
     } else {
       console.log('нужно обновить токен')
     }
@@ -112,23 +119,26 @@ export const editProfile = (inputForm) => {
       .then((res) => {
         dispatch(setUserData(res.user));
       })
-      .catch(() => {
-        console.log('что то не так')
+      .catch((err) => {
+        dispatch(showModalError(err.message))
       })
     }
   }
 
 export const forgotPassword = (email) => {
+  return (dispatch) => {
   return api.forgotPassword(email)
   .catch((err) => {
-    console.log('что то не так')
+    dispatch(showModalError(err.message))
   })
+  }
 }
 
 export const passwordReset = (form) => {
-  console.log(form)
+  return (dispatch) => {
   return api.passwordReset(form)
   .catch((err) => {
-    console.log('что то не так')
+    dispatch(showModalError(err.message))
   })
+}
 }
