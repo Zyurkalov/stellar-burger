@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openIngrModal } from "../../../../service/actions/modal";
 import { useDrag } from "react-dnd";
+import { Link, useLocation } from "react-router-dom";
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
@@ -12,6 +13,7 @@ import {
 
 function BurgerCart({item}) {
   const dispatch = useDispatch();
+  let location = useLocation();
 
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
@@ -37,7 +39,9 @@ function BurgerCart({item}) {
     );
   }
   return (
-    <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(item))} ref={dragRef}>
+    <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} className={style.cart} ref={dragRef}>
+    {/* <div className={style.cart} key={item._id} ref={dragRef}> */}
+    {/* <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(item))} ref={dragRef}> */}
       {counterComponent}
       <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>
@@ -47,7 +51,8 @@ function BurgerCart({item}) {
       <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>
         {item.name}
       </h3>
-    </div>
+    {/* </div> */}
+    </Link>
   );
 }
 

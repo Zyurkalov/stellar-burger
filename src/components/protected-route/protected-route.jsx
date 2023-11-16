@@ -5,7 +5,9 @@ export function ProtectedRoute({ element }) {
   const { userAuthStatus, userData } = useSelector((state) => state.userStatus);
 
   if (!userData.name && !userData.email) {
-    return <Navigate to="/login" replace/>;
+    console.log('ProtectedRoute')
+    console.log(userData)
+    // return <Navigate to="/login" replace/>;
   }
   return  element;
 }

@@ -4,24 +4,25 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useInput } from "../../../utils/use-Input";
 import { useDispatch } from "react-redux";
-import { editProfile } from "../../../service/actions/user-auth";
+import { editProfile, getUser } from "../../../service/actions/user-auth";
 import style from "./input-list.module.css";
 
-export function ProfileInputList() {
-  const { userAuthStatus, userData } = useSelector((state) => state.userStatus);
+export function ProfileInputList(data) {
+  const userData = data.data
+  const dispatch = useDispatch()
+
   const initialValue = {
     name: userData.name || "",
     email: userData.email || "",
     password: "",
   }
   const [input, setInput, changedInput, active, modifiedInput] = useInput(initialValue);
-  const dispatch = useDispatch()
+  
   const handleSubmit = (e) => {
-    
     e.preventDefault();
     dispatch(editProfile(input));
     changedInput(false);

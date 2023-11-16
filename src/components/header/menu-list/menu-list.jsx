@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 function MenuList(props) {
   const { text, icon: Component, active } = props;
-  const { userAuthStatus } = useSelector((state) => state.userStatus);
 
   const color = {
     active: "#F2F2F3",
@@ -31,12 +30,12 @@ function MenuList(props) {
     >
       <Component
         type={
-          (hover && userAuthStatus) || (active && userAuthStatus)
+          (hover && localStorage.accessToken) || (active && localStorage.accessToken)
             ? type.active
             : type.disabled
         }
       />
-      {userAuthStatus ? (
+      {localStorage.accessToken ? (
         <button
           className={`text text_type_main-default ${style.transition}`}
           style={
@@ -60,7 +59,7 @@ function MenuList(props) {
       {/* <button
         className={`text text_type_main-default ${style.transition}`}
         style={
-          hover && userAuthStatus || active && userAuthStatus ? { color: color.active } : { color: color.disabled }
+          hover && localStorage.accessToken || active && localStorage.accessToken ? { color: color.active } : { color: color.disabled }
         }
       >
         {text}

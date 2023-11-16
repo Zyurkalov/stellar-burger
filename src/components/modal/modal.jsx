@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../service/actions/modal";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,9 +14,16 @@ function Modal({ title, children }) {
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
+
   useEffect(() => {
     const handleCloseModal = (event) => {
       if ((event.key === "Escape") || (event.target.id === "template")) {
+        if(background) {
+          navigate(-1, { replace: true })
+        }
         dispatch(closeModal());
       }
     };
@@ -27,13 +35,20 @@ function Modal({ title, children }) {
     };
   }, []);
 
+  const close = () => {
+    if(background) {
+      navigate(-1, { replace: true })
+    }
+    dispatch(closeModal())
+  }
+
   return ReactDOM.createPortal(
     <ModalOverlay>
       <div className={`p-10 ${styles.ingrCont} ${modalLoadingStatus || modalErrorStatus ? styles.ingrCont_background : null}`}>
         <div className={`mt-4 mb-6 ${styles.headCont}`}>
           <h2 className="text text_type_main-large">{title || null}</h2>
           <div className={styles.cursorPointer}>
-            {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => dispatch(closeModal())} /> : null}
+            {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => close()} /> : null}
           </div>
         </div>
         {children}

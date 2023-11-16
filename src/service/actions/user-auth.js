@@ -32,6 +32,7 @@ export const login = (data) => {
       .login(data)
       .then((res) => {
         if (res.success) {
+          console.log(res)
           localStorage.setItem("accessToken", res.accessToken);
           localStorage.setItem("refreshToken", res.refreshToken);
           dispatch(setUserData(res.user));
@@ -77,6 +78,7 @@ export const logout = () => {
       .logout()
       .then((res) => {
         if (res.success) {
+          localStorage.removeItem("LoggedIn");
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
           dispatch(userLogout())
@@ -90,7 +92,10 @@ export const logout = () => {
 
 export const getUser = () => {
   return (dispatch) => {
+    console.log('getuser')
     return api.getUser().then((res) => {
+      console.log(res)
+      dispatch(setUserData(res.user));
     });
   };
 };

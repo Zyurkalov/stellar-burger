@@ -2,10 +2,12 @@ import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../header/header";
+import Modal from "../modal/modal";
+import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { getApiData } from "../../service/actions/app";
 import appStyles from "./app.module.css";
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword} from "../../page";
 
 
@@ -18,10 +20,17 @@ function App() {
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { ingredient } = location.state || {}
+  console.log(location)
+  const background = location.state && location.state.background;
+
+  const handleModalClose = ()  => {navigate(-1)}
 
   useEffect(() => {
     dispatch(getApiData());
-    !userData.name || !userData.emai ? navigate('login') : navigate('/')
+    console.log('App')
+    if(!localStorage.accessToken) {navigate('login')}
   }, []);
 
 
@@ -43,11 +52,17 @@ function App() {
   }
   return (
     <>
-      <Routes>
+      <Routes location={background || location}>
         <Route path="/" element={<Header state={loadingState} className={appStyles.header} />}>
           <Route index element={<ProtectedRoute element={<Home state={homeState}/>}/>} />
           <Route path="feed" element={<ProtectedRoute element={<Feed />}/>} />
           <Route path="profile" element={<ProtectedRoute element={<Profile />}/>} />
+          <Route
+	          path='/ingredients/:ingredientId'
+	          element={
+	              <IngredientDetails item={ingredient} />
+	          }
+	        />
 
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login state={userAuthStatus}/>} />
@@ -56,6 +71,19 @@ function App() {
           <Route path="*" element={<NotFound404 />} />
         </Route>
       </Routes>
+
+      {background && (
+        <Routes>
+	        <Route
+	          path='/ingredients/:ingredientId'
+	          element={
+	            <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
+	              <IngredientDetails item={ingredient}/>
+	            </Modal>
+	          }
+	        />
+        </Routes>
+      )}
     </>
   );
 }
