@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../header/header";
@@ -7,8 +7,8 @@ import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { getApiData } from "../../service/actions/app";
 import appStyles from "./app.module.css";
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword} from "../../page";
+import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword } from "../../page";
 
 
 function App() {
@@ -18,18 +18,17 @@ function App() {
   const { userAuthStatus, userData, loading } = useSelector(
     (state) => state.userStatus
   );
+  const {data} = useSelector((state) => state.dataList)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const { ingredient } = location.state || {}
-  console.log(location)
   const background = location.state && location.state.background;
 
   const handleModalClose = ()  => {navigate(-1)}
 
   useEffect(() => {
     dispatch(getApiData());
-    console.log('App')
     if(!localStorage.accessToken) {navigate('login')}
   }, []);
 
@@ -57,17 +56,11 @@ function App() {
           <Route index element={<ProtectedRoute element={<Home state={homeState}/>}/>} />
           <Route path="feed" element={<ProtectedRoute element={<Feed />}/>} />
           <Route path="profile" element={<ProtectedRoute element={<Profile />}/>} />
-          <Route
-	          path='/ingredients/:ingredientId'
-	          element={
-	              <IngredientDetails item={ingredient} />
-	          }
-	        />
-
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login state={userAuthStatus}/>} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
+          <Route path='/ingredients/:ingredientId' element={<IngredientDetails />}/>
           <Route path="*" element={<NotFound404 />} />
         </Route>
       </Routes>

@@ -1,30 +1,62 @@
-import { useSelector } from "react-redux";
-import {ingredientPropType} from "../../../utils/prop-types";
+import React, { useEffect, useState, useCallback } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getApiData } from '../../../service/actions/app';
+import {oneIngrPropType} from "../../../utils/prop-types";
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails(ingr) {
-  // ингредиент можно передать через пропс, либо через диспатч стора 
-  const {compIngr} = useSelector((store) => store.modal)
-  const {item, title} = ingr
+  
+  const dispatch = useDispatch()
+  const { ingredientId } = useParams();
+  const { item } = ingr
+  const [ingredient, setIngredient] = useState(item)
+  const { data } = useSelector(
+    (store) => store.dataList
+  );
+  
+  useEffect(() => {
+    const fetchData = () => {
+      if (ingredient === undefined) {
+        console.log(ingredient)
+       dispatch(getApiData());
+      }
+    }
+    fetchData();
+  }, []);
+  
+  useEffect(() => {
+    if (ingredient === undefined) {
+      const findedIngredient = data.find(({ _id }) => _id === ingredientId);
+      setIngredient(findedIngredient)
+    }
+  }, [data]);
+
+  const valueIngr = (teg) => ingredient?.[teg] || null;
 
   const maket = [
-    { label: "Калории, ккал", value: compIngr.calories || item.calories },
-    { label: "Белки, г", value: compIngr.proteins || item.proteins },
-    { label: "Жиры, г", value: compIngr.fat || item.fat },
-    { label: "Углеводы, г", value: compIngr.carbohydrates || item.carbohydrates },
+    { label: "Калории, ккал", value: valueIngr('calories') },
+    { label: "Белки, г", value: valueIngr('proteins') },
+    { label: "Жиры, г", value: valueIngr('fat') },
+    { label: "Углеводы, г", value: valueIngr('carbohydrates') },
   ];
 
   return (
     <section className={styles.section}>
-
+    {ingredient === undefined ? (
+      <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
+        Загрузка...
+      </h3>
+    ) : 
+    <>
       <img
-        src={compIngr.image_large || item.image_large}
+        src={valueIngr('image_large')}
         className={styles.img}
-        alt={compIngr.name || item.name}
+        alt={valueIngr('name')}
       />
       <div>
         <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
-          {compIngr.name || item.name}
+          {valueIngr('name')}
         </h3>
         <ul className={styles.ingrList}>
           {maket.map((point, index) => (
@@ -41,10 +73,11 @@ function IngredientDetails(ingr) {
           ))}
         </ul>
       </div>
+      </>}
     </section>
   );
 }
-// IngredientDetails.propTypes = {
-//   compIngr: ingredientPropType,
-// };
+IngredientDetails.propTypes = {
+  item: oneIngrPropType,
+};
 export default IngredientDetails;
