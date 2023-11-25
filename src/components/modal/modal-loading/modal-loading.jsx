@@ -5,14 +5,13 @@ function ModalLoading() {
   const { modalErrorStatus, errorMessage, modalLoadingStatus, loadingMessage } =
   useSelector((state) => state.modal);
   const message = () => modalErrorStatus ? errorMessage : modalLoadingStatus ? loadingMessage : 'Юра, мы все просрали!'
-  const splitText = message().split('. ');
+  const splitText = message().split('|* ');
 
   return (
     <div className={`${style.mainCont}`}>
       {splitText.map((text, index) => {
         return <p key={index} className={`mb-2 text text_type_main-medium ${style.message}`}>{text}</p>
       })}
-      
   </div>
   );
 }

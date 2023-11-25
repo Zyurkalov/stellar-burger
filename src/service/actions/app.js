@@ -19,6 +19,7 @@ export function getApiData() {
           type: GET_DATA_SUCCESS,
           feed: answer,
         });
+        return answer
       })
       .catch((err) =>
         dispatch({

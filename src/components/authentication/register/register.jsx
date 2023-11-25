@@ -5,7 +5,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../../service/actions/user-auth";
-import { useState } from "react";
+import React, { useState, useRef, forwardRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import style from "./register.module.css";
 import { useNavigate } from "react-router-dom";
@@ -13,27 +13,45 @@ import { useInput } from "../../../utils/use-Input";
 
 export function RegisterComponent() {
   const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: "", name: "" });
+  const inputRef = useRef()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const registrNewUser = (form) => {
-    dispatch(registration(form))
-      .then((data) => {
-        if (data && data.success) {
-          navigate('/login');
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await dispatch(registration(input));
+      if (localStorage.getItem("accessToken")) {
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  // const registrNewUser = (form) => {
+  //   dispatch(registration(form))
+  //     .then((data) => {
+  //       if (data && data.success) {
+  //         navigate('/login');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   const onChange = (e) => {
     modifiedInput(e)
   };
-
+  // function checkInput(e) {
+  //   e.predDefailtEvent
+  //   const test = inputRef.current.querySelector('.input__error ') || null
+  //   console.log(test)
+  // }
   return (
-    <div className={style.container}>
+    <form className={style.container} onSubmit={handleSubmit}>
+      <div className={style.inputContiner}> 
       <Input
         type={"text"}
         placeholder={"Имя"}
@@ -41,21 +59,30 @@ export function RegisterComponent() {
         value={input.name}
         name={"name"}
       />
+      </div>
+      <div className={style.inputContiner} id='inputForm' ref={inputRef}>  
       <EmailInput
         onChange={onChange}
         value={input.email}
         name={"email"}
+        
       />
+      </div>
+      <div className={style.inputContiner}> 
       <PasswordInput
         onChange={onChange}
         value={input.password}
         name={"password"}
         // extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium" onClick={() => registrNewUser(input)}>
+      </div>
+      <Button 
+        htmlType="submit" 
+        type="primary" 
+        size="medium" 
+        extraClass={active ? style.active : style.disabled}>
         Зарегистрироваться
       </Button>
-      {/* <RegisterLink /> */}
-    </div>
+    </form>
   );
 }

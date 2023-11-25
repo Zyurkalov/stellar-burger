@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function ProtectedRoute({ element }) {
-  const { userAuthStatus, userData } = useSelector((state) => state.userStatus);
+  const navigate = useNavigate();
 
-  if (!userData.name && !userData.email) {
-    console.log(userData)
-    // return <Navigate to="/login" replace/>;
-  }
-  return  element;
+  useEffect(() => {
+    if (!localStorage.accessToken) {
+      navigate("login");
+    }
+  },[])
+  return element;
 }

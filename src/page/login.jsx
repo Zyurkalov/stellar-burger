@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import { Navigate } from "react-router-dom";
 
-export function Login(status) {
-  const authStatus = status.state
-  const navigate = useNavigate();
+export function Login() {
 
   return (
     <>

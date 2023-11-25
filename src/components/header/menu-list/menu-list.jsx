@@ -2,8 +2,7 @@ import style from "./menu-list.module.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-function MenuList(props) {
-  const { text, icon: Component, active } = props;
+function MenuList({ text, icon: Component, active }) {
 
   const color = {
     active: "#F2F2F3",
@@ -13,7 +12,7 @@ function MenuList(props) {
     active: "primary",
     disabled: "secondary",
   };
-
+  const token = localStorage.accessToken
   const [hover, setHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -30,12 +29,12 @@ function MenuList(props) {
     >
       <Component
         type={
-          (hover && localStorage.accessToken) || (active && localStorage.accessToken)
+          (hover && token) || (active && token)
             ? type.active
             : type.disabled
         }
       />
-      {localStorage.accessToken ? (
+      {token ? (
         <button
           className={`text text_type_main-default ${style.transition}`}
           style={

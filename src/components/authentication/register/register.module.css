@@ -5,3 +5,18 @@
   
     gap: 24px;
   }
+
+  .active {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .inputContiner {
+    height: 64px;
+  }

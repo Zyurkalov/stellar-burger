@@ -1,0 +1,33 @@
+.boxContainer {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 15vh;
+  text-align: center;
+}
+.header {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+.image {
+  margin-top: -80px;
+  height: 300px;
+  width: 300px;
+
+  position: absolute;
+  background-image: url(../../images/black-hole.svg);
+  background-repeat: no-repeat;
+}
+.link {
+  text-decoration: none;
+}
+.textContainer {
+  margin-top: 60px;
+
+  display: flex;
+  flex-direction: column;
+}

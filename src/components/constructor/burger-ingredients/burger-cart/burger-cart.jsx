@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { openIngrModal } from "../../../../service/actions/modal";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
@@ -12,7 +11,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerCart({item}) {
-  const dispatch = useDispatch();
   let location = useLocation();
 
   const [{isDrag}, dragRef] = useDrag({
@@ -27,7 +25,6 @@ function BurgerCart({item}) {
 
   // логика подсчета количества ингредиентов
   const ingrList = useSelector((state) => state.ingrList.ingrList);
-  // const findedTwins = ingrList.find(({ _id }) => _id === item._id);
   const findedCopy = ingrList.filter((ingr) => {
     return ingr._id === item._id;
   });
@@ -40,8 +37,6 @@ function BurgerCart({item}) {
   }
   return (
     <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} className={style.cart} ref={dragRef}>
-    {/* <div className={style.cart} key={item._id} ref={dragRef}> */}
-    {/* <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(item))} ref={dragRef}> */}
       {counterComponent}
       <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>
@@ -51,7 +46,6 @@ function BurgerCart({item}) {
       <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>
         {item.name}
       </h3>
-    {/* </div> */}
     </Link>
   );
 }

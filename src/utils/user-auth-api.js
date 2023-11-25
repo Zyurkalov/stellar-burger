@@ -1,4 +1,4 @@
-import { checkReponse } from "./check-response ";
+import { checkResponse } from "./check-response ";
 
 const URL = "https://norma.nomoreparties.space/api";
 const AUTH_URL = `${URL}/auth/user`;
@@ -28,7 +28,7 @@ const registration = (data) => {
       password: data.password,
       name: data.name,
     }),
-  }).then(checkReponse);
+  }).then(checkResponse);
 };
 
 const login = (data) => {
@@ -41,7 +41,7 @@ const login = (data) => {
       email: data.email,
       password: data.password,
     }),
-  }).then(checkReponse);
+  }).then(checkResponse);
 };
 
 const logout = () => {
@@ -49,7 +49,7 @@ const logout = () => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
-  }).then(checkReponse);
+  }).then(checkResponse);
 };
 
 const refreshToken = () => {
@@ -61,13 +61,13 @@ const refreshToken = () => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then(checkReponse);
+  }).then(checkResponse);
 };
 
 const fetchWithRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
-    return await checkReponse(res);
+    return await checkResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
       const refresh = await refreshToken(); //обновляем токен
@@ -78,7 +78,7 @@ const fetchWithRefresh = async (url, options) => {
       localStorage.setItem("accessToken", refresh.accessToken);
       options.headers.authorization = refresh.accessToken;
       const res = await fetch(url, options); //повторяем запрос
-      return await checkReponse(res);
+      return await checkResponse(res);
     } else {
       return Promise.reject(err);
     }
@@ -95,7 +95,7 @@ const forgotPassword = (form) => {
     },
     body: JSON.stringify(form),
   })
-  .then(checkReponse)
+  .then(checkResponse)
 };
 
 const passwordReset = (form) => {
@@ -105,7 +105,7 @@ const passwordReset = (form) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(form),
-  }).then(checkReponse);
+  }).then(checkResponse);
 };
 
 export const api = {

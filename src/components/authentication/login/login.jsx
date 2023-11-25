@@ -15,8 +15,10 @@ export function LoginComponent() {
   const { userAuthStatus, userData } = useSelector((state) => state.userStatus);
 
   const [inputValue, setInputValue] = useState({
-    email: "Kent@mail.ru",
-    password: "password",
+    // email: "Kent@mail.ru",
+    // password: "password",
+    email: '',
+    password: '',
   });
 
   const onChangeMail = (e) => {
@@ -46,7 +48,7 @@ export function LoginComponent() {
         name={"password"}
       />
       <Button
-        htmlType="button"
+        htmlType="submit" 
         type="primary"
         size="medium"
         onClick={() => dispatch(login(inputValue))}

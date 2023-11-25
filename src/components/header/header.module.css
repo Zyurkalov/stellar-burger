@@ -19,7 +19,9 @@
 }
 .link {
     text-decoration: none;
-    
+}
+.link_disabled {
+    pointer-events: none
 }
 .headContainer {
     width: 1240px;

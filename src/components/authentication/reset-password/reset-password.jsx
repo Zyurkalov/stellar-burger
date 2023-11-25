@@ -10,20 +10,18 @@ import { useDispatch } from "react-redux";
 import style from "./reset-password.module.css"
 
 export function ResetPasswordComponent() {
-  const [input, setInput, changedInput, active, modifiedInput] = useInput({password: "", token: ""});
+  const [input, active, modifiedInput] = useInput({password: "", token: ""});
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onChange = (e) => {
     modifiedInput(e)
   };
-  const sendNewPass = () => {
+  const sendNewPass = (e) => {
+    e.preventDefault();
     dispatch(passwordReset(input))
       .then((data) => {
-        console.log(data);
         if (data.success) {
           navigate('/login');
-        } else {
-          console.error(data.errorMessage);
         }
       })
       .catch((error) => {
@@ -32,13 +30,16 @@ export function ResetPasswordComponent() {
   };
 
   return (
-    <div className={style.container}>
+    <form className={style.container} onSubmit={sendNewPass}>
+      <div className={style.inputContainer}>
       <PasswordInput
         onChange={onChange}
         value={input.password}
         name={"password"}
         placeholder={"Введите новый пароль"}
       />
+      </div>
+      <div className={style.inputContainer}>
       <Input
         type={"password"}
         placeholder={"Введите код из письма"}
@@ -47,9 +48,10 @@ export function ResetPasswordComponent() {
         name={"token"}
         error={false}
       />
-      <Button htmlType="button" type="primary" size="medium" onClick={() => sendNewPass(input)} extraClass={active ? style.active : style.disabled}>
+      </div>
+      <Button htmlType="submit" type="primary" size="medium" extraClass={active ? style.active : style.disabled}>
         Сохранить
       </Button>
-    </div>
+    </form>
   );
 }

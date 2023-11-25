@@ -14,15 +14,17 @@ function Modal({ title, children }) {
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
 
-  const location = useLocation();
   const navigate = useNavigate();
+  const navBackHome = () => navigate('/', { replace: true })
+
+  const location = useLocation();
   const background = location.state && location.state.background;
 
   useEffect(() => {
     const handleCloseModal = (event) => {
       if ((event.key === "Escape") || (event.target.id === "template")) {
         if(background) {
-          navigate(-1, { replace: true })
+          navBackHome()
         }
         dispatch(closeModal());
       }
@@ -37,7 +39,7 @@ function Modal({ title, children }) {
 
   const close = () => {
     if(background) {
-      navigate(-1, { replace: true })
+      navBackHome()
     }
     dispatch(closeModal())
   }

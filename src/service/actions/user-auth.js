@@ -1,18 +1,14 @@
 import { api } from "../../utils/user-auth-api";
 import { closeModal, showLoading, showModalError } from "./modal";
+import { useStorage } from "../../utils/use-storage";
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_REGISTER = "USER_REGISTER";
 export const USER_LOADING = "USER_DATA_LOADING";
 export const LOADING_STATUS ='LOADING_STATUS'
 
-export const USER_AUTH_STATUS = "USER_AUTH_STATUS";
 export const USER_DATA = "USER_DATA";
 
-export const setAuthStatus = (bool) => ({
-  type: USER_AUTH_STATUS,
-  payload: bool,
-});
 export const setUserData = (data) => ({
   type: USER_DATA,
   payload: data,
@@ -32,16 +28,13 @@ export const login = (data) => {
       .login(data)
       .then((res) => {
         if (res.success) {
-          console.log(res)
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
+          useStorage.addAll(res)
           dispatch(setUserData(res.user));
-          dispatch(setAuthStatus(true));
         }
       })
       .then(() => {delayedExecution(dispatch)})
       .catch((err) => {
-        dispatch(showModalError(`Стыковка не разрешена. Неверный логин или пароль. T_T`))
+        dispatch(showModalError(`Стыковка не разрешена|* Неверный логин или пароль`))
         console.log(err)
       })
   };
@@ -54,16 +47,15 @@ const delayedExecution = (dispatch) => {
 
 export const registration = (data) => {
   return (dispatch) => {
-    dispatch(showLoading('запускаем. идентификацию'))
+    dispatch(showLoading('запускаем|* идентификацию'))
     return api
       .registration(data)
       .then((res) => {
         if (res.success) {
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
+          useStorage.addAll(res)
           dispatch(setUserData(res.user));
-          dispatch(setAuthStatus(true));
         }
+        return res;
       })
       .then(() => {delayedExecution(dispatch)})
       .catch((err) => {
@@ -78,9 +70,7 @@ export const logout = () => {
       .logout()
       .then((res) => {
         if (res.success) {
-          localStorage.removeItem("LoggedIn");
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
+          useStorage.remove()
           dispatch(userLogout())
         }
       })
@@ -92,11 +82,21 @@ export const logout = () => {
 
 export const getUser = () => {
   return (dispatch) => {
-    console.log('getuser')
-    return api.getUser().then((res) => {
-      console.log(res)
-      dispatch(setUserData(res.user));
-    });
+    dispatch(showLoading('проверяем мультипаспорт'))
+    if (localStorage.accessToken) {
+    return api.getUser()
+      .then((res) => {
+        dispatch(setUserData(res.user));
+        useStorage.addUser(res)
+      })
+      .then(() => {delayedExecution(dispatch)})
+      .catch(() => {
+        dispatch(showModalError('Что то не так |* попробуйте перезайти'))
+      })
+    } else {
+      logout()
+      dispatch(showModalError('ваш токен устарел'))
+    }
   };
 };
 
@@ -107,7 +107,7 @@ export const checkUserAuth = () => {
     return api.getUser()
       .then((res) => {
         dispatch(setUserData(res.user));
-        dispatch(setAuthStatus(true));
+
       })
       .catch((err) => {
         dispatch(showModalError(err.message))

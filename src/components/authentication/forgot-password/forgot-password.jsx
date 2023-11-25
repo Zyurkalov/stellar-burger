@@ -4,6 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useCallback } from "react";
 import { useInput } from "../../../utils/use-Input";
 import { forgotPassword } from "../../../service/actions/user-auth";
 import style from "./forgot-password.module.css";
@@ -18,7 +19,8 @@ export function ForgotPassworComponent() {
   const onChange = (e) => {
     modifiedInput(e);
   };
-  const sendEmail = (input) => {
+  const sendEmail = useCallback((e) => {
+    e.preventDefault();
     if (input.email) {
       dispatch(forgotPassword(input))
         .then((data) => {
@@ -33,10 +35,10 @@ export function ForgotPassworComponent() {
           console.error(error); 
         });
     }
-  };
+  },[input]);
   return (
-    <div className={style.container}>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+    <form className={style.container} onSubmit={sendEmail}>
+      <div className={style.inputContainer}>
         <EmailInput
           onChange={onChange}
           value={input.email}
@@ -46,14 +48,13 @@ export function ForgotPassworComponent() {
         />
       </div>
       <Button
-        htmlType="button"
+        htmlType="submit" 
         type="primary"
         size="medium"
-        onClick={() => sendEmail(input)}
         extraClass={active ? style.active : style.disabled}
       >
         Восстановить
       </Button>
-    </div>
+    </form>
   );
 }

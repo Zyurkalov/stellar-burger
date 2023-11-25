@@ -10,7 +10,6 @@ export const useInput = (initialState) => {
     const changedInput = (bool) => {
       setActive(bool);
     };
-  
     // const modifiedInput = (event) => {
     //   const key = event.target.name;
     //   setInput({ ...input, [key]: event.target.value });
@@ -19,12 +18,18 @@ export const useInput = (initialState) => {
 
     const modifiedInput = (event) => {
       const key = event.target.name;
-      const length = event.target.value.length;
       setInput({ ...input, [key]: event.target.value });
-      if (length <= 0) {
-        setActive(false);
-      } else {
-        setActive(true);
+      // const length = event.target.value.length;
+      // if (length <= 0) {
+      //   setActive(false);
+      // } else {
+      //   setActive(true);
+      // }
+      const checkLength = Object.values(input).every(value => value !== '')
+        if (checkLength) {
+          setActive(true);
+        } else {
+          setActive(false);
       }
     };
   

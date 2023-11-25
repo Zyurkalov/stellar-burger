@@ -11,8 +11,8 @@ import { useDispatch } from "react-redux";
 import { editProfile, getUser } from "../../../service/actions/user-auth";
 import style from "./input-list.module.css";
 
-export function ProfileInputList(data) {
-  const userData = data.data
+export function ProfileInputList() {
+  const userData = {email: sessionStorage.email, name: sessionStorage.name}
   const dispatch = useDispatch()
 
   const initialValue = {

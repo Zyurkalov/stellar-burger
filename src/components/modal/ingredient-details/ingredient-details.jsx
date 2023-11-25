@@ -1,39 +1,42 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getApiData } from '../../../service/actions/app';
 import {oneIngrPropType} from "../../../utils/prop-types";
+import { NotFound404 } from '../../../page';
 import styles from "./ingredient-details.module.css";
 
-function IngredientDetails(ingr) {
-  
-  const dispatch = useDispatch()
+function IngredientDetails({item}) {
+  // здесь реализовано два способа получения объкса ингредиентов
+  // через пропс 
+  // если пропс undefined, то получаем данные от сервера
+
+  const dispatch = useDispatch();
   const { ingredientId } = useParams();
-  const { item } = ingr
-  const [ingredient, setIngredient] = useState(item)
-  const { data } = useSelector(
-    (store) => store.dataList
-  );
-  
-  useEffect(() => {
+  const { data } = useSelector((store) => store.dataList);
+  const [ingredient, setIngredient] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(async () => {
     const fetchData = () => {
-      if (ingredient === undefined) {
-        console.log(ingredient)
-       dispatch(getApiData());
+      if (item !== undefined) {
+        setIngredient(item)
+      } else {
+        dispatch(getApiData());
       }
-    }
+    };
     fetchData();
   }, []);
-  
+
   useEffect(() => {
-    if (ingredient === undefined) {
-      const findedIngredient = data.find(({ _id }) => _id === ingredientId);
-      setIngredient(findedIngredient)
+    if (ingredient === null) {
+      const foundIngredient = data.find(({ _id }) => _id === ingredientId);
+      setIngredient(foundIngredient || null)
+      setTimeout(() => {setLoading(false)}, 1000)
     }
-  }, [data]);
+  }, [data, ingredient, ingredientId]);
 
   const valueIngr = (teg) => ingredient?.[teg] || null;
-
   const maket = [
     { label: "Калории, ккал", value: valueIngr('calories') },
     { label: "Белки, г", value: valueIngr('proteins') },
@@ -43,37 +46,42 @@ function IngredientDetails(ingr) {
 
   return (
     <section className={styles.section}>
-    {ingredient === undefined ? (
-      <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
-        Загрузка...
-      </h3>
-    ) : 
-    <>
-      <img
-        src={valueIngr('image_large')}
-        className={styles.img}
-        alt={valueIngr('name')}
-      />
-      <div>
+      {ingredient === null && loading ? (
         <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
-          {valueIngr('name')}
+          Загрузка...
         </h3>
-        <ul className={styles.ingrList}>
-          {maket.map((point, index) => (
-            <li className={`mb-5 ${styles.ingrInfo}`} key={index}>
-              <p className="text text_type_main-default text_color_inactive">
-                {point.label}
-              </p>
-              <span
-                className={`text text_type_digits-default text_color_inactive ${styles.span}`}
-              >
-                {point.value}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      </>}
+      ) : ingredient ? (
+        <>
+        {item ? null : (<h2 className="mt-20 text text_type_main-large">Детали ингредиента</h2>)}
+          <img
+            src={valueIngr('image_large')}
+            className={styles.img}
+            alt={valueIngr('name')}
+          />
+          <div>
+            <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
+              {valueIngr('name')}
+            </h3>
+            <ul className={styles.ingrList}>
+              {maket.map((point, index) => (
+                <li className={`mb-5 ${styles.ingrInfo}`} key={index}>
+                  <p className="text text_type_main-default text_color_inactive">
+                    {point.label}
+                  </p>
+                  <span
+                    className={`text text_type_digits-default text_color_inactive ${styles.span}`}
+                  >
+                    {point.value}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      ) : (
+        <NotFound404 />
+      )
+      }
     </section>
   );
 }

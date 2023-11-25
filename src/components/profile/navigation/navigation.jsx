@@ -22,7 +22,7 @@ export function ProfileNavigation() {
           <NavLink to="" className={() => path === "/profile" ? style.linkActive : style.linkDisabled }>Профиль</NavLink>
         </li>
         <li className={`text text_type_main-medium ${style.linkText}`}>
-          <NavLink to="test" className={setActive}>История заказов</NavLink>
+          <NavLink to="orders" className={setActive}>История заказов</NavLink>
         </li>
         <li className={`text text_type_main-medium ${style.linkText}`}>
           <NavLink to="" className={style.linkDisabled} onClick={() => logoutProfile()}>Выход</NavLink>
