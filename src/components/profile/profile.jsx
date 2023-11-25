@@ -6,7 +6,6 @@ import { getUser } from "../../service/actions/user-auth"
 import style from "./profile.module.css"
 
 export function ProfileComponent() {
-    // const { userData } = useSelector((state) => state.userStatus);
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -16,10 +15,9 @@ export function ProfileComponent() {
     }, []);
 
     return (
-        ((sessionStorage.name || sessionStorage.email) &&
         <div className={style.сontainer}>
             <ProfileNavigation />
             <ProfileInputList />
-        </div>)
+        </div>
     )
 }

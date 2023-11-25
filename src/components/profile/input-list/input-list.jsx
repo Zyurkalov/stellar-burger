@@ -12,6 +12,8 @@ import { editProfile, getUser } from "../../../service/actions/user-auth";
 import style from "./input-list.module.css";
 
 export function ProfileInputList() {
+  const { test } = useSelector((state) => state);
+
   const userData = {email: sessionStorage.email, name: sessionStorage.name}
   const dispatch = useDispatch()
 
@@ -20,7 +22,7 @@ export function ProfileInputList() {
     email: userData.email || "",
     password: "",
   }
-  const [input, setInput, changedInput, active, modifiedInput] = useInput(initialValue);
+  const [input, setInput, changedInput, active, modifiedInput] = useInput(initialValue, true);
   
   const handleSubmit = (e) => {
     e.preventDefault();

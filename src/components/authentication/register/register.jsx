@@ -5,7 +5,6 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../../service/actions/user-auth";
-import React, { useState, useRef, forwardRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import style from "./register.module.css";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ import { useInput } from "../../../utils/use-Input";
 
 export function RegisterComponent() {
   const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: "", name: "" });
-  const inputRef = useRef()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -60,7 +58,7 @@ export function RegisterComponent() {
         name={"name"}
       />
       </div>
-      <div className={style.inputContiner} id='inputForm' ref={inputRef}>  
+      <div className={style.inputContiner}>  
       <EmailInput
         onChange={onChange}
         value={input.email}

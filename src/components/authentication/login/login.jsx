@@ -3,58 +3,61 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useInput } from "../../../utils/use-Input";
 import style from "./login.module.css";
 import { login } from "../../../service/actions/user-auth";
 import { Navigate } from "react-router-dom";
-import { checkUserAuth } from "../../../service/actions/user-auth";
 
 export function LoginComponent() {
   const dispatch = useDispatch();
-  const { userAuthStatus, userData } = useSelector((state) => state.userStatus);
-
-  const [inputValue, setInputValue] = useState({
-    // email: "Kent@mail.ru",
-    // password: "password",
-    email: '',
-    password: '',
-  });
-
-  const onChangeMail = (e) => {
-    setInputValue({...inputValue, email: e.target.value});
+  const { userData } = useSelector((state) => state.userStatus);
+  const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: ""});
+  const onChange = (e) => {
+    modifiedInput(e);
   };
-  const onChangePassword = (e) => {
-    setInputValue({...inputValue, password: e.target.value});
-  };
+
   useEffect(() => {
-    dispatch(checkUserAuth())
-  },[])
+    const handleSubmit = (event) => {
+      if (event.key === "Enter" && active) {
+        dispatch(login(input));
+      }
+    };
+    window.addEventListener("keydown", handleSubmit);
+    return () => {
+      window.removeEventListener("keydown", handleSubmit);
+    };
+  }, [input]);
 
-  if (userData.name || userData.email) {
-    return <Navigate to="/" replace />;
-  }
   return (
-    <div className={style.container}>
+    userData.name || userData.email 
+    ? (<Navigate to="/" replace />) 
+    : (<div className={style.container}>
+      <div className={style.inputContiner}> 
       <EmailInput
-        onChange={onChangeMail}
-        value={inputValue.email}
+        onChange={onChange}
+        value={input.email}
         name={"email"}
         isIcon={false}
       />
+      </div>
+      <div className={style.inputContiner}> 
       <PasswordInput
-        onChange={onChangePassword}
-        value={inputValue.password}
+        onChange={onChange}
+        value={input.password}
         name={"password"}
       />
+      </div>
       <Button
-        htmlType="submit" 
+        htmlType="submit"
         type="primary"
         size="medium"
-        onClick={() => dispatch(login(inputValue))}
+        extraClass={active ? style.active : style.disabled}
+        onClick={() => dispatch(login(input))}
       >
         Войти
       </Button>
-    </div>
+    </div>)
   );
 }

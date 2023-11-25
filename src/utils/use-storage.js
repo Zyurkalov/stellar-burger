@@ -1,24 +1,20 @@
 const addAll = (res) => {
-    const userObject = {
-        name: res.user.name,
-        email: res.user.email
-      };
+
     localStorage.setItem("accessToken", res.accessToken);
     localStorage.setItem("refreshToken", res.refreshToken);
-    sessionStorage.setItem("user", JSON.stringify(userObject));
+    sessionStorage.setItem("name", res.user.name);
+    sessionStorage.setItem("email", res.user.email);
 }
 const addUser = (res) => {
-    const userObject = {
-        name: res.user.name,
-        email: res.user.email
-      };
-    sessionStorage.setItem("user", JSON.stringify(userObject));
+    sessionStorage.setItem("name", res.user.name);
+    sessionStorage.setItem("email", res.user.email);
 }
 const remove = () => {
-    localStorage.removeItem("LoggedIn");
+    // localStorage.removeItem("LoggedIn");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    sessionStorage.removeItem("user")
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("email");
 }
 
 export const useStorage = {
