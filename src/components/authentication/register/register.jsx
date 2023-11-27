@@ -49,7 +49,7 @@ export function RegisterComponent() {
   // }
   return (
     <form className={style.container} onSubmit={handleSubmit}>
-      <div className={style.inputContiner}> 
+      <fieldset className={style.inputContiner}> 
       <Input
         type={"text"}
         placeholder={"Имя"}
@@ -57,23 +57,23 @@ export function RegisterComponent() {
         value={input.name}
         name={"name"}
       />
-      </div>
-      <div className={style.inputContiner}>  
+      </fieldset>
+      <fieldset className={style.inputContiner}>  
       <EmailInput
         onChange={onChange}
         value={input.email}
         name={"email"}
         
       />
-      </div>
-      <div className={style.inputContiner}> 
+      </fieldset>
+      <fieldset className={style.inputContiner}> 
       <PasswordInput
         onChange={onChange}
         value={input.password}
         name={"password"}
         // extraClass="mb-2"
       />
-      </div>
+      </fieldset>
       <Button 
         htmlType="submit" 
         type="primary" 

@@ -1,3 +1,5 @@
+import { API_URL } from "../constatnts/apiUrl"
+
 export default function request (type, urlTeg, value) {
     const method = (value) => (
       type === "POST" ? {
@@ -11,5 +13,10 @@ export default function request (type, urlTeg, value) {
   
     } : null
     )
-    return fetch(`https://norma.nomoreparties.space/api/${urlTeg}`, method(value))
+    return fetch(`${API_URL}/${urlTeg}`, method(value))
   }
+
+  // export const requestTwo = (url, option) => {
+  //   return fetch(url, option).then(checkResponse)
+
+  // }

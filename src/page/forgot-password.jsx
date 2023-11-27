@@ -3,10 +3,8 @@ import { ForgotPassworComponent } from "../components/authentication/forgot-pass
 
 export function ForgotPassword() {
     return (
-        <>
           <Authentication title={"Восстановление пароля"}>
             <ForgotPassworComponent />
           </Authentication>
-        </>
       );
 }

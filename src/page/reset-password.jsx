@@ -3,10 +3,8 @@ import { ResetPasswordComponent } from "../components/authentication/reset-passw
 
 export function ResetPassword() {
     return (
-        <>
           <Authentication title={"Восстановление пароля"}>
             <ResetPasswordComponent />
           </Authentication>
-        </>
       );
 }

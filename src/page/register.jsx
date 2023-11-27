@@ -3,10 +3,8 @@ import { RegisterComponent } from "../components/authentication/register/registe
 
 export function Register() {
     return (
-        <>
           <Authentication title={"Регистрация"}>
             <RegisterComponent />
           </Authentication>
-        </>
       );
 }

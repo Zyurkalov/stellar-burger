@@ -1,5 +1,6 @@
 
 import request from "../../utils/request";
+import { checkResponse } from "../../utils/check-response ";
 import { checkResponseParam } from "../../utils/check-response ";
 
 export const AWAIT_DATA = "AWAIT_DATA"
@@ -12,7 +13,7 @@ export function getApiData() {
       type: AWAIT_DATA
     });
     request("GET", 'ingredients')
-      .then((res) => checkResponseParam(res, dispatch, GET_DATA_FAILED))
+      .then((res) => checkResponse(res))
       .then((data) => {
         const answer = data.data;
         dispatch({

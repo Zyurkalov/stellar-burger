@@ -7,6 +7,8 @@
 }
 .inputContiner {
   height: 64px;
+  padding: 0;
+  border-style: none;
 }
 .active {
   opacity: 1;

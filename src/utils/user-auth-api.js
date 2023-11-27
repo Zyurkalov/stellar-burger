@@ -1,7 +1,5 @@
 import { checkResponse } from "./check-response ";
-
-const URL = "https://norma.nomoreparties.space/api";
-const AUTH_URL = `${URL}/auth/user`;
+import { API_URL, AUTH_URL } from "../constatnts/apiUrl";
 
 const optionGetUser = {
   method: "GET",
@@ -20,7 +18,7 @@ const optionEditProfile = (form) => ({
 });
 
 const registration = (data) => {
-  return fetch(`${URL}/auth/register`, {
+  return fetch(`${API_URL}/auth/register`, {
     method: `POST`,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -32,7 +30,7 @@ const registration = (data) => {
 };
 
 const login = (data) => {
-  return fetch(`${URL}/auth/login`, {
+  return fetch(`${API_URL}/auth/login`, {
     method: `POST`,
     headers: {
       "Content-Type": "application/json",
@@ -45,7 +43,7 @@ const login = (data) => {
 };
 
 const logout = () => {
-  return fetch(`${URL}/auth/logout`, {
+  return fetch(`${API_URL}/auth/logout`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
@@ -53,7 +51,7 @@ const logout = () => {
 };
 
 const refreshToken = () => {
-  return fetch(`${URL}/auth/token`, {
+  return fetch(`${API_URL}/auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -88,7 +86,7 @@ const getUser = async() => {return await fetchWithRefresh(AUTH_URL, optionGetUse
 const editProfile = async(inputForm) => {return await fetchWithRefresh(AUTH_URL, optionEditProfile(inputForm))}
 
 const forgotPassword = (form) => {
-  return fetch(`${URL}/password-reset`, {
+  return fetch(`${API_URL}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -99,7 +97,7 @@ const forgotPassword = (form) => {
 };
 
 const passwordReset = (form) => {
-  return fetch(`${URL}/password-reset/reset`, {
+  return fetch(`${API_URL}/password-reset/reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
