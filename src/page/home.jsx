@@ -2,7 +2,7 @@ import Modal from "../components/modal/modal";
 import OrderDetails from "../components/modal/order-details/order-details";
 import Constructor from "../components/constructor/constructor";
 import { useDispatch, useSelector } from "react-redux";
-import { getApiData } from "../service/actions/app";
+import { getIngredients } from "../service/actions/app";
 import { useEffect } from "react";
 
 export function Home(state) {
@@ -15,7 +15,7 @@ export function Home(state) {
   const stateModal = modalIngrStatus || modalOrderStatus;
 
   useEffect(() => {
-      dispatch(getApiData());
+      dispatch(getIngredients());
   }, []);
 
   return (

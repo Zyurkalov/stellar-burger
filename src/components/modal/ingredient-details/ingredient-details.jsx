@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getApiData } from '../../../service/actions/app';
+import { getIngredients } from '../../../service/actions/app';
 import {oneIngrPropType} from "../../../utils/prop-types";
 import { NotFound404 } from '../../../page';
 import styles from "./ingredient-details.module.css";
@@ -22,7 +22,7 @@ function IngredientDetails({item}) {
       if (item !== undefined) {
         setIngredient(item)
       } else {
-        dispatch(getApiData());
+        dispatch(getIngredients());
       }
     };
     fetchData();
