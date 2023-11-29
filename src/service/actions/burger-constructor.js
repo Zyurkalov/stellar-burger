@@ -10,7 +10,7 @@ export const MAKE_ORDER_FAILED = "MAKE_ORDER_FAILED";
 export function makeOrderApi(value) {
   return function (dispatch) {
     dispatch({ type: AWAIT_ORDER });
-    request('orders', ingrOption(value))
+    request('orders', ingrOption.sendOrder(value))
       .then((data) => {
         dispatch({
             type: MAKE_ORDER_SUCCES,

@@ -1,4 +1,4 @@
-import { api } from "../../utils/user-auth-api";
+import { api } from "../../utils/user-api";
 import { closeModal, showLoading, showModalError } from "./modal";
 import { useStorage } from "../../utils/use-storage";
 export const USER_LOGIN = "USER_LOGIN";
@@ -66,9 +66,10 @@ export const registration = (data) => {
 
 export const logout = () => {
   return (dispatch) => {
-    return api
-      .logout()
+    console.log('logout')
+    return api.logout()
       .then((res) => {
+        console.log(res)
         if (res.success) {
           useStorage.remove()
           dispatch(userLogout())

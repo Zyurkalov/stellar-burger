@@ -3,12 +3,12 @@ import { API_URL } from "../constatnts/apiUrl"
 function checkResponse(res) {
   return res.ok
     ? res.json()
-    : res.json().then((data) => Promise.reject(`Ошибка: ${data}`));
+    : res.json().then((data) => Promise.reject(data));
 }
 function checkSuccess(res) {
   return res && res.success 
     ? res 
-    : Promise.reject(`Ответ !res.success ${res}`);
+    : Promise.reject(res);
 }
 
   export default function request (endpoint, option={}) {
