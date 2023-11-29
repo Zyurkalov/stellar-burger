@@ -1,7 +1,5 @@
 
 import request from "../../utils/request";
-import { checkResponse } from "../../utils/check-response ";
-import { checkResponseParam } from "../../utils/check-response ";
 
 export const AWAIT_DATA = "AWAIT_DATA"
 export const GET_DATA_SUCCESS = "GET_DATA_SUCCESS"

@@ -13,7 +13,7 @@ export function Authentication(props) {
 
   const { title, children } = props;
   const component = children.type.name;
-  const { userData } = useSelector((state) => state.userStatus);
+  const { userData } = useSelector((state) => state.user);
 
   useEffect(() => {
     if(!userData.name || !userData.email) {

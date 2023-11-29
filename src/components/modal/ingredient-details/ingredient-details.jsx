@@ -17,16 +17,16 @@ function IngredientDetails({item}) {
   const [ingredient, setIngredient] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(async () => {
-    const fetchData = () => {
-      if (item !== undefined) {
-        setIngredient(item)
-      } else {
-        dispatch(getIngredients());
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(async () => {
+  //   const fetchData = () => {
+  //     if (item !== undefined) {
+  //       setIngredient(item)
+  //     } else {
+  //       dispatch(getIngredients());
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     if (ingredient === null) {

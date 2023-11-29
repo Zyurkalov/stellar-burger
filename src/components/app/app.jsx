@@ -1,18 +1,19 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../header/header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../modal/ingredient-details/ingredient-details";
 import { ProtectedRoute } from "../protected-route/protected-route";
-// import { getApiData } from "../../service/actions/app";
+import { getIngredients } from "../../service/actions/app";
 import appStyles from "./app.module.css";
 import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword } from "../../page";
+import { checkUserAuth, getUser } from "../../service/actions/user-auth";
 
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const navigate = useNavigate()
 
   const {
@@ -24,8 +25,12 @@ function App() {
       modalLoadingStatus,
       loadingMessage,
     },
-
-    // dataList: { data },
+    dataList: { data },
+    user: {
+      userData,
+      loading,
+      isLoggedIn,
+    }
   } = useSelector((state) => state);
 
   const homeState = {
@@ -43,18 +48,20 @@ function App() {
   const location = useLocation();
   const { ingredient } = location.state || {};
   const background = location.state && location.state.background;
+  console.log(userData)
 
-  // useEffect(() => {
-  //   dispatch(getApiData());
-  // }, []);
-  
+  useEffect(() => {
+    dispatch(getIngredients());
+    dispatch(checkUserAuth())
+  }, []);
+
   return (
     <>
     {/* {console.log(data)} */}
       <Routes location={background || location}>
         <Route path="/" element={<Header state={loadingState} className={appStyles.header} />}>
-          <Route index element={<ProtectedRoute element={<Home state={homeState}/>}/>} />
-          <Route path="feed" element={<ProtectedRoute element={<Feed />}/>} />
+          <Route index element={<Home state={homeState}/>} anonymous={true} />
+          <Route path="feed" element={<ProtectedRoute element={<Feed />}/>}/>
           <Route path="profile" element={<ProtectedRoute element={<Profile />}/>} />
           <Route path='ingredients/:ingredientId' element={<ProtectedRoute element={<IngredientDetails />}/>}/>
 

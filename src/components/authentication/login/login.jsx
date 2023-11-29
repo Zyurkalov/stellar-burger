@@ -11,7 +11,7 @@ import { Navigate } from "react-router-dom";
 
 export function LoginComponent() {
   const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.userStatus);
+  const { userData } = useSelector((state) => state.user);
   const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: ""});
   const status = active && input.email && input.password
   

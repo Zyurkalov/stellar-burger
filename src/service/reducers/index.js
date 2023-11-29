@@ -21,6 +21,6 @@ const rootReducer = combineReducers({
     makeOrder: makeOrderReducer,
     modal: modalReducer,
     tab: switchTabReducer ,
-    userStatus: authReducer,
+    user: authReducer,
 })
 export const store = createStore(rootReducer, applyMiddleware(thunk))

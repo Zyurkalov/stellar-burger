@@ -5,18 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../service/actions/app";
 import { useEffect } from "react";
 
-export function Home(state) {
+export function Home() {
   
+  const { modalIngrStatus, modalOrderStatus } = useSelector((store) => store)
   const dispatch = useDispatch();
-  const { modalIngrStatus, modalOrderStatus } = state.state;
+  // const { modalIngrStatus, modalOrderStatus } = state.state;
   // const { data } = useSelector(
   //   (store) => store.dataList
   // );
   const stateModal = modalIngrStatus || modalOrderStatus;
-
-  useEffect(() => {
-      dispatch(getIngredients());
-  }, []);
 
   return (
     <>

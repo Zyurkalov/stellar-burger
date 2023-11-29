@@ -49,7 +49,7 @@ function Header(props) {
     [path]
   );
 
-  const { loading } = useSelector((state) => state.userStatus);
+  const { loading } = useSelector((state) => state.user);
 
   return (
     <div className={headerStyles.position}>
@@ -57,10 +57,12 @@ function Header(props) {
         <div className={headerStyles.headContainer}>
           <nav>
             <ul className={headerStyles.headerList}>
-              <NavLink to="/" className={`${headerStyles.link} ${linkClass()}`}>
+              {/* <NavLink to="/" className={`${headerStyles.link} ${linkClass()}`}> */}
+              <NavLink to="/" className={headerStyles.link}>
                 {compConstructor}
               </NavLink>
-              <NavLink to="feed" className={`${headerStyles.link} ${linkClass()}`}>
+              {/* <NavLink to="feed" className={`${headerStyles.link} ${linkClass()}`}> */}
+              <NavLink to="feed" className={headerStyles.link}>
                 {compFeed}
               </NavLink>
             </ul>
@@ -70,7 +72,8 @@ function Header(props) {
             <ul
               className={`${headerStyles.headerList} ${headerStyles.menuElem}`}
             >
-              <NavLink to="profile" className={`${headerStyles.link} ${linkClass()}`}>
+              {/* <NavLink to="profile" className={`${headerStyles.link} ${linkClass()}`}> */}
+              <NavLink to="profile" className={headerStyles.link}>
                 {compProfile}
               </NavLink>
             </ul>

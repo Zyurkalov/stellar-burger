@@ -29,12 +29,13 @@ function MenuList({ text, icon: Component, active }) {
     >
       <Component
         type={
-          (hover && token) || (active && token)
+          // (hover && token) || (active && token)
+          (hover || active )
             ? type.active
             : type.disabled
         }
       />
-      {token ? (
+      
         <button
           className={`text text_type_main-default ${style.transition}`}
           style={
@@ -45,15 +46,6 @@ function MenuList({ text, icon: Component, active }) {
         >
           {text}
         </button>
-      ) : (
-        <button
-          disabled
-          className={`text text_type_main-default ${style.transition}`}
-          style={{ color: color.disabled }}
-        >
-          {text}
-        </button>
-      )}
 
       {/* <button
         className={`text text_type_main-default ${style.transition}`}

@@ -1,9 +1,9 @@
 import { api } from "../../utils/user-api";
 import { closeModal, showLoading, showModalError } from "./modal";
 import { useStorage } from "../../utils/use-storage";
-export const USER_LOGIN = "USER_LOGIN";
+// export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
-export const USER_REGISTER = "USER_REGISTER";
+// export const USER_REGISTER = "USER_REGISTER";
 export const USER_LOADING = "USER_DATA_LOADING";
 export const LOADING_STATUS ='LOADING_STATUS'
 
@@ -66,10 +66,8 @@ export const registration = (data) => {
 
 export const logout = () => {
   return (dispatch) => {
-    console.log('logout')
     return api.logout()
       .then((res) => {
-        console.log(res)
         if (res.success) {
           useStorage.remove()
           dispatch(userLogout())
