@@ -10,7 +10,6 @@ export function ProtectedRoute({ element, anonymous = false }) {
   const location = useLocation();
   const from = location.state?.from || '/';
 
-  console.log(`from ${from}`)
   if (anonymous && isLoggedIn) {
     return <Navigate to={ from } />;
   }

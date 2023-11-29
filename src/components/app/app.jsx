@@ -48,7 +48,7 @@ function App() {
   const location = useLocation();
   const { ingredient } = location.state || {};
   const background = location.state && location.state.background;
-  console.log(userData)
+
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -63,7 +63,8 @@ function App() {
           <Route index element={<Home state={homeState}/>} anonymous={true} />
           <Route path="feed" element={<ProtectedRoute element={<Feed />}/>}/>
           <Route path="profile" element={<ProtectedRoute element={<Profile />}/>} />
-          <Route path='ingredients/:ingredientId' element={<ProtectedRoute element={<IngredientDetails />}/>}/>
+          {/* <Route path='ingredients/:ingredientId' element={<ProtectedRoute element={<IngredientDetails />}/>}/> */}
+          <Route path='ingredients/:ingredientId' element={<IngredientDetails />}/>
 
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />

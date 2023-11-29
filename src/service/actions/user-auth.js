@@ -105,8 +105,13 @@ export const checkUserAuth = () => {
       console.log('токен есть')
     return api.getUser()
       .then((res) => {
+        useStorage.addUser(res)
+        dispatch(loadingStatus(true))
         dispatch(setUserData(res.user));
-
+        // useStorage.addUser(res.user)
+      })
+      .then(() => {
+        dispatch(loadingStatus(false))
       })
       .catch((err) => {
         dispatch(showModalError(err.message))

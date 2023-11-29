@@ -1,15 +1,16 @@
 import { ProfileInputList } from "./input-list/input-list"
 import { ProfileNavigation } from "./navigation/navigation"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {useEffect} from 'react'
 import { getUser } from "../../service/actions/user-auth"
 import style from "./profile.module.css"
 
 export function ProfileComponent() {
     const dispatch = useDispatch()
+    const {isLoggedIn} = useSelector((state) => state.user)
 
     useEffect(() => {
-      if (!sessionStorage.name || !sessionStorage.email) {
+      if (isLoggedIn) {
         dispatch(getUser())
       }
     }, []);

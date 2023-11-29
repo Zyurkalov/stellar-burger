@@ -7,12 +7,12 @@ import { useEffect } from "react";
 
 export function Home() {
   
-  const { modalIngrStatus, modalOrderStatus } = useSelector((store) => store)
+  const { modalIngrStatus, modalOrderStatus } = useSelector((store) => store.modal)
   const dispatch = useDispatch();
-  // const { modalIngrStatus, modalOrderStatus } = state.state;
-  // const { data } = useSelector(
-  //   (store) => store.dataList
-  // );
+
+  const { data } = useSelector(
+    (store) => store.dataList
+  );
   const stateModal = modalIngrStatus || modalOrderStatus;
 
   return (
