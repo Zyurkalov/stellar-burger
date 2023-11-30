@@ -3,7 +3,7 @@ import { useState } from "react";
 // этот хук можно использовать для изменении значении инпутов
 // и изменения состояния для кнопки submit
 
-export const useInput = (initialState, oneInput) => {
+export const useInput = (initialState = {}, oneInput = false) => {
   const [input, setInput] = useState(initialState);
   const [active, setActive] = useState(false);
 
@@ -21,8 +21,8 @@ export const useInput = (initialState, oneInput) => {
     setInput({ ...input, [key]: event.target.value });
 
     if (oneInput) {
-      const length = event.target.value.length;
-      if (length <= 0) {
+      const length = event.target.value.length <= 0;
+      if (length ) {
         setActive(false);
       } else {
         setActive(true);
@@ -37,5 +37,5 @@ export const useInput = (initialState, oneInput) => {
     }
   };
 
-  return [input, setInput, changedInput, active, modifiedInput];
+  return {input, setInput, changedInput, active, modifiedInput};
 };

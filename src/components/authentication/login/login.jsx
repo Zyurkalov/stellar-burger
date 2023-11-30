@@ -4,24 +4,28 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useInput } from "../../../utils/use-Input";
+// import { useInput } from "../../../utils/hooks/use-Input";
 import style from "./login.module.css";
 import { login } from "../../../service/actions/user-auth";
 import { Navigate } from "react-router-dom";
+import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 
 export function LoginComponent() {
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
-  const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: ""});
-  const status = active && input.email && input.password
+  const {values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: ""})
+    // const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: ""});
+  // const status = active && input.email && input.password
   
   const onChange = (e) => {
-    modifiedInput(e);
+    // modifiedInput(e);
+    handleChange(e)
+    handleValid()
   };
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(login(input))
+    dispatch(login(values))
   }
 
   return (
@@ -31,7 +35,7 @@ export function LoginComponent() {
       <fieldset className={style.inputContiner}> 
       <EmailInput
         onChange={onChange}
-        value={input.email}
+        value={values.email}
         name={"email"}
         isIcon={false}
       />
@@ -39,7 +43,7 @@ export function LoginComponent() {
       <fieldset className={style.inputContiner}> 
       <PasswordInput
         onChange={onChange}
-        value={input.password}
+        value={values.password}
         name={"password"}
       />
       </fieldset>
@@ -47,7 +51,7 @@ export function LoginComponent() {
         htmlType="submit"
         type="primary"
         size="medium"
-        extraClass={status ? style.active : style.disabled}
+        extraClass={isValid ? style.active : style.disabled}
       >
         Войти
       </Button>

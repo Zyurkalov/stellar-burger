@@ -4,16 +4,13 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useInput } from "../../../utils/use-Input";
+import { useInput } from "../../../utils/hooks/use-Input";
+import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { useDispatch } from "react-redux";
 import { editProfile, getUser } from "../../../service/actions/user-auth";
 import style from "./input-list.module.css";
 
 export function ProfileInputList() {
-  const { test } = useSelector((state) => state);
-
   const userData = {email: sessionStorage.email, name: sessionStorage.name}
   const dispatch = useDispatch()
 
@@ -22,19 +19,24 @@ export function ProfileInputList() {
     email: userData.email || "",
     password: "",
   }
-  const [input, setInput, changedInput, active, modifiedInput] = useInput(initialValue, true);
+  const {values, setValues, handleChange, handleValid, isValid, setIsValid} = useFormAndValidation(initialValue, true)
+  // const {input, setInput, changedInput, active, modifiedInput} = useInput(initialValue, true);
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editProfile(input));
-    changedInput(false);
+    dispatch(editProfile(values));
+    // changedInput(false);
+    setIsValid(false)
   };
   const onChange = (e) => {
-    modifiedInput(e);
-    if (e.target.value === userData[e.target.name]) {changedInput(false)};
+    handleChange(e)
+    handleValid(e)
+    // modifiedInput(e);
+    if (e.target.value === userData[e.target.name]) {setIsValid(false)};
   };
   const resetChange = () => {
-    setInput(initialValue)
+    // setInput(initialValue)
+    setValues(initialValue)
   }
 
   return (
@@ -42,26 +44,26 @@ export function ProfileInputList() {
       <form className={style.form}>
         <Input
           onChange={onChange}
-          value={input.name}
+          value={values.name}
           name={"name"}
           placeholder="Имя"
           icon="EditIcon"
         />
         <EmailInput
           onChange={onChange}
-          value={input.email}
+          value={values.email}
           name={"email"}
           placeholder="Логин"
           isIcon={true}
         />
         <PasswordInput
           onChange={onChange}
-          value={input.password}
+          value={values.password}
           name={"password"}
           placeholder="Пароль"
           icon="EditIcon"
         />
-        <div className={active ? style.active : style.disabled}>
+        <div className={isValid ? style.active : style.disabled}>
           <div className={style.buttonCont}>
             <Button
               htmlType="reset"

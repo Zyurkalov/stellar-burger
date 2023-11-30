@@ -4,27 +4,31 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useInput } from "../../../utils/use-Input";
+// import { useInput } from "../../../utils/hooks/use-Input";
+import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { forgotPassword } from "../../../service/actions/user-auth";
 import style from "./forgot-password.module.css";
 
 export function ForgotPassworComponent() {
-  const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "",});
-  const status = active && input.email
+  // const {input, setInput, changedInput, active, modifiedInput} = useInput({email: "",});
+  const {values, handleChange, handleValid,setIsValid, isValid} = useFormAndValidation({email: "",})
+  const status = isValid && values.email
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onChange = (e) => {
-    modifiedInput(e);
+    // modifiedInput(e);
+    handleChange(e)
+    handleValid()
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
-    if (input.email) {
-      dispatch(forgotPassword(input))
+    if (values.email) {
+      dispatch(forgotPassword(values))
         .then((data) => {
           if (data.success) {
-            changedInput(false);
+            setIsValid(false);
             navigate("/reset-password");
           } else {
             console.error(data.error);
@@ -40,7 +44,7 @@ export function ForgotPassworComponent() {
       <fieldset className={style.inputContainer}>
         <EmailInput
           onChange={onChange}
-          value={input.email}
+          value={values.email}
           name={"email"}
           placeholder="Укажите e-mail"
           isIcon={false}

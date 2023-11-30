@@ -32,7 +32,8 @@ function IngredientDetails({item}) {
     if (ingredient === null) {
       const foundIngredient = data.find(({ _id }) => _id === ingredientId);
       setIngredient(foundIngredient || null)
-      setTimeout(() => {setLoading(false)}, 1000)
+      setLoading(false)
+      // setTimeout(() => {setLoading(false)}, 1000)
     }
   }, [data, ingredient, ingredientId]);
 

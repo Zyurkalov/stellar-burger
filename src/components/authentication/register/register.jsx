@@ -8,17 +8,20 @@ import { registration } from "../../../service/actions/user-auth";
 import { useDispatch } from "react-redux";
 import style from "./register.module.css";
 import { useNavigate } from "react-router-dom";
-import { useInput } from "../../../utils/use-Input";
+// import { useInput } from "../../../utils/hooks/use-Input";
+import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 
 export function RegisterComponent() {
-  const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: "", name: "" });
+  // const {input, setInput, changedInput, active, modifiedInput} = useInput({email: "", password: "", name: "" });
+  const { values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: "", name: "" })
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const status = isValid && values.email && values.password && values.name
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(registration(input));
+      await dispatch(registration(values));
       if (localStorage.getItem("accessToken")) {
         navigate('/login');
       }
@@ -26,27 +29,12 @@ export function RegisterComponent() {
       console.error(error);
     }
   };
-
-  // const registrNewUser = (form) => {
-  //   dispatch(registration(form))
-  //     .then((data) => {
-  //       if (data && data.success) {
-  //         navigate('/login');
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
-
   const onChange = (e) => {
-    modifiedInput(e)
+    // modifiedInput(e)
+    handleChange(e)
+    handleValid()
   };
-  // function checkInput(e) {
-  //   e.predDefailtEvent
-  //   const test = inputRef.current.querySelector('.input__error ') || null
-  //   console.log(test)
-  // }
+
   return (
     <form className={style.container} onSubmit={handleSubmit}>
       <fieldset className={style.inputContiner}> 
@@ -54,14 +42,14 @@ export function RegisterComponent() {
         type={"text"}
         placeholder={"Имя"}
         onChange={onChange}
-        value={input.name}
+        value={values.name}
         name={"name"}
       />
       </fieldset>
       <fieldset className={style.inputContiner}>  
       <EmailInput
         onChange={onChange}
-        value={input.email}
+        value={values.email}
         name={"email"}
         
       />
@@ -69,7 +57,7 @@ export function RegisterComponent() {
       <fieldset className={style.inputContiner}> 
       <PasswordInput
         onChange={onChange}
-        value={input.password}
+        value={values.password}
         name={"password"}
         // extraClass="mb-2"
       />
@@ -78,7 +66,7 @@ export function RegisterComponent() {
         htmlType="submit" 
         type="primary" 
         size="medium" 
-        extraClass={active ? style.active : style.disabled}>
+        extraClass={status ? style.active : style.disabled}>
         Зарегистрироваться
       </Button>
     </form>
