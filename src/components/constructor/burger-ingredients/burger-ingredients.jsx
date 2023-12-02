@@ -16,7 +16,7 @@ function BurgerIngredients() {
   const { data, dataFailed, dataRequest, error } = useSelector(
     (state) => state.dataList
   );
-  const ingrList = useSelector((state) => state.ingrList.ingrList);
+  const ingrList = useSelector((state) => state.ingrList.other);
   const currentTab = useSelector((state) => state.tab.current);
 
   const tabRef = useRef(null);
@@ -110,11 +110,7 @@ function BurgerIngredients() {
             <div
               id={category}
               key={index}
-              className={`mt-10 ${style.categories} ${
-                ingrList.length === 0 && category !== "bun"
-                  ? `${style.disabled}`
-                  : null
-              }`}
+              className={`mt-10 ${style.categories}`}
               // disabled={ingrList.length === 0 && category !== "bun"}
               ref={
                 category === "bun"

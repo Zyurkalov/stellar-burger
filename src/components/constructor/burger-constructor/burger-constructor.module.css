@@ -1,10 +1,20 @@
+.active {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
 .section {
   width: 50%;
   max-width: 600px;
   padding: 20px 0 20px 16px;
   box-sizing: border-box;
 }
-
 .price {
   display: flex;
   flex-direction: row;
@@ -74,6 +84,14 @@
   align-items: center;
   justify-content: center;
   opacity: 0.6;
+}
+.defaultBorder__bun_top {
+  height: 80px;
+  border-radius: 88px 88px 40px 40px;
+}
+.defaultBorder__bun_bottom {
+  height: 80px;
+  border-radius: 40px 40px 88px 88px;
 }
 .defaultBorder_medium {
   height: 178px;

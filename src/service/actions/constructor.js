@@ -14,7 +14,7 @@ export const addIngredient = (ingr) => ({
 
 export const deleteIngredient = (index) => ({
   type: DELETE_INGREDIENT,
-  ingr: index + 1,
+  ingr: index,
 });
 // здесь мы добавляем входящим индексам +1
 // поскольку ingrList - общий массив игредиентов, а индексы мы получаем
@@ -22,8 +22,8 @@ export const deleteIngredient = (index) => ({
 
 export const moveIngredient = (hoverIndex, dragIndex) => ({
   type: MOVE_INGREDIENT,
-  hoverIndex: hoverIndex + 1,
-  dragIndex: dragIndex + 1,
+  hoverIndex: hoverIndex,
+  dragIndex: dragIndex,
 });
 
 export const cleaningIngredientList = () => ({

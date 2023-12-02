@@ -8,6 +8,7 @@ import { oneIngrPropType } from "../../../../utils/prop-types";
 import {
   CurrencyIcon,
   Counter,
+  ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerCart({item}) {
@@ -24,17 +25,24 @@ function BurgerCart({item}) {
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
 
   // логика подсчета количества ингредиентов
-  const ingrList = useSelector((state) => state.ingrList.ingrList);
-  const findedCopy = ingrList.filter((ingr) => {
+  const ingrList = useSelector((state) => state.ingrList.other);
+  const bunList = useSelector((state) => state.ingrList.bun);
+  
+  const findedCopyIngr = ingrList.filter((ingr) => {
+    return ingr._id === item._id;
+  });
+  const findedCopyBun = ingrList.filter((ingr) => {
     return ingr._id === item._id;
   });
 
-  let counterComponent = null;
-  if (findedCopy.length > 0) {
-    counterComponent = (
-      <Counter count={item.type === "bun" ? findedCopy.length*2 : findedCopy.length} size="default" extraClass="m-1" />
-    );
-  }
+  let counterComponent = item.type !== 'bun' 
+  ? (findedCopyIngr.length > 0) 
+    ? <Counter count={findedCopyIngr.length} size="default" extraClass="m-1" />
+    : null
+  : (bunList.length > 0 && bunList[0]._id === item._id) 
+    ? <Counter count={bunList.length * 2} size="default" extraClass="m-1" />
+    : null;
+
   return (
     <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} className={style.cart} ref={dragRef}>
       {counterComponent}
