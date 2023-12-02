@@ -7,6 +7,7 @@ export const useFormAndValidation = (initialState = {}, oneInput = false) => {
 
     const handleChange = (e) => {
         const {name, value, validationMessage} = e.target
+
         setValues({...values, [name]: value})
         setErrors({...errors, [name]: validationMessage});
         

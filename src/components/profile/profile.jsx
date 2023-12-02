@@ -9,11 +9,11 @@ export function ProfileComponent() {
     const dispatch = useDispatch()
     const {isLoggedIn} = useSelector((state) => state.user)
 
-    useEffect(() => {
-      if (isLoggedIn) {
-        dispatch(getUser())
-      }
-    }, []);
+    // useEffect(() => {
+    //   if (isLoggedIn) {
+    //     dispatch(getUser())
+    //   }
+    // }, []);
 
     return (
         <div className={style.сontainer}>

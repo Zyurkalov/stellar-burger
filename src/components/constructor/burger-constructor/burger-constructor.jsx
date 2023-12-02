@@ -22,8 +22,10 @@ function BurgerConstructor() {
   const refIngrList = useRef(null)
   const dispatch = useDispatch();
   const ingrList = useSelector((state) => state.ingrList.ingrList);
+  const test = useSelector((state) => state.ingrList);
   const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
 
+  console.log(test)
   const totalPrice = ingrList.reduce((acc, ingredient) => {
     if (ingredient.type === "bun") {
       return acc + ingredient.price * 2;
@@ -41,13 +43,14 @@ function BurgerConstructor() {
   const bun = findBun();
 
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
-  const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);
+  // const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);
 
   const arrIngrID = ingrList.map((ingr) => ingr._id);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: ["ingredient"],
     drop(ingr) {
+      //
       dispatch(addIngredient(ingr));
     },
   });

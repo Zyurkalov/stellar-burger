@@ -29,7 +29,7 @@ export function ForgotPassworComponent() {
         .then((data) => {
           if (data.success) {
             setIsValid(false);
-            navigate("/reset-password");
+            navigate("/reset-password", {state: {from: 'forgot-password'}});
           } else {
             console.error(data.error);
           }

@@ -1,32 +1,41 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../service/actions/modal";
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 
-import ModalOverlay from "./modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./modal.module.css";
+import { closeModal } from "../../service/actions/modal";
+import ModalOverlay from "./modal-overlay/modal-overlay";
 
-function Modal({ title, children }) {
+import styles from "./modal.module.css";
+import PropTypes from "prop-types";
+
+function Modal({ title, from, children }) {
   const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-  const navBackHome = () => navigate('/', { replace: true })
-
   const location = useLocation();
   const background = location.state && location.state.background;
+
+  const close = () => {
+    if(background) {
+      navigate(from, { replace: true });
+    }else{
+      console.log('redux')
+      dispatch(closeModal())
+    }
+  };
 
   useEffect(() => {
     const handleCloseModal = (event) => {
       if ((event.key === "Escape") || (event.target.id === "template")) {
         if(background) {
-          navBackHome()
+          close()
+        }else{
+          console.log('redux')
+          dispatch(closeModal())
         }
-        dispatch(closeModal());
       }
     };
     window.addEventListener("keydown", handleCloseModal);
@@ -36,13 +45,6 @@ function Modal({ title, children }) {
       window.removeEventListener("click", handleCloseModal);
     };
   }, []);
-
-  const close = () => {
-    if(background) {
-      navBackHome()
-    }
-    dispatch(closeModal())
-  }
 
   return ReactDOM.createPortal(
     <ModalOverlay>
@@ -59,8 +61,10 @@ function Modal({ title, children }) {
     portal
   );
 }
+
 Modal.propTypes = {
   title: PropTypes.string,
+  fromIt: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
