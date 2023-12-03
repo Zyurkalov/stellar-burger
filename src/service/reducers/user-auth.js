@@ -7,7 +7,7 @@ import {
 const authState = {
   userData: {email: '', name: ''},
   loading: {status: false, message: ''},
-  isLoggedIn: false,
+  // isLoggedIn: false,
 };
 
 export const authReducer = (state = authState, action) => {
@@ -21,7 +21,7 @@ export const authReducer = (state = authState, action) => {
       return {
         ...state,
         userData: action.payload,
-        isLoggedIn: true,
+        // isLoggedIn: true,
       }
     }
     case LOADING_STATUS: {

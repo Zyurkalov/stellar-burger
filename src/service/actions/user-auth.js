@@ -1,6 +1,12 @@
 import { api } from "../../utils/user-api";
 import { closeModal, showLoading, showModalError } from "./modal";
 import { useStorage } from "../../utils/use-storage";
+import { useCookie } from "../../utils/useCookie";
+const { getCookie, setCookie, deleteCookie } = useCookie
+const { addAll, addUser, remove } = useStorage
+
+const refreshToken = getCookie("refreshToken")
+
 // export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
 // export const USER_REGISTER = "USER_REGISTER";
@@ -28,7 +34,10 @@ export const login = (data) => {
       .login(data)
       .then((res) => {
         if (res.success) {
-          useStorage.addAll(res)
+          // addAll(res)
+          addUser(res)
+          setCookie("accessToken", res.accessToken)
+          setCookie("refreshToken", res.refreshToken, {expires: 20})
           dispatch(setUserData(res.user));
         }
       })
@@ -52,7 +61,10 @@ export const registration = (data) => {
       .registration(data)
       .then((res) => {
         if (res.success) {
-          useStorage.addAll(res)
+          // addAll(res)
+          addUser(res)
+          setCookie("accessToken", res.accessToken)
+          setCookie("refreshToken", res.refreshToken, {expires: 20})
           dispatch(setUserData(res.user));
         }
         return res;
@@ -69,7 +81,9 @@ export const logout = () => {
     return api.logout()
       .then((res) => {
         if (res.success) {
-          useStorage.remove()
+          remove()
+          deleteCookie("accessToken")
+          deleteCookie("refreshToken")
           dispatch(userLogout())
         }
       })
@@ -82,11 +96,11 @@ export const logout = () => {
 export const getUser = () => {
   return (dispatch) => {
     dispatch(showLoading('проверяем мультипаспорт'))
-    if (localStorage.accessToken) {
+    if (refreshToken) {
     return api.getUser()
       .then((res) => {
         dispatch(setUserData(res.user));
-        useStorage.addUser(res)
+        addUser(res)
       })
       .then(() => {delayedExecution(dispatch)})
       .catch(() => {
@@ -101,11 +115,11 @@ export const getUser = () => {
 
 export const checkUserAuth = () => {
   return (dispatch) => {
-    if (localStorage.accessToken) {
+    if (refreshToken) {
       console.log('токен есть')
     return api.getUser()
       .then((res) => {
-        useStorage.addUser(res)
+        addUser(res)
         dispatch(loadingStatus(true))
         dispatch(setUserData(res.user));
         // useStorage.addUser(res.user)

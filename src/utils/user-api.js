@@ -1,19 +1,25 @@
 
 import request from "./request";
 import { userOption } from "./fetch-option";
+import { useCookie } from "./useCookie";
+
+const { getCookie, setCookie } = useCookie
+const accessToken = getCookie("accessToken")
 
 const optionGetUser = {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("accessToken"),
+    // authorization: localStorage.getItem("accessToken"),
+    authorization: accessToken
   },
 };
 const optionEditProfile = (form) => ({
   method: "PATCH",
   headers: {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("accessToken"),
+    // authorization: localStorage.getItem("accessToken"),
+    authorization: accessToken
   },
   body: JSON.stringify(form),
 });
@@ -96,8 +102,11 @@ const fetchWithRefresh = async (options) => {
     if (err.message === "jwt expired") {
       const refresh = await refreshToken();
       if (refresh.success) {
-        localStorage.setItem("refreshToken", refresh.refreshToken);
-        localStorage.setItem("accessToken", refresh.accessToken);
+        // localStorage.setItem("refreshToken", refresh.refreshToken);
+        // localStorage.setItem("accessToken", refresh.accessToken);
+        setCookie("refreshToken", refresh.refreshToken)
+        setCookie("accessToken", refresh.accessToken)
+
         options.headers.authorization = refresh.accessToken;
         return await request("auth/user", options);
       }
