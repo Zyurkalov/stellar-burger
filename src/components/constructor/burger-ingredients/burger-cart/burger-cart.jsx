@@ -5,11 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
-import {
-  CurrencyIcon,
-  Counter,
-  ConstructorElement,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerCart({item}) {
   let location = useLocation();

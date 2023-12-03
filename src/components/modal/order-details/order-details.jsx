@@ -1,7 +1,6 @@
-import style from "./order-details.module.css";
-import image from "../../../images/done.svg";
 import { useSelector } from "react-redux";
-
+import image from "../../../images/done.svg";
+import style from "./order-details.module.css";
 
 function OrderDetails() {
   const { orderNumber, orderRequest, orderFailed, orderSuccess, text } = useSelector((state) => state.makeOrder)

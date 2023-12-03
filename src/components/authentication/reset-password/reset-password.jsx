@@ -1,17 +1,14 @@
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  PasswordInput,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-// import { useInput } from "../../../utils/hooks/use-Input";
-import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
-import { useNavigate } from "react-router-dom";
-import { passwordReset } from "../../../service/actions/user-auth";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
+import { passwordReset } from "../../../service/actions/user-auth";
+
 import style from "./reset-password.module.css"
 
 export function ResetPasswordComponent() {
-  // const {input, setInput, changedInput, active, modifiedInput} = useInput({password: "", token: ""});
   const {values, handleChange, handleValid, isValid} = useFormAndValidation({password: "", token: ""})
   const status = isValid && values.token && values.password
 
@@ -19,7 +16,6 @@ export function ResetPasswordComponent() {
   const dispatch = useDispatch()
 
   const onChange = (e) => {
-    // modifiedInput(e)
     handleChange(e)
     handleValid()
   };
@@ -38,7 +34,6 @@ export function ResetPasswordComponent() {
     }
   };
   
-
   return (
     <form className={style.container} onSubmit={sendNewPass}>
       <fieldset className={style.inputContainer}>

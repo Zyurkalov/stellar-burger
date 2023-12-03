@@ -31,15 +31,12 @@ const login = (data) => ({
 const logout = () => ({
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  // body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
   body: JSON.stringify({ token: getCookie("refreshToken") }),
 });
 const refreshToken = () => ({
   method: "POST",
   headers: {
-    "Content-Type": "application/json",
-  },
-  // body: JSON.stringify({ token: localStorage.getItem("refreshToken"),}),
+    "Content-Type": "application/json"},
   body: JSON.stringify({ token: getCookie("refreshToken") }),
 });
 const forgotPassword = (data) => ({

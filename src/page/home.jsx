@@ -1,18 +1,11 @@
 import Modal from "../components/modal/modal";
 import OrderDetails from "../components/modal/order-details/order-details";
 import Constructor from "../components/constructor/constructor";
-import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../service/actions/app";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export function Home() {
   
   const { modalIngrStatus, modalOrderStatus } = useSelector((store) => store.modal)
-  const dispatch = useDispatch();
-
-  const { data } = useSelector(
-    (store) => store.dataList
-  );
   const stateModal = modalIngrStatus || modalOrderStatus;
 
   return (
@@ -22,8 +15,6 @@ export function Home() {
         <Modal title={modalIngrStatus ? "Детали ингредиента" : null}>
           {modalOrderStatus ? (
             <OrderDetails />
-          // ) : modalIngrStatus ? (
-          //   <IngredientDetails />
           ) : null}
         </Modal>
       )}
@@ -31,4 +22,3 @@ export function Home() {
   );
 }
 
-//добавить проверку для пропсов

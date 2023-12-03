@@ -1,18 +1,15 @@
 import { api } from "../../utils/user-api";
-import { closeModal, showLoading, showModalError } from "./modal";
-import { useStorage } from "../../utils/use-storage";
+import { userState } from "../../utils/userState";
 import { useCookie } from "../../utils/useCookie";
-const { getCookie, setCookie, deleteCookie } = useCookie
-const { addAll, addUser, remove } = useStorage
+import { closeModal, showLoading, showModalError } from "./modal";
 
+const { getCookie, setCookie, deleteCookie } = useCookie
+const { addUser, removeUser } = userState
 const refreshToken = getCookie("refreshToken")
 
-// export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
-// export const USER_REGISTER = "USER_REGISTER";
 export const USER_LOADING = "USER_DATA_LOADING";
 export const LOADING_STATUS ='LOADING_STATUS'
-
 export const USER_DATA = "USER_DATA";
 
 export const setUserData = (data) => ({
@@ -34,7 +31,6 @@ export const login = (data) => {
       .login(data)
       .then((res) => {
         if (res.success) {
-          // addAll(res)
           addUser(res)
           setCookie("accessToken", res.accessToken)
           setCookie("refreshToken", res.refreshToken, {expires: 20})
@@ -61,7 +57,6 @@ export const registration = (data) => {
       .registration(data)
       .then((res) => {
         if (res.success) {
-          // addAll(res)
           addUser(res)
           setCookie("accessToken", res.accessToken)
           setCookie("refreshToken", res.refreshToken, {expires: 20})
@@ -81,7 +76,7 @@ export const logout = () => {
     return api.logout()
       .then((res) => {
         if (res.success) {
-          remove()
+          removeUser()
           deleteCookie("accessToken")
           deleteCookie("refreshToken")
           dispatch(userLogout())
@@ -122,7 +117,6 @@ export const checkUserAuth = () => {
         addUser(res)
         dispatch(loadingStatus(true))
         dispatch(setUserData(res.user));
-        // useStorage.addUser(res.user)
       })
       .then(() => {
         dispatch(loadingStatus(false))

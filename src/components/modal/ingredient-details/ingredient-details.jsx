@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getIngredients } from '../../../service/actions/app';
+
 import {oneIngrPropType} from "../../../utils/prop-types";
 import { NotFound404 } from '../../../page';
+
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({item}) {
@@ -17,23 +18,11 @@ function IngredientDetails({item}) {
   const [ingredient, setIngredient] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(async () => {
-  //   const fetchData = () => {
-  //     if (item !== undefined) {
-  //       setIngredient(item)
-  //     } else {
-  //       dispatch(getIngredients());
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
   useEffect(() => {
     if (ingredient === null) {
       const foundIngredient = data.find(({ _id }) => _id === ingredientId);
       setIngredient(foundIngredient || null)
       setLoading(false)
-      // setTimeout(() => {setLoading(false)}, 1000)
     }
   }, [data, ingredient, ingredientId]);
 

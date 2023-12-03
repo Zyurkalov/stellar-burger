@@ -1,23 +1,19 @@
-import {
-  EmailInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { useInput } from "../../../utils/hooks/use-Input";
+
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { forgotPassword } from "../../../service/actions/user-auth";
+import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import style from "./forgot-password.module.css";
 
 export function ForgotPassworComponent() {
-  // const {input, setInput, changedInput, active, modifiedInput} = useInput({email: "",});
   const {values, handleChange, handleValid,setIsValid, isValid} = useFormAndValidation({email: "",})
   const status = isValid && values.email
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onChange = (e) => {
-    // modifiedInput(e);
     handleChange(e)
     handleValid()
   };
@@ -29,7 +25,7 @@ export function ForgotPassworComponent() {
         .then((data) => {
           if (data.success) {
             setIsValid(false);
-            navigate("/reset-password", {state: {from: 'forgot-password'}});
+            navigate("/reset-password", {state: {from: "forgot-password"}});
           } else {
             console.error(data.error);
           }

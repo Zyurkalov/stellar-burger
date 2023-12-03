@@ -1,36 +1,22 @@
-import {
-  EmailInput,
-  PasswordInput,
-  Button,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { registration } from "../../../service/actions/user-auth";
 import { useDispatch } from "react-redux";
-import style from "./register.module.css";
 import { useNavigate } from "react-router-dom";
-// import { useInput } from "../../../utils/hooks/use-Input";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
+import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { registration } from "../../../service/actions/user-auth";
+
+import style from "./register.module.css";
 
 export function RegisterComponent() {
-  // const {input, setInput, changedInput, active, modifiedInput} = useInput({email: "", password: "", name: "" });
   const { values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: "", name: "" })
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const status = isValid && values.email && values.password && values.name
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await dispatch(registration(values));
-      if (localStorage.getItem("accessToken")) {
-        navigate('/login');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(registration(values));
   };
   const onChange = (e) => {
-    // modifiedInput(e)
     handleChange(e)
     handleValid()
   };
@@ -59,7 +45,6 @@ export function RegisterComponent() {
         onChange={onChange}
         value={values.password}
         name={"password"}
-        // extraClass="mb-2"
       />
       </fieldset>
       <Button 

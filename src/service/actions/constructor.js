@@ -11,21 +11,15 @@ export const addIngredient = (ingr) => ({
     uniqueId: uuidv4()
   }
 });
-
 export const deleteIngredient = (index) => ({
   type: DELETE_INGREDIENT,
   ingr: index,
 });
-// здесь мы добавляем входящим индексам +1
-// поскольку ingrList - общий массив игредиентов, а индексы мы получаем
-// из отфильтрованного масива, отличающийся от родительского ingrList одним элементом - bun[0]
-
 export const moveIngredient = (hoverIndex, dragIndex) => ({
   type: MOVE_INGREDIENT,
   hoverIndex: hoverIndex,
   dragIndex: dragIndex,
 });
-
 export const cleaningIngredientList = () => ({
   type: CLEANING_INGREDIENT_LIST,
 })

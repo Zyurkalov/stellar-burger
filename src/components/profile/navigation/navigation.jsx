@@ -8,11 +8,9 @@ export function ProfileNavigation() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  async function logoutProfile() {
-    await dispatch(logout())
-    // navigate("/login", { replace: true });
+  function logoutProfile() {
+    dispatch(logout())
   }
-
   const path = window.location.pathname;
   const setActive = ({isActive}) => isActive ? style.linkActive : style.linkDisabled;
 
@@ -27,7 +25,6 @@ export function ProfileNavigation() {
         </li>
         <li className={`text text_type_main-medium ${style.linkText}`}>
           <NavLink to="" className={style.linkDisabled} onClick={() => logoutProfile()}>Выход</NavLink>
-          {/* <button className={style.linkDisabled} onClick={() => logoutProfile()}>Выход</button> */}
         </li>
       </ul>
       <span className={"text text_type_main-default text_color_inactive"}>

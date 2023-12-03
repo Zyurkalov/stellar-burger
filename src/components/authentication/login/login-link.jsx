@@ -27,7 +27,7 @@ export function LoginLink() {
           type="secondary"
           size="medium"
           extraClass={style.button}
-          onClick={()=> navigate('/forgot-password')}
+          onClick={()=> navigate('/forgot-password', {state: {from:"login"}})}
         >
           Восстановить пароль
         </Button>

@@ -1,19 +1,14 @@
-import React, { useMemo, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { makeOrderApi } from "../../../service/actions/burger-constructor";
-import { useDrop, useDrag } from "react-dnd";
-import { addIngredient } from "../../../service/actions/constructor";
+import { useDrop } from "react-dnd";
 
-import {
-  CurrencyIcon,
-  Button,
-  DragIcon,
-  ConstructorElement,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon, Button, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { addIngredient } from "../../../service/actions/constructor";
+import { makeOrderApi } from "../../../service/actions/burger-constructor";
 import { ConstructorCart } from "./constructor-cart/constructor-cart";
-import { deleteIngredient } from "../../../service/actions/constructor";
 import { openOrderModal } from "../../../service/actions/modal";
 import { oneIngrPropType } from "../../../utils/prop-types";
+
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
@@ -22,7 +17,7 @@ function BurgerConstructor() {
   const refIngrList = useRef(null)
   const dispatch = useDispatch();
 
-  // const ingrList = useSelector((state) => state.ingrList.ingrList);
+
   const bunList = useSelector((state) => state.ingrList.bun);
   const otherList = useSelector((state) => state.ingrList.other);
   const bun = bunList && bunList.length > 0 ? bunList[0] : null;
@@ -39,15 +34,7 @@ function BurgerConstructor() {
       return [bun, ...otherList, bun].map((ingr) => ingr._id)
     } else {return []}
   }
-
-
-  // const fillinFiltr = () => {
-  //   return ingrList.filter((ingr) => ingr.type !== "bun") || {};
-  // };
-
-  // const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
-
-  const [{ isHover }, dropTarget] = useDrop({
+const [{ isHover }, dropTarget] = useDrop({
     accept: ["ingredient"],
     drop(ingr) {
       dispatch(addIngredient(ingr));
@@ -89,7 +76,6 @@ function BurgerConstructor() {
       aria-label="Конструктор"
       className={`mt-5 ${style.section}`}
       ref={(node) => {
-        // refIngrList.current = node;
         dropTarget(node);
       }}
       

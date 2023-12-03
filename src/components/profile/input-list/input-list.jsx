@@ -1,13 +1,9 @@
-import {
-  EmailInput,
-  Input,
-  PasswordInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { useInput } from "../../../utils/hooks/use-Input";
-import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { useDispatch } from "react-redux";
-import { editProfile, getUser } from "../../../service/actions/user-auth";
+
+import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
+import { editProfile } from "../../../service/actions/user-auth";
+
 import style from "./input-list.module.css";
 
 export function ProfileInputList() {
@@ -20,22 +16,18 @@ export function ProfileInputList() {
     password: "",
   }
   const {values, setValues, handleChange, handleValid, isValid, setIsValid} = useFormAndValidation(initialValue, true)
-  // const {input, setInput, changedInput, active, modifiedInput} = useInput(initialValue, true);
   
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(editProfile(values));
-    // changedInput(false);
     setIsValid(false)
   };
   const onChange = (e) => {
     handleChange(e)
     handleValid(e)
-    // modifiedInput(e);
     if (e.target.value === userData[e.target.name]) {setIsValid(false)};
   };
   const resetChange = () => {
-    // setInput(initialValue)
     setValues(initialValue)
   }
 

@@ -1,7 +1,7 @@
-import MenuList from "./menu-list/menu-list";
-import headerStyles from "./header.module.css";
-import { useSelector } from "react-redux";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 import Modal from "../modal/modal";
+import MenuList from "./menu-list/menu-list";
 import ModalLoading from "../modal/modal-loading/modal-loading";
 import {
   Logo,
@@ -9,19 +9,14 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useMemo, useRef } from "react";
+
+import headerStyles from "./header.module.css";
 
 function Header(props) {
   const { modalLoadingStatus, modalErrorStatus } = props.state;
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;
-
-  // const token = localStorage.accessToken
-  // const linkClass = () => {
-  //   return token === undefined ? headerStyles.link_disabled : null
-  // }
 
   const compConstructor = useMemo(
     () => (
@@ -50,19 +45,15 @@ function Header(props) {
     [path]
   );
 
-  // const { loading } = useSelector((state) => state.user);
-
   return (
     <div className={headerStyles.position}>
       <header className={`m-10 ${headerStyles.header}`}>
         <div className={headerStyles.headContainer}>
           <nav>
             <ul className={headerStyles.headerList}>
-              {/* <NavLink to="/" className={`${headerStyles.link} ${linkClass()}`}> */}
               <NavLink to="/" className={headerStyles.link}>
                 {compConstructor}
               </NavLink>
-              {/* <NavLink to="feed" className={`${headerStyles.link} ${linkClass()}`}> */}
               <NavLink to="feed" className={headerStyles.link}>
                 {compFeed}
               </NavLink>
@@ -76,7 +67,6 @@ function Header(props) {
             <ul
               className={`${headerStyles.headerList} ${headerStyles.menuElem}`}
             >
-              {/* <NavLink to="profile" className={`${headerStyles.link} ${linkClass()}`}> */}
               <NavLink to="profile" className={headerStyles.link}>
                 {compProfile}
               </NavLink>
@@ -84,9 +74,6 @@ function Header(props) {
           </nav>
         </div>
       </header>
-      {/* <div className={`${headerStyles.statusLoading} ${loading.status ? headerStyles.statusLoading_active : headerStyles.statusLoading_disabled}`}>
-                <span className={`text text_type_main-medium`}>{loading.message}</span>
-            </div> */}
       {modalLoadingStatus || modalErrorStatus ? (
         <Modal title={null}>
           <ModalLoading />

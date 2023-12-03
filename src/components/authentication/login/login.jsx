@@ -1,24 +1,18 @@
-import {
-  EmailInput,
-  PasswordInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-// import { useInput } from "../../../utils/hooks/use-Input";
-import style from "./login.module.css";
-import { login } from "../../../service/actions/user-auth";
-import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { EmailInput, PasswordInput, Button,} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
+import { login } from "../../../service/actions/user-auth";
+
+import style from "./login.module.css";
 
 export function LoginComponent() {
-  const dispatch = useDispatch();
-  const { userData } = useSelector((state) => state.user);
   const {values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: ""})
-    // const [input, setInput, changedInput, active, modifiedInput] = useInput({email: "", password: ""});
-  // const status = active && input.email && input.password
-  
+  const status = isValid && values.email && values.password
+
+  const dispatch = useDispatch();
+
   const onChange = (e) => {
-    // modifiedInput(e);
     handleChange(e)
     handleValid()
   };
@@ -29,9 +23,7 @@ export function LoginComponent() {
   }
 
   return (
-    userData.name || userData.email 
-    ? (<Navigate to="/" replace />) 
-    : (<form className={style.container} onSubmit={handleSubmit}>
+    <form className={style.container} onSubmit={handleSubmit}>
       <fieldset className={style.inputContiner}> 
       <EmailInput
         onChange={onChange}
@@ -51,10 +43,10 @@ export function LoginComponent() {
         htmlType="submit"
         type="primary"
         size="medium"
-        extraClass={isValid ? style.active : style.disabled}
+        extraClass={status ? style.active : style.disabled}
       >
         Войти
       </Button>
-    </form>)
-  );
+    </form>
+    )
 }

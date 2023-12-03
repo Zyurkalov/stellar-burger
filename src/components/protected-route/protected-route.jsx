@@ -1,12 +1,10 @@
 
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useCookie } from "../../utils/useCookie";
 const { getCookie } = useCookie
 
 export function ProtectedRoute({ element, anonymous = false }) {
   const refreshToken = getCookie("refreshToken")
-
   const location = useLocation();
   const from = location.state?.from || '/';
 

@@ -4,16 +4,17 @@ import { ResetPasswordComponent } from "../components/authentication/reset-passw
 
 export function ResetPassword() {
   const location = useLocation();
-  // const from = location.state?.from || '/';
-  const fromForgotPassword = location.state?.from === 'forgot-password'
+
+  const fromForgotPassword = location.state?.from === "forgot-password";
+  console.log(fromForgotPassword)
   return (
     <>
-      {!fromForgotPassword ? (
-        <Navigate to={'/'} />
-      ) : (
+      {fromForgotPassword ? (
         <Authentication title={"Восстановление пароля"}>
           <ResetPasswordComponent />
         </Authentication>
+      ) : (
+        <Navigate to={"/login"} />
       )}
     </>
   );

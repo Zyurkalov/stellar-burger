@@ -11,7 +11,6 @@ function Constructor() {
   const [mainClass, setMainClass] = useState(mainStyles.main);
 
   // переписать под отдельный хук:
-  // setTimeout можно убрать?
   useEffect(() => {
     const timer = setTimeout(() => {
       setMainClass(`${mainStyles.main} ${mainStyles.main_visible}`);
