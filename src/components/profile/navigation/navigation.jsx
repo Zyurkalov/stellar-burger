@@ -1,7 +1,8 @@
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
-import style from "./navigation.module.css";
-import { logout } from "../../../service/actions/user-auth";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { logout } from "../../../service/actions/user-auth";
+
+import style from "./navigation.module.css";
 
 export function ProfileNavigation() {
   const dispatch = useDispatch();

@@ -9,18 +9,19 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useMemo, useRef } from "react";
 
 function Header(props) {
   const { modalLoadingStatus, modalErrorStatus } = props.state;
   const location = useLocation();
+  const navigate = useNavigate();
   const path = location.pathname;
 
-  const token = localStorage.accessToken
-  const linkClass = () => {
-    return token === undefined ? headerStyles.link_disabled : null
-  }
+  // const token = localStorage.accessToken
+  // const linkClass = () => {
+  //   return token === undefined ? headerStyles.link_disabled : null
+  // }
 
   const compConstructor = useMemo(
     () => (
@@ -49,7 +50,7 @@ function Header(props) {
     [path]
   );
 
-  const { loading } = useSelector((state) => state.user);
+  // const { loading } = useSelector((state) => state.user);
 
   return (
     <div className={headerStyles.position}>
@@ -67,7 +68,10 @@ function Header(props) {
               </NavLink>
             </ul>
           </nav>
-          <Logo />
+          <button onClick={() => { if (path !== '/') {navigate("/")} }}>
+            <Logo />
+          </button>
+          
           <nav>
             <ul
               className={`${headerStyles.headerList} ${headerStyles.menuElem}`}

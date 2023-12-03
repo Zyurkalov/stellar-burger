@@ -5,7 +5,6 @@ import { useCookie } from "../../utils/useCookie";
 const { getCookie } = useCookie
 
 export function ProtectedRoute({ element, anonymous = false }) {
-  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
   const refreshToken = getCookie("refreshToken")
 
   const location = useLocation();

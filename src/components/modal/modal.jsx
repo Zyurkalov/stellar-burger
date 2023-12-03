@@ -22,7 +22,6 @@ function Modal({ title, from, children }) {
     if(background) {
       navigate(from, { replace: true });
     }else{
-      console.log('redux')
       dispatch(closeModal())
     }
   };
@@ -33,7 +32,6 @@ function Modal({ title, from, children }) {
         if(background) {
           close()
         }else{
-          console.log('redux')
           dispatch(closeModal())
         }
       }
