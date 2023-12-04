@@ -62,7 +62,7 @@ function Modal({ title, from, children }) {
 
 Modal.propTypes = {
   title: PropTypes.string,
-  fromIt: PropTypes.string,
+  from: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

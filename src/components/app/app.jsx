@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useLocation} from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 import Header from "../header/header";
 import Modal from "../modal/modal";
@@ -14,6 +14,7 @@ import appStyles from "./app.module.css";
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const {
     modal: {

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
 
 import {CurrencyIcon, Button, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,22 +9,24 @@ import { makeOrderApi } from "../../../service/actions/burger-constructor";
 import { ConstructorCart } from "./constructor-cart/constructor-cart";
 import { openOrderModal } from "../../../service/actions/modal";
 import { oneIngrPropType } from "../../../utils/prop-types";
+import { useCookie } from "../../../utils/useCookie";
 
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
 function BurgerConstructor() {
-  const ref = useRef(null);
+  // const ref = useRef(null);
   const refIngrList = useRef(null)
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
 
   const bunList = useSelector((state) => state.ingrList.bun);
   const otherList = useSelector((state) => state.ingrList.other);
   const bun = bunList && bunList.length > 0 ? bunList[0] : null;
 
   const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
-
+  const { getCookie } = useCookie
+  const refreshToken = getCookie("refreshToken")
 
   const totalPrice = (otherList && otherList.length > 0)
   ? otherList.reduce((acc, ingredient) => acc + ingredient.price, 0) + (bun ? bun.price * 2 : 0)
@@ -41,8 +44,12 @@ const [{ isHover }, dropTarget] = useDrop({
     },
   });
   const toggleModal = () => {
-    dispatch(openOrderModal());
-    dispatch(makeOrderApi(arrIngrID()));
+    if (refreshToken) {
+      dispatch(openOrderModal());
+      dispatch(makeOrderApi(arrIngrID()));
+    } else {
+      navigate("/login");
+    }
   };
 
   const burger = (pos) => 
