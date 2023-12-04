@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,17 +10,16 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import PropTypes from "prop-types";
 
-function Modal({ title, from, children }) {
+function Modal({ title, from, children, onClose }) {
   const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const background = location.state && location.state.background;
+  // const location = useLocation();
+  // const background = location.state && location.state.background;
 
   const close = () => {
-    if(background) {
-      navigate(from, { replace: true });
+    if(onClose) {
+      onClose()
     }else{
       dispatch(closeModal())
     }
@@ -29,7 +28,7 @@ function Modal({ title, from, children }) {
   useEffect(() => {
     const handleCloseModal = (event) => {
       if ((event.key === "Escape") || (event.target.id === "template")) {
-        if(background) {
+        if(onClose) {
           close()
         }else{
           dispatch(closeModal())
@@ -62,8 +61,9 @@ function Modal({ title, from, children }) {
 
 Modal.propTypes = {
   title: PropTypes.string,
-  from: PropTypes.string,
+  // from: PropTypes.string,
   children: PropTypes.node.isRequired,
+  onClose: PropTypes.func
 };
 
 export default Modal;

@@ -45,6 +45,14 @@ function App() {
   const { ingredient } = location.state || {};
   const background = location.state && location.state.background;
 
+  const handleModalClose = () => {
+    navigate("/", { replace: true });
+    // navigate(-1)
+    // Возникает непредвиденное поведение:
+    // при открытом модальном окне заказа, модальное окно с составом ингредиента
+    // может быть вызвано поверх ее, чего пользователь не ожидает
+  };
+
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(checkUserAuth())
@@ -72,7 +80,7 @@ function App() {
 	        <Route
 	          path='ingredients/:ingredientId'
 	          element={
-	            <Modal title={'Детали ингредиента'} from={"/"}>
+	            <Modal title={'Детали ингредиента'} /*from={"/"}*/ onClose={handleModalClose}>
 	              <IngredientDetails item={ingredient}/>
 	            </Modal>
 	          }
