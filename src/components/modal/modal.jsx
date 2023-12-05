@@ -24,15 +24,10 @@ function Modal({ title, from, children, onClose }) {
       dispatch(closeModal())
     }
   };
-
   useEffect(() => {
     const handleCloseModal = (event) => {
       if ((event.key === "Escape") || (event.target.id === "template")) {
-        if(onClose) {
-          close()
-        }else{
-          dispatch(closeModal())
-        }
+        close()
       }
     };
     window.addEventListener("keydown", handleCloseModal);
