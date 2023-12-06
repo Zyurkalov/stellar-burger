@@ -1,0 +1,7 @@
+.container {
+    display: table;
+    margin: 15vh auto 80px;
+}
+.title {
+    text-align: center;
+}

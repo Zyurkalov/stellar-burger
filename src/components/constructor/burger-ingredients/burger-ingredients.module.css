@@ -3,12 +3,15 @@
   display: flex;
   flex-wrap: wrap;
 }
+.categories:first-child {
+  margin: 0px;
+}
 .cardSection__header {
   min-width: 590px;
 }
 .scrollBar {
   margin-top: 40px;
-  max-height: 75vh;
+  max-height: 60vh;
   overflow-y: scroll;
   border: none;
 }
@@ -30,7 +33,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  row-gap: 52px;
+  row-gap: 32px;
 }
 .disabled {
   opacity: 0.4;

@@ -1,14 +1,24 @@
+.active {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
 .section {
   width: 50%;
   max-width: 600px;
-  padding: 20px 16px 20px 0;
+  padding: 20px 0 20px 16px;
   box-sizing: border-box;
 }
-
 .price {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   gap: 8px;
 }
@@ -50,7 +60,7 @@
   max-height: 40px;
 }
 .scrollBar {
-  max-height: 480px;
+  max-height: 384px;
   overflow-y: scroll;
   border: none;
 }
@@ -66,7 +76,7 @@
   margin-bottom: 16px;
   margin-left: 32px;
   height: 368px;
-  width: 536px;
+  width: 552px;
   background-color: var(--interface-modal-bg, #1c1c21);
   border-radius: 88px;
 
@@ -75,12 +85,22 @@
   justify-content: center;
   opacity: 0.6;
 }
+.defaultBorder__bun_top {
+  height: 80px;
+  border-radius: 88px 88px 40px 40px;
+}
+.defaultBorder__bun_bottom {
+  height: 80px;
+  border-radius: 40px 40px 88px 88px;
+}
 .defaultBorder_medium {
   height: 178px;
+  width: 536px;
   border-radius: 40px;
 }
 .defaultBorder_small {
   height: 80px;
+  width: 536px;
   border-radius: 40px;
 }
 .defaultText {

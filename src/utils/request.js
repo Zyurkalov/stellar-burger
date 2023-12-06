@@ -1,15 +1,18 @@
-export default function request (type, urlTeg, value) {
-    const method = (value) => (
-      type === "POST" ? {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ingredients: value }),
-      
-    } : type === "GET" ? {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-  
-    } : null
-    )
-    return fetch(`https://norma.nomoreparties.space/api/${urlTeg}`, method(value))
+import { API_URL } from "../constatnts/apiUrl"
+
+function checkResponse(res) {
+  return res.ok
+    ? res.json()
+    : res.json().then((data) => Promise.reject(data));
+}
+function checkSuccess(res) {
+  return res && res.success 
+    ? res 
+    : Promise.reject(res);
+}
+
+  export default function request (endpoint, option={}) {
+    return fetch(`${API_URL}${endpoint}`, option)
+    .then(checkResponse)
+    .then(checkSuccess)
   }

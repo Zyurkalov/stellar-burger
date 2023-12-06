@@ -16,7 +16,7 @@ function BurgerIngredients() {
   const { data, dataFailed, dataRequest, error } = useSelector(
     (state) => state.dataList
   );
-  const ingrList = useSelector((state) => state.ingrList.ingrList);
+  const ingrList = useSelector((state) => state.ingrList.other);
   const currentTab = useSelector((state) => state.tab.current);
 
   const tabRef = useRef(null);
@@ -98,11 +98,11 @@ function BurgerIngredients() {
         onScroll={handleScroll}
       >
         {dataRequest ? (
-          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+          <div className={`mb-6 text text_type_main-medium`}>
             Загрузка...
           </div>
         ) : dataFailed ? (
-          <div className={`mb-6 mt-10 text text_type_main-medium`}>
+          <div className={`mb-6 text text_type_main-medium`}>
             Произошла ошибка: {error}
           </div>
         ) : (
@@ -110,11 +110,7 @@ function BurgerIngredients() {
             <div
               id={category}
               key={index}
-              className={`${style.categories} ${
-                ingrList.length === 0 && category !== "bun"
-                  ? style.disabled
-                  : null
-              }`}
+              className={`mt-10 ${style.categories}`}
               // disabled={ingrList.length === 0 && category !== "bun"}
               ref={
                 category === "bun"
@@ -125,7 +121,7 @@ function BurgerIngredients() {
               }
             >
               <h2
-                className={`mb-6 mt-10 text text_type_main-medium ${style.cardSection__header}`}
+                className={`mb-6 text text_type_main-medium ${style.cardSection__header}`}
               >
                 {category === "bun"
                   ? "Булки"

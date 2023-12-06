@@ -1,21 +1,33 @@
 import ReactDOM from "react-dom";
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { closeModal } from "../../service/actions/modal";
+import { useEffect } from "react";
+// import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 
-import ModalOverlay from "./modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./modal.module.css";
+import { closeModal } from "../../service/actions/modal";
+import ModalOverlay from "./modal-overlay/modal-overlay";
 
-function Modal({ title, children }) {
+import styles from "./modal.module.css";
+import PropTypes from "prop-types";
+
+function Modal({ title, from, children, onClose }) {
+  const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
+  // const location = useLocation();
+  // const background = location.state && location.state.background;
 
+  const close = () => {
+    if(onClose) {
+      onClose()
+    }else{
+      dispatch(closeModal())
+    }
+  };
   useEffect(() => {
     const handleCloseModal = (event) => {
       if ((event.key === "Escape") || (event.target.id === "template")) {
-        dispatch(closeModal());
+        close()
       }
     };
     window.addEventListener("keydown", handleCloseModal);
@@ -28,11 +40,11 @@ function Modal({ title, children }) {
 
   return ReactDOM.createPortal(
     <ModalOverlay>
-      <div className={`p-10 ${styles.ingrCont}`}>
+      <div className={`p-10 ${styles.ingrCont} ${modalLoadingStatus || modalErrorStatus ? styles.ingrCont_background : null}`}>
         <div className={`mt-4 mb-6 ${styles.headCont}`}>
           <h2 className="text text_type_main-large">{title || null}</h2>
           <div className={styles.cursorPointer}>
-            <CloseIcon type="primary" onClick={() => dispatch(closeModal())} />
+            {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => close()} /> : null}
           </div>
         </div>
         {children}
@@ -41,9 +53,12 @@ function Modal({ title, children }) {
     portal
   );
 }
+
 Modal.propTypes = {
   title: PropTypes.string,
+  // from: PropTypes.string,
   children: PropTypes.node.isRequired,
+  onClose: PropTypes.func
 };
 
 export default Modal;

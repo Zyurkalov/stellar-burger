@@ -69,7 +69,6 @@ export function ConstructorCart({ ingredient, index }) {
   dragRef(dropRef(ref));
 
   return (
-    // !isDrag ? (
     <li className={`mb-4 ${style.component}`} ref={ref}>
       <div>{compDragIcon}</div>
       <ConstructorElement
@@ -80,9 +79,6 @@ export function ConstructorCart({ ingredient, index }) {
         handleClose={() => dispatch(deleteIngredient(index))}
       />
     </li>
-    // ) : (
-    //   <li className={`mb-4 ${style.dragging}`}></li>
-    // )
   );
 }
 

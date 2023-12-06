@@ -1,19 +1,14 @@
 import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { openIngrModal } from "../../../../service/actions/modal";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import PropTypes from 'prop-types';
+import { Link, useLocation } from "react-router-dom";
 
 import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
-import { addIngredient } from "../../../../service/actions/constructor";
-import {
-  CurrencyIcon,
-  Counter,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerCart({item}) {
-  const dispatch = useDispatch();
+  let location = useLocation();
 
   const [{isDrag}, dragRef] = useDrag({
     type: "ingredient",
@@ -26,20 +21,26 @@ function BurgerCart({item}) {
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
 
   // логика подсчета количества ингредиентов
-  const ingrList = useSelector((state) => state.ingrList.ingrList);
-  // const findedTwins = ingrList.find(({ _id }) => _id === item._id);
-  const findedCopy = ingrList.filter((ingr) => {
+  const ingrList = useSelector((state) => state.ingrList.other);
+  const bunList = useSelector((state) => state.ingrList.bun);
+  
+  const findedCopyIngr = ingrList.filter((ingr) => {
+    return ingr._id === item._id;
+  });
+  const findedCopyBun = ingrList.filter((ingr) => {
     return ingr._id === item._id;
   });
 
-  let counterComponent = null;
-  if (findedCopy.length > 0) {
-    counterComponent = (
-      <Counter count={findedCopy.length} size="default" extraClass="m-1" />
-    );
-  }
+  let counterComponent = item.type !== 'bun' 
+  ? (findedCopyIngr.length > 0) 
+    ? <Counter count={findedCopyIngr.length} size="default" extraClass="m-1" />
+    : null
+  : (bunList.length > 0 && bunList[0]._id === item._id) 
+    ? <Counter count={bunList.length * 2} size="default" extraClass="m-1" />
+    : null;
+
   return (
-    <div className={style.cart} key={item._id} onClick={() => dispatch(openIngrModal(item))} ref={dragRef}>
+    <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} className={style.cart} ref={dragRef}>
       {counterComponent}
       <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>
@@ -49,7 +50,7 @@ function BurgerCart({item}) {
       <h3 className={`mt-3 text text_type_main-small ${style.cartName}`}>
         {item.name}
       </h3>
-    </div>
+    </Link>
   );
 }
 

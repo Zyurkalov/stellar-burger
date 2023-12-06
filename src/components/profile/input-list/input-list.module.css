@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+}
+.active {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.disabled {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+.buttonCont {
+  display: flex;
+  justify-content: flex-end;
+  transition: opacity 0.2s ease-in-out;
+}

@@ -1,0 +1,9 @@
+.сontainer {
+    max-width: 1240px;
+    min-width: 20px;
+    margin: 12svh auto 0;
+
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
