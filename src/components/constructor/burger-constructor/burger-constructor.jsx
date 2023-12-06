@@ -34,6 +34,7 @@ function BurgerConstructor() {
   
   const arrIngrID = () => {
     if(bun) {
+      console.log([bun, ...otherList, bun].map((ingr) => ingr._id))
       return [bun, ...otherList, bun].map((ingr) => ingr._id)
     } else {return []}
   }

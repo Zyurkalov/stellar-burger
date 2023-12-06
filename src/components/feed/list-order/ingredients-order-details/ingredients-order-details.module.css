@@ -1,0 +1,37 @@
+.image {
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50px;
+    border: var(--button-normal);
+    background-color: var(--interface-bg);
+    object-fit: cover;
+
+    position: absolute;
+    top: -32px;
+}
+.image_last {
+    opacity: 0.6;
+}
+.flexContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cartPrice {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 8px;
+}
+.imageList {
+    display: flex;
+    flex-direction: row;
+
+    position: relative;
+}
+.imageCount {
+    position: absolute;
+    z-index: 10;
+    top: -10px;
+}

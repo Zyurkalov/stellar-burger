@@ -1,0 +1,28 @@
+.mainContainer {
+  width: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  box-sizing: border-box;
+  padding: 24px;
+  width: 50%;
+  min-height: 214px;
+  border-radius: var(--common-border-radius-s);
+
+  background-color: var(--background);
+  box-shadow: var(--box-shadow);
+}
+.container:first-child {
+  margin-top: 20px;
+}
+.data {
+  color: var(--text-inactive-color);
+}
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
