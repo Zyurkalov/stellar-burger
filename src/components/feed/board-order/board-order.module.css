@@ -1,0 +1,27 @@
+.mainContainer {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 60px;
+  }
+  .completedOrder {
+    width: 100%
+  }
+  .orderStatus {
+    width: 100%;
+    display: flex;
+    gap:40px;
+  }
+  .orderStatus__container {
+    width: 50%;
+  }
+  .orderStatus__list {
+    padding-top: 24px;
+  }
+  .orderStatus__header {
+    margin: 0;
+  }
+  .orderStatus_done {
+    color: var(--colors-interface-success);
+  }

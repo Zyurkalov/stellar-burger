@@ -17,3 +17,6 @@
   flex-wrap: nowrap;
   justify-content: space-between;
 }
+.container_feedPage {
+  gap: 56px;
+}

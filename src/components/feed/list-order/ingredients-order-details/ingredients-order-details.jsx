@@ -1,76 +1,79 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMemo } from "react";
+import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
 import style from "./ingredients-order-details.module.css";
 
-export function IngredientsOrderDetails() {
-  const ingredient = [
-    "643d69a5c3f7b9001cfa093d",
-    "643d69a5c3f7b9001cfa0946",
-    "643d69a5c3f7b9001cfa0943",
-    "643d69a5c3f7b9001cfa0941",
-    "643d69a5c3f7b9001cfa0946",
-    "643d69a5c3f7b9001cfa0943",
-    "643d69a5c3f7b9001cfa0946",
-    "643d69a5c3f7b9001cfa0943",
-  ];
-
+export function IngredientsOrderDetails({list}) {
   const {
     dataList: { data },
   } = useSelector((store) => store);
 
-  const compCurrencyIcon = useMemo(() => <CurrencyIcon type="primary" />, []);
-
+  let filtered = [];
   let totalPrice = 0;
-  const imageList = () => {
-    const listItems = ingredient.map((id, index) => {
+
+  const getTotalPrice = (value) => {
+      totalPrice += value.price;
+  }
+  const getFiltered = () => {
+    list.forEach((id) => {
       const findIngr = data.find((ingr) => ingr._id === id);
       if (findIngr) {
-        totalPrice += findIngr.price;
-        if (index <= 5) {
-          return (
-            <li key={index} style={{ position: "relative" }}>
-              <img
-                src={findIngr.image_mobile}
-                alt={findIngr.name}
-                className={`${style.image} ${
-                  index === 5 &&
-                  ingredient.length > index + 1 &&
-                  style.image_last
-                }`}
-                style={{
-                  left: `${index * 50}px`,
-                  zIndex: 10 - index,
-                }}
-              />
-              {index === 5 && (
-                <span
-                  style={{ left: `${index * 50 + 22}px` }}
-                  className={`text text_type_main-small ${style.imageCount}`}
-                >
-                  {ingredient.length > index + 1
-                    ? `+${ingredient.length - index - 1}`
-                    : null}
-                </span>
-              )}
-            </li>
-          );
+        getTotalPrice(findIngr)
+        if (filtered.indexOf(findIngr) < 0) {
+          filtered.push(findIngr);
         }
+      }
+    });
+  };
+  const getImageList = () => {
+    getFiltered();
+    const listItems = filtered.map((item, index) => {
+      if (index <= 5) {
+        return (
+          <li key={index} style={{ position: "relative" }}>
+            <img
+              src={item.image_mobile}
+              alt={item.name}
+              className={`${style.image} ${
+                index === 5 && filtered.length > index + 1 && style.image_last
+              }`}
+              style={{
+                left: `${index * 50}px`,
+                zIndex: 10 - index,
+              }}
+            />
+            {index === 5 && (
+              <span
+                style={{ left: `${index * 50 + 22}px` }}
+                className={`text text_type_main-small ${style.imageCount}`}
+              >
+                {filtered.length > index + 1
+                  ? `+${filtered.length - index - 1}`
+                  : null}
+              </span>
+            )}
+          </li>
+        );
       } else {
         return null;
       }
     });
-    return listItems;
+    return listItems
+  
   };
 
   return (
     <div className={style.flexContainer}>
-      <ul className={style.imageList}>{imageList()}</ul>
+      <ul className={style.imageList}>{getImageList()}</ul>
       <div className={`${style.cartPrice} mb-2`}>
         <p className="mt-2 text text_type_digits-default">{totalPrice}</p>
-        {compCurrencyIcon}
+        <CurrencyIcon type="primary" />
       </div>
     </div>
   );
+}
+
+IngredientsOrderDetails.propTypes = {
+  list: PropTypes.arrayOf(PropTypes.string).isRequired
 }
