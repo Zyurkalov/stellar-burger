@@ -2,6 +2,17 @@
   max-width: 600px;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
+}
+.cardSection::after {
+  content: "";
+  display: block;
+  position: fixed;
+  bottom: 2vh;
+  width: 100%;
+  height: 8%;
+  z-index: 30;
+  background-image: linear-gradient(to top, var(--interface-bg) 0%, transparent 100%);
 }
 .categories:first-child {
   margin: 0px;
@@ -11,7 +22,7 @@
 }
 .scrollBar {
   margin-top: 40px;
-  max-height: 60vh;
+  max-height: 63vh;
   overflow-y: scroll;
   border: none;
 }

@@ -1,5 +1,16 @@
 .mainContainer {
   width: 50%;
+  position:relative;
+}
+.mainContainer::after {
+  content: "";
+  display: block;
+  position: fixed;
+  bottom: 2vh;
+  width: 42%;
+  height: 8%;
+  z-index: 30;
+  background-image: linear-gradient(to top, var(--interface-bg) 20%, transparent 100%);
 }
 .container {
   display: flex;
@@ -14,9 +25,7 @@
 
   background-color: var(--background);
   box-shadow: var(--box-shadow);
-}
-.container:first-child {
-  margin-top: 20px;
+
 }
 .container:not(:last-child) {
   margin-bottom: 16px;
@@ -28,4 +37,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.scrollBar {
+  padding-right: 8px;
+  max-height: 75vh;
+  overflow-y: scroll;
+  border: none;
+}
+.scrollBar::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2f2f37;
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  height: 492px;
+  background-color: #8585ad;
 }

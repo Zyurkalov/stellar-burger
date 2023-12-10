@@ -4,11 +4,11 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import PropTypes from 'prop-types';
 import style from "./list-order.module.css";
 
-export default function ListOrder({data}) {
-  
+export default function ListOrder({data, addOrder}) {
   return (
-    <ul className={style.mainContainer}>
+    <ul className={`${style.mainContainer} ${style.scrollBar}`}>
       {data.map((order, index) => {
+        addOrder(order)
         return (
           <li className={style.container} key={index}>
             <div className={style.flexContainer}>
@@ -17,7 +17,7 @@ export default function ListOrder({data}) {
             </div>
             <div>
               <h2 className={`text text_type_main-medium ${style.header}`}>
-                Death Star Starship Main бургер
+               {order.name}
               </h2>
               <p className={`text text_type_main-small`}>{`${order.status}`}</p>
             </div>
@@ -37,5 +37,7 @@ ListOrder.propTypes = {
     number: PropTypes.number.isRequired,
     createdAt: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
-  })).isRequired
+  })).isRequired,
+  addOrder: PropTypes.func.isRequired
+
 };
