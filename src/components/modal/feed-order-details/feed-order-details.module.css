@@ -1,0 +1,93 @@
+.mainContainer {
+  margin-top: 82px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 640px;
+  max-height: 650px;
+  display: flex;
+  flex-direction: column;
+}
+.mainContainer > span:first-of-type {
+  text-align: center;
+}
+.burgerName {
+    max-height: 120px;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scrollBar {
+  padding-right: 24px;
+  overflow-y: scroll;
+  border: none;
+}
+.scrollBar::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--background-element);
+  }
+  .scrollBar::-webkit-scrollbar-thumb {
+    height: 100px;
+    background-color: var(--text-inactive-color);
+  }
+.ingrList {
+  max-height: 312px;
+
+}
+.ingr {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ingrContainer {
+  align-items: center;
+  gap: 16px;
+}
+.ingr_last {
+  margin-bottom: 0px;
+}
+.ingrHeading {
+  max-width: 320px;
+  flex-grow: 2;
+}
+.ingrPrice {
+  text-align: end;
+  align-items: flex-end;
+  flex-grow: 3;
+}
+.ingrBottom {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+.ingrBottom_gradient::after {
+    content: "";
+    display: block;
+    position:absolute;
+    bottom: 64px;
+    
+    width: 100%;
+    height: 30px;
+    z-index: 30;
+    background-image: linear-gradient(to top, var(--interface-bg) 20%, transparent 100%);
+}
+.status {
+  color: var(--colors-interface-success);
+}
+.data {
+  color: var(--text-inactive-color);
+}
+.image {
+  height: 60px;
+  width: 60px;
+
+  border-radius: 50px;
+  border: var(--button-normal);
+  background-color: var(--interface-bg);
+  object-fit: cover;
+}

@@ -9,7 +9,7 @@
   display: block;
   position: fixed;
   bottom: 2vh;
-  width: 100%;
+  width: 43%;
   height: 8%;
   z-index: 30;
   background-image: linear-gradient(to top, var(--interface-bg) 0%, transparent 100%);
@@ -28,11 +28,11 @@
 }
 .scrollBar::-webkit-scrollbar {
   width: 8px;
-  background-color: #2f2f37;
+  background-color: var(--background-element);
 }
 .scrollBar::-webkit-scrollbar-thumb {
   height: 492px;
-  background-color: #8585ad;
+  background-color: var(--text-inactive-color);
 }
 .cardSection > h2 {
   min-width: 100%;

@@ -5,6 +5,8 @@ import { Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import Header from "../header/header";
 import Modal from "../modal/modal";
 import IngredientDetails from "../modal/ingredient-details/ingredient-details";
+import FeedOrderDetails from "../modal/feed-order-details/feed-order-details";
+
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { getIngredients } from "../../service/actions/app";
 import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword } from "../../page";
@@ -66,6 +68,7 @@ function App() {
           <Route path="feed" element={<ProtectedRoute element={<Feed />}/>}/>
           <Route path="profile" element={<ProtectedRoute element={<Profile />}/>} />
           <Route path='ingredients/:ingredientId' element={<IngredientDetails />}/>
+          <Route path='feed/:number' element={<FeedOrderDetails item={ingredient}/>}/>
 
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -77,9 +80,7 @@ function App() {
 
       {background && (
         <Routes>
-	        <Route
-	          path='ingredients/:ingredientId'
-	          element={
+	        <Route path='ingredients/:ingredientId' element={
 	            <Modal title={'Детали ингредиента'} /*from={"/"}*/ onClose={handleModalClose}>
 	              <IngredientDetails item={ingredient}/>
 	            </Modal>

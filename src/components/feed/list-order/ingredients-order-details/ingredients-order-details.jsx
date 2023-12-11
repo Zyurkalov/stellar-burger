@@ -1,10 +1,12 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useMemo } from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
 import style from "./ingredients-order-details.module.css";
 
 export function IngredientsOrderDetails({list}) {
+  const currencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);
   const {
     dataList: { data },
   } = useSelector((store) => store);
@@ -68,7 +70,7 @@ export function IngredientsOrderDetails({list}) {
       <ul className={style.imageList}>{getImageList()}</ul>
       <div className={`${style.cartPrice} mb-2`}>
         <p className="mt-2 text text_type_digits-default">{totalPrice}</p>
-        <CurrencyIcon type="primary" />
+        {currencyIcon}
       </div>
     </div>
   );

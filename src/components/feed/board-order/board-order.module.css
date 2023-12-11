@@ -36,6 +36,10 @@
     max-width: 200px;
     color: var(--colors-interface-success);
   }
+  .orderStatus_working {
+    max-width: 200px;
+    color: var(--text-primary-color);
+  }
   .scrollBar {
     padding-right: 8px;
     max-height: 75vh;

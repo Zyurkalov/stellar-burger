@@ -35,6 +35,7 @@ function FeedComponent()  {
         dispatch(disconnect())
       }
     },[])
+    
     useEffect(() => {
       if(getOrders.length > 0) {
         const [{ orders, total, totalToday }] = getOrders;

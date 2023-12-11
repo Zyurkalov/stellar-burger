@@ -28,8 +28,14 @@ export default function BoardOrder({doneList, workingList, total, totalToday}) {
                     <li className={style.orderStatus__container} key={index}>
                     <h2 className={`text text_type_main-medium ${style.orderStatus__header}`}>{value.header}</h2>
                     <ul className={`${style.orderStatus__list}`} id={"orderStatusList"} style={{ columnCount: getColumnCount(value.list) }}>
-                        {value.list.map((number, index) => {
-                            return <li className={`text text_type_digits-default ${style.orderStatus_done}`} key={index}>{number}</li>
+                        {value.list.length === 0 
+                        ? <span className={`text text_type_main-default text_color_inactive`}>Все готовы</span> 
+                        : value.list.map((number, index) => {
+                            return (
+                            <li className={`text text_type_digits-default ${value.header === "Готовы:" 
+                                ? style.orderStatus_done 
+                                : style.orderStatus_working}`} key={index}>{number}
+                            </li>)
                             }
                         )}
                     </ul>

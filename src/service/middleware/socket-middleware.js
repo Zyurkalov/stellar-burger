@@ -18,7 +18,6 @@ export function socketMiddleware() {
       const { dispatch } = store;
 
       if (type === LIVE_CONNECT) {
-        console.log(action.payload)
         socket = new WebSocket(action.payload);
         dispatch({ type: WS_CONNECTING });
       }
@@ -31,22 +30,13 @@ export function socketMiddleware() {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch({ type: WS_GET_ORDERS, payload: parsedData });
-          // if (data === "ping") {
-          //   socket.send("pong");
-          // } else {
-          //   dispatch({ type: WS_GET_ORDERS, payload: parsedData });
-          // }
         };
         socket.onclose = (event) => {
           dispatch({ type: WS_CONNECTION_CLOSED });
           if (event.wasClean) {
             console.log(`wc соединение закрыто корректно`);
-            // console.log(`Код закрытия: ${event.code}`);
-            // console.log(`Причина: ${event.reason}`);
           } else {
             console.log(`Непредвиденное закрытие wc соединения`);
-            // console.log(`Код закрытия: ${event.code}`);
-            // console.log(`Причина: ${event.reason}`);
           }
         };
         socket.onerror = (event) => {
