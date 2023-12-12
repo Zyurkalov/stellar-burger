@@ -48,8 +48,7 @@ export function wcReducer(state = initialState, action) {
       return {
         ...state,
         orders: [action.payload],
-        // status: WebsocketStatus.OFFLINE,
-        // error: "",
+        error: "",
       };
     default:
       return state;

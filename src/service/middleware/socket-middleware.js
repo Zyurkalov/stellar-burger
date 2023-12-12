@@ -22,15 +22,17 @@ export function socketMiddleware() {
         dispatch({ type: WS_CONNECTING });
       }
       if (socket) {
-        socket.open = () => {
+        socket.onopen = () => {
           dispatch({ type: WS_CONNECTION_OPEN });
           console.log(`wc соединение установлено`);
         };
+
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch({ type: WS_GET_ORDERS, payload: parsedData });
         };
+
         socket.onclose = (event) => {
           dispatch({ type: WS_CONNECTION_CLOSED });
           if (event.wasClean) {
@@ -47,7 +49,7 @@ export function socketMiddleware() {
           socket.send(JSON.stringify(action.payload));
         }
         if (type === LIVE_DISCONNECT) {
-          socket.close();
+          socket.onclose();
           socket = null;
         }
       }
