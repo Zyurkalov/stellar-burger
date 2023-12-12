@@ -1,10 +1,16 @@
 import { useCookie } from "./useCookie";
 const { getCookie } = useCookie
 
+const cookie = getCookie('accessToken')
+console.log(cookie)
+
 //// значения объекта ingrOption
 const sendOrder = (value) => ({
   method: "POST",
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    "authorization": getCookie('accessToken')
+  },
   body: JSON.stringify({ ingredients: value }),
 });
 

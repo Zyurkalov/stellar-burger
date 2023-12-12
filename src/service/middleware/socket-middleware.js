@@ -49,7 +49,7 @@ export function socketMiddleware() {
           socket.send(JSON.stringify(action.payload));
         }
         if (type === LIVE_DISCONNECT) {
-          socket.onclose();
+          socket.close();
           socket = null;
         }
       }

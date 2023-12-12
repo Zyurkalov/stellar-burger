@@ -7,6 +7,7 @@ import style from "./list-order.module.css";
 
 export default function ListOrder({data, addOrder}) {
   const location = useLocation()
+  console.log(data)
   return (
     <ul className={`${style.mainContainer} ${style.scrollBar}`}>
       {data.map((order, index) => {

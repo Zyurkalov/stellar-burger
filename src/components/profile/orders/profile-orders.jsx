@@ -8,9 +8,12 @@ import { connect, disconnect } from "../../../service/actions/wc-action"
 
 
 const ProfileOrders = () => {
-    const {orders} = hardData
+    // const {orders} = hardData
     const dispatch = useDispatch()
-    const getOrders = useSelector((state) => state.wc);
+    const getOrders = useSelector((state) => state.wc.orders);
+
+    const [orderData, setOrderData] = useState({ orders: null });
+    const { orders } = orderData;
     
     const cookie = useCookie.getCookie('accessToken')
     const queryToken = cookie.replace('Bearer', '').trim()
@@ -31,7 +34,6 @@ const ProfileOrders = () => {
       }
     }
     //
-
     useEffect(() => {
         dispatch(connect(`orders?token=${queryToken}`));
       return () => {
@@ -39,7 +41,16 @@ const ProfileOrders = () => {
       }
     },[])
 
+    useEffect(() => {
+      if(getOrders.length > 0) {
+        
+        const { orders } = getOrders;
+        setOrderData({ orders: orders }); 
+      }
+    },[getOrders])
+
     return (
+      orders === null ? null :
         <ListOrder data={orders} addOrder={addToListOrders}></ListOrder>
     )
 }
