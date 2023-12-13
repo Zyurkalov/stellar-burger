@@ -17,7 +17,7 @@ const ProfileOrders = () => {
     
     const cookie = useCookie.getCookie('accessToken')
     const queryToken = cookie.replace('Bearer', '').trim()
-    console.log(getOrders)
+
 
     //здесь не нужен, но пусть будет
     let listOrderDone = []
@@ -40,12 +40,12 @@ const ProfileOrders = () => {
         dispatch(disconnect())
       }
     },[])
-
+    
     useEffect(() => {
       if(getOrders.length > 0) {
-        
-        const { orders } = getOrders;
-        setOrderData({ orders: orders }); 
+        setOrderData(({orders: getOrders[0]?.orders || null}))
+        // const { orders } = getOrders[0];
+        // setOrderData({ orders: orders }); 
       }
     },[getOrders])
 

@@ -8,10 +8,7 @@ import { NotFound404 } from '../../../page';
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({item}) {
-  // здесь реализовано два способа получения объкса ингредиентов
-  // через пропс 
-  // если пропс undefined, то получаем данные от сервера
-
+  
   const dispatch = useDispatch();
   const { ingredientId } = useParams();
   const { data } = useSelector((store) => store.dataList);

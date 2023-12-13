@@ -1,31 +1,30 @@
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { getOrderNumberDetails } from "../../../service/actions/order-number";
+import { StatusOrder } from "../../feed/status-order/status-order";
+
 import style from "./feed-order-details.module.css";
 const FeedOrderDetails = ({ item }) => {
-  //   const [orderData, setOrderData] = useState(null);
-  //   const orderDetail = useSelector((state) => state.wc);
+  const dispatch = useDispatch();
+  const location = useLocation()
   const { number } = useParams();
 
-  //   useEffect(() => {
-  //     if (orderDetail.orders.length > 0) {
-  //       const {
-  //         orders: [{ orders: elem }],
-  //       } = orderDetail;
-  //       setOrderData(elem);
+  const pathName = location.state?.background.pathname
+  const setTarget = pathName ==='/feed' || pathName ==='/profile/orders'
 
-  //     }
-  //   }, []);
-  const {
-    dataList: { data },
-  } = useSelector((store) => store);
-
-  const { name, status, ingredients, updatedAt } = item || null;
-
+  const [dataOrder, setDataOrder] = useState(null);
+  const { name, status, ingredients, updatedAt } = dataOrder || {};
   let filtered = [];
   let totalPrice = 0;
+
+  const {
+    dataList: { data },
+    getOrderNumber: { order },
+  } = useSelector((store) => store);
 
   const getTotalPrice = (value) => {
     totalPrice += value.price;
@@ -49,22 +48,44 @@ const FeedOrderDetails = ({ item }) => {
     getFiltered();
   }
 
-  return item ? (
+  useEffect(() => {
+    if (item === undefined) {
+      dispatch(getOrderNumberDetails(number));
+    } else {
+      setDataOrder(item);
+    }
+  }, [item, number]);
+
+  useEffect(() => {
+    if (order) {
+      setDataOrder(order);
+    }
+  }, [order])
+
+  return dataOrder && 
     <section className={style.mainContainer}>
-      <span
-        className={`text text_type_digits-default mb-10`}
-      >{`#${item.number}`}</span>
+      {setTarget 
+        ? null 
+        : <span className={`text text_type_digits-default mb-10`}>
+        {`#${number}`}
+      </span>
+      }
+      
       <div className={`mb-15 ${style.headerContainer}`}>
-        <h1 className={`text text_type_main-medium ${style.burgerName}`}>{name}</h1>
-        <p className={`text text_type_main-default ${style.status}`}>
-          {status}
-        </p>
+        <h1 className={`text text_type_main-medium ${style.burgerName}`}>
+          {name}
+        </h1>
+        <StatusOrder value={status}/>
       </div>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <ul className={`mb-10 ${style.ingrList} ${filtered.length > 4 ? style.scrollBar : null}`}>
         {filtered.map((item, index) => {
           return (
-            <li key={index} className={`mb-4 ${style.ingr} ${filtered.length <= 4 ? style.ingr_last : null}`}>
+            <li
+              key={index}
+              className={`mb-4 ${style.ingr} ${filtered.length <= 4 ? style.ingr_last : null
+                }`}
+            >
               <img
                 src={item.image_mobile}
                 alt={item.name}
@@ -81,7 +102,7 @@ const FeedOrderDetails = ({ item }) => {
           );
         })}
       </ul>
-      <div className={`${style.ingrBottom} ${filtered.length > 4 ? style.ingrBottom_gradient : null}`}>
+      <div className={`${style.ingrBottom} ${filtered.length > 4 ? style.ingrBottom_gradient : null }`}>
         <FormattedDate
           date={new Date(updatedAt)}
           className={`mt-1 text text_type_main-small ${style.data}`}
@@ -92,6 +113,5 @@ const FeedOrderDetails = ({ item }) => {
         <CurrencyIcon type="primary" />
       </div>
     </section>
-  ) : null;
 };
 export default FeedOrderDetails;

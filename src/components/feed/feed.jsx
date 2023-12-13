@@ -50,8 +50,6 @@ function FeedComponent()  {
       }, 0);
       return () => clearTimeout(timer);
     }, []); 
-
-    console.log(getOrders.orders)
     
     return (
       orders === null ? null :

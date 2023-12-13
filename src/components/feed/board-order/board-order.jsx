@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import mainStyle from "./../../constructor/constructor.module.css"
 import style from "./board-order.module.css"
 
 export default function BoardOrder({doneList, workingList, total, totalToday}) {
@@ -17,7 +19,7 @@ export default function BoardOrder({doneList, workingList, total, totalToday}) {
     }
     function getColumnCount(list) {
         const numColumns = Math.ceil(list.length / 10);
-        return numColumns;
+        return Math.min(numColumns, 3);
       }
 
     return (
@@ -29,14 +31,15 @@ export default function BoardOrder({doneList, workingList, total, totalToday}) {
                     <h2 className={`text text_type_main-medium ${style.orderStatus__header}`}>{value.header}</h2>
                     <ul className={`${style.orderStatus__list}`} id={"orderStatusList"} style={{ columnCount: getColumnCount(value.list) }}>
                         {value.list.length === 0 
-                        ? <span className={`text text_type_main-default text_color_inactive`}>Все готовы</span> 
+                        ? <span className={`text text_type_main-default text_color_inactive`}>все готовы</span> 
                         : value.list.map((number, index) => {
+                            if(index < 30){
                             return (
-                            <li className={`text text_type_digits-default ${value.header === "Готовы:" 
+                            <li className={`text text_type_digits-default ${mainStyle.link} ${value.header === "Готовы:" 
                                 ? style.orderStatus_done 
                                 : style.orderStatus_working}`} key={index}>{number}
                             </li>)
-                            }
+                            }}
                         )}
                     </ul>
                 </li>)

@@ -29,6 +29,9 @@
 .data {
   color: var(--text-inactive-color);
 }
+.status {
+  color: var(--colors-interface-success);
+}
 .flexContainer {
   display: flex;
   justify-content: space-between;

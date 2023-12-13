@@ -10,6 +10,7 @@ import { modalReducer } from "./modal";
 import { switchTabReducer } from "./burger-ingredients";
 import { authReducer } from "./user-auth";
 import { wcReducer } from "./wc-reducer";
+import { getOrderDetailsReducer } from "./order-number";
 import { socketMiddleware } from "../middleware/socket-middleware";
 
 const liveWcMiddleware = socketMiddleware();
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   dataList: getDataReducer,
   ingrList: ingredientReducer,
   makeOrder: makeOrderReducer,
+  getOrderNumber: getOrderDetailsReducer,
   modal: modalReducer,
   tab: switchTabReducer,
   user: authReducer,

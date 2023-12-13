@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,8 +14,11 @@ function Modal({ title, from, children, onClose }) {
   const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
-  // const location = useLocation();
+  const location = useLocation();
   // const background = location.state && location.state.background;
+  const pathName = location.state?.background.pathname
+  const setTarget = pathName ==='/feed' || pathName ==='/profile/orders'
+  const pathNumber = location.state?.ingredient.number
 
   const close = () => {
     if(onClose) {
@@ -41,12 +44,18 @@ function Modal({ title, from, children, onClose }) {
   return ReactDOM.createPortal(
     <ModalOverlay>
       <div className={`p-10 ${styles.ingrCont} ${modalLoadingStatus || modalErrorStatus ? styles.ingrCont_background : null}`}>
-        <div className={`mt-4 mb-6 ${styles.headCont}`}>
-          <h2 className="text text_type_main-large">{title || null}</h2>
-          <div className={styles.cursorPointer}>
-            {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => close()} /> : null}
+        
+        {/* {setTarget ? null :  */}
+          <div className={`mt-4 mb-6 ${styles.headCont}`}>
+          {setTarget 
+            ? <h2 className="text text_type_digits-default">{`#${pathNumber}` || null}</h2>
+            : <h2 className="text text_type_main-large">{title || null}</h2>
+          }
+              <div className={styles.cursorPointer}>
+                {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => close()} /> : null}
+              </div>
           </div>
-        </div>
+        {/* } */}
         {children}
       </div>
     </ModalOverlay>,

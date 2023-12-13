@@ -1,11 +1,14 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useLocation } from "react-router-dom";
 import { useMemo } from "react";
-import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
+import PropTypes from 'prop-types';
 import style from "./ingredients-order-details.module.css";
 
 export function IngredientsOrderDetails({list}) {
+  const location = useLocation()
   const currencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);
   const {
     dataList: { data },
@@ -33,7 +36,7 @@ export function IngredientsOrderDetails({list}) {
     const listItems = filtered.map((item, index) => {
       if (index <= 5) {
         return (
-          <li key={index} style={{ position: "relative" }}>
+          <Link to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item}} key={index} className={''}>
             <img
               src={item.image_mobile}
               alt={item.name}
@@ -55,7 +58,7 @@ export function IngredientsOrderDetails({list}) {
                   : null}
               </span>
             )}
-          </li>
+          </Link >
         );
       } else {
         return null;

@@ -1,5 +1,5 @@
 .mainContainer {
-    width: 50%;
+    min-width: 47%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -34,10 +34,12 @@
   }
   .orderStatus_done {
     max-width: 200px;
+    text-decoration: none;
     color: var(--colors-interface-success);
   }
   .orderStatus_working {
     max-width: 200px;
+    text-decoration: none;
     color: var(--text-primary-color);
   }
   .scrollBar {

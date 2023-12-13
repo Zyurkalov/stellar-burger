@@ -33,7 +33,7 @@ export const login = (data) => {
         if (res.success) {
           addUser(res)
           setCookie("accessToken", res.accessToken)
-          setCookie("refreshToken", res.refreshToken, {expires: 20})
+          setCookie("refreshToken", res.refreshToken, {expires: 15})
           dispatch(setUserData(res.user));
         }
       })

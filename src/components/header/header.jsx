@@ -39,7 +39,7 @@ function Header(props) {
       <MenuList
         text={"Личный кабинет"}
         icon={ProfileIcon}
-        active={path === "/profile"}
+        active={path === "/profile" ||  path === "/profile/orders"}
       />
     ),
     [path]

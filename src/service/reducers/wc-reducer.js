@@ -42,6 +42,7 @@ export function wcReducer(state = initialState, action) {
       return {
         ...state,
         status: WebsocketStatus.OFFLINE,
+        orders: [],
         error: "",
       };
     case WS_GET_ORDERS:

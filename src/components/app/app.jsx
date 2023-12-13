@@ -87,8 +87,20 @@ function App() {
       {background && (
         <Routes>
 	        <Route path='ingredients/:ingredientId' element={
-	            <Modal title={'Детали ингредиента'} /*from={"/"}*/ onClose={handleModalClose}>
+	            <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
 	              <IngredientDetails item={ingredient}/>
+	            </Modal>
+	          }
+	        />
+          <Route path='feed/:number' element={
+	            <Modal title={''} onClose={handleModalClose}>
+	              <FeedOrderDetails item={ingredient}/>
+	            </Modal>
+	          }
+	        />
+          <Route path='profile/orders/:number' element={
+	            <Modal title={''} onClose={handleModalClose}>
+	              <FeedOrderDetails item={ingredient}/>
 	            </Modal>
 	          }
 	        />

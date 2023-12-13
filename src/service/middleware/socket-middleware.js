@@ -39,6 +39,7 @@ export function socketMiddleware() {
             console.log(`wc соединение закрыто корректно`);
           } else {
             console.log(`Непредвиденное закрытие wc соединения`);
+            console.log(event)
           }
         };
         socket.onerror = (event) => {
@@ -49,7 +50,7 @@ export function socketMiddleware() {
           socket.send(JSON.stringify(action.payload));
         }
         if (type === LIVE_DISCONNECT) {
-          socket.close();
+          socket.close(1000, 'переход пользователем, на другую страницу');
           socket = null;
         }
       }
