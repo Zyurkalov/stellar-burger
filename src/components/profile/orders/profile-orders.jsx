@@ -18,8 +18,6 @@ const ProfileOrders = () => {
     const cookie = useCookie.getCookie('accessToken')
     const queryToken = cookie.replace('Bearer', '').trim()
 
-
-    //здесь не нужен, но пусть будет
     let listOrderDone = []
     let listOrderWorking = []
     function addToListOrders(value) {
@@ -51,7 +49,7 @@ const ProfileOrders = () => {
 
     return (
       orders === null ? null :
-        <ListOrder data={orders} addOrder={addToListOrders}></ListOrder>
+        <ListOrder data={orders.slice().reverse()} addOrder={addToListOrders}></ListOrder>
     )
 }
 

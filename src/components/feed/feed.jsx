@@ -10,7 +10,6 @@ import mainStyles from "../constructor/constructor.module.css"
 function FeedComponent()  {
     const [mainClass, setMainClass] = useState(mainStyles.main);
     const [orderData, setOrderData] = useState({ orders: null, total: null, totalToday: null });
-
     // const {orders, total, totalToday} = hardData
     const dispatch = useDispatch()
     const getOrders = useSelector((state) => state.wc.orders);

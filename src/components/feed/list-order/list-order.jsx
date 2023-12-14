@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 
 import { IngredientsOrderDetails } from "./ingredients-order-details/ingredients-order-details";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,14 +11,18 @@ import mainStyle from "../../constructor/constructor.module.css"
 
 export default function ListOrder({data, addOrder}) {
   const location = useLocation()
+  const {number} = useParams()
   
-  let listData = data
-  if (location.pathname === '/profile/orders') {
-    listData = data.reverse()
-  }
+  // let listData = null
+  // if (location.pathname === '/profile/orders') {
+  //   listData = data.reverse()
+  // } else {
+  //   listData = data
+  // }
   return (
+    !data ? <h2>Loading...</h2> :
     <ul className={`${style.mainContainer} ${style.scrollBar}`}>
-      {listData.map((order, index) => {
+      {data.map((order, index) => {
         const { number, createdAt, name, status, ingredients} = order
          
         addOrder(order)
@@ -35,7 +39,9 @@ export default function ListOrder({data, addOrder}) {
               </h2>
               <StatusOrder value={status}/>
             </div>
-            <IngredientsOrderDetails list={ingredients}/>
+            <div>
+            <IngredientsOrderDetails list={ingredients} number={number}/>
+            </div>
             </Link>
           </li>
         );

@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -16,9 +16,9 @@ function Modal({ title, from, children, onClose }) {
   const dispatch = useDispatch();
   const location = useLocation();
   // const background = location.state && location.state.background;
-  const pathName = location.state?.background.pathname
+  const pathName = location.state?.background?.pathname ?? null;
   const setTarget = pathName ==='/feed' || pathName ==='/profile/orders'
-  const pathNumber = location.state?.ingredient.number
+  const { number } = useParams();
 
   const close = () => {
     if(onClose) {
@@ -47,8 +47,11 @@ function Modal({ title, from, children, onClose }) {
         
         {/* {setTarget ? null :  */}
           <div className={`mt-4 mb-6 ${styles.headCont}`}>
-          {setTarget 
-            ? <h2 className="text text_type_digits-default">{`#${pathNumber}` || null}</h2>
+          {setTarget
+            ? (number 
+              ? <h2 className="mb-6 text text_type_digits-default">{`#${number}`}</h2> 
+              : <h2 className="text text_type_main-large">Детали ингредиента</h2>)
+            // ? <h2 className="mb-6 text text_type_digits-default">{`#${number}` || null}</h2>
             : <h2 className="text text_type_main-large">{title || null}</h2>
           }
               <div className={styles.cursorPointer}>

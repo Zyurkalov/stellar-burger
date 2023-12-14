@@ -57,12 +57,13 @@ const FeedOrderDetails = ({ item }) => {
   }, [item, number]);
 
   useEffect(() => {
-    if (order) {
+    if (order && item === undefined) {
       setDataOrder(order);
     }
-  }, [order])
+  }, [order, item])
 
   return dataOrder && 
+  
     <section className={style.mainContainer}>
       {setTarget 
         ? null 

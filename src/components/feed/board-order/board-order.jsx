@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import mainStyle from "./../../constructor/constructor.module.css"
 import style from "./board-order.module.css"
 
 export default function BoardOrder({doneList, workingList, total, totalToday}) {
+    const location = useLocation()
     const listStatusOrders =[
         {header:"Готовы:", list: doneList}, 
         {header:"В работе:", list: workingList}
@@ -35,9 +36,11 @@ export default function BoardOrder({doneList, workingList, total, totalToday}) {
                         : value.list.map((number, index) => {
                             if(index < 30){
                             return (
-                            <li className={`text text_type_digits-default ${mainStyle.link} ${value.header === "Готовы:" 
+                                <li key={index}>
+                            <Link to={`/feed/${number}`} state={{ background: location }} className={`text text_type_digits-default ${mainStyle.link} ${value.header === "Готовы:" 
                                 ? style.orderStatus_done 
                                 : style.orderStatus_working}`} key={index}>{number}
+                            </Link>
                             </li>)
                             }}
                         )}
