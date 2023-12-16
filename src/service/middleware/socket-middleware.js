@@ -43,8 +43,13 @@ export function socketMiddleware() {
           }
         };
         socket.onerror = (event) => {
-          dispatch({ type: WS_CONNECTION_ERROR, payload: "Error" });
-          console.log(`Ошибка соединения: ${event.message}`);
+          if(event.message === 'Invalid or missing token') {
+
+          } else {
+            dispatch({ type: WS_CONNECTION_ERROR, payload: "Error" });
+            console.log(`Ошибка соединения: ${event.message}`);
+          }
+ 
         };
         if (type === WS_SEND_ORDERS) {
           socket.send(JSON.stringify(action.payload));

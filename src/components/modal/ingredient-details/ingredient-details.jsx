@@ -8,6 +8,7 @@ import { NotFound404 } from '../../../page';
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({item}) {
+  console.log(item)
   const dispatch = useDispatch();
   const { ingredientId } = useParams();
   const { data } = useSelector((store) => store.dataList);

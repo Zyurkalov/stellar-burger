@@ -36,7 +36,8 @@ export function IngredientsOrderDetails({list, number}) {
     const listItems = filtered.map((item, index) => {
       if (index <= 5) {
         return (
-          <Link to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} key={index} className={''}>
+          // <Link to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} key={index} className={''}>
+          <li key={index}>
             <img
               src={item.image_mobile}
               alt={item.name}
@@ -58,7 +59,8 @@ export function IngredientsOrderDetails({list, number}) {
                   : null}
               </span>
             )}
-          </Link >
+            </li>
+          // </Link >
         );
       } else {
         return null;

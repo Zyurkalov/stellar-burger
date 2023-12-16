@@ -12,32 +12,33 @@ import mainStyle from "../../constructor/constructor.module.css"
 export default function ListOrder({data, addOrder}) {
   const location = useLocation()
   const {number} = useParams()
+  const userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
   
-  // let listData = null
-  // if (location.pathname === '/profile/orders') {
-  //   listData = data.reverse()
-  // } else {
-  //   listData = data
-  // }
   return (
     !data ? <h2>Loading...</h2> :
     <ul className={`${style.mainContainer} ${style.scrollBar}`}>
       {data.map((order, index) => {
         const { number, createdAt, name, status, ingredients} = order
-         
         addOrder(order)
         return (
           <li className={`${style.container} ${mainStyle.shadow}`} key={index}>
             <Link key={index} to={`${location.pathname}/${number}`} state={{ background: location, ingredient: order}} className={`${style.links}`}>
             <div className={style.flexContainer}>
               <span className="text text_type_digits-default">{`#${number}`}</span>
-              <FormattedDate date={new Date(createdAt)} className={`text text_type_main-small ${style.data}`} />
+              <div className={`text text_type_main-small ${style.data}`}>
+                <FormattedDate date={new Date(createdAt)} />
+                <span>{userTimezone}</span>
+              </div>
             </div>
             <div>
               <h2 className={`text text_type_main-medium ${style.header}`}>
                {name}
               </h2>
-              <StatusOrder value={status}/>
+              {
+              location.pathname === '/feed'
+                ? null
+                : <StatusOrder value={status}/>
+              }
             </div>
             <div>
             <IngredientsOrderDetails list={ingredients} number={number}/>

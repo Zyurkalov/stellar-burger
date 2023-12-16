@@ -67,7 +67,7 @@ function App() {
       <Routes location={background || location}>
         <Route path="/" element={<Header state={loadingState} className={appStyles.header} />}>
           <Route index element={<Home state={homeState}/>} anonymous={true} />
-          <Route path="feed" element={<ProtectedRoute element={<Feed />}/>}/>
+          <Route path="feed" element={<Feed />}/>
           <Route path="profile" element={<ProtectedRoute element={<Profile />} />}>
             <Route index element={<ProfileInputList />} />
             <Route path="orders" element={<ProfileOrders />} />

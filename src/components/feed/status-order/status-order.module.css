@@ -1,4 +1,5 @@
-.status {
+.status {};
+.status_default {
     color: var(--text-primary-color);
 }
 .status_done {

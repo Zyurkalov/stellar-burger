@@ -2,7 +2,7 @@
   width: 100%;
   position:relative;
 }
-.mainContainer::after {
+/* .mainContainer::after {
   content: "";
   display: block;
   position: fixed;
@@ -11,7 +11,7 @@
   height: 8%;
   z-index: 30;
   background-image: linear-gradient(to top, var(--interface-bg) 20%, transparent 100%);
-}
+} */
 .container {
   box-sizing: border-box;
   padding: 24px;
@@ -27,6 +27,8 @@
   margin-bottom: 16px;
 }
 .data {
+  display:flex;
+  gap: 10px;
   color: var(--text-inactive-color);
 }
 .status {
@@ -38,17 +40,19 @@
   align-items: center;
 }
 .scrollBar {
+  box-sizing: border-box;
   padding-right: 8px;
-  max-height: 75vh;
+  height: 100vh;
+  max-height: calc(100vh - 210px);
   overflow-y: scroll;
-  border: none;
 }
 .scrollBar::-webkit-scrollbar {
+  margin-bottom: 30px;
   width: 8px;
   background-color: var(--background-element);
 }
 .scrollBar::-webkit-scrollbar-thumb {
-  height: 100px;
+  height: 200px;
   background-color: var(--text-inactive-color);
 }
 .links {
