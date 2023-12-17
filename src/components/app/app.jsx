@@ -46,7 +46,7 @@ function App() {
   };
 
   const location = useLocation();
-  const { ingredient } = location.state || {};
+  const { ingredient, order } = location.state || {};
   const background = location.state && location.state.background;
 
   const handleModalClose = () => {
@@ -79,8 +79,8 @@ function App() {
           <Route path="*" element={<NotFound404 />} />
 
           <Route path='ingredients/:ingredientId' element={<IngredientDetails />}/>
-          <Route path="feed/:number" element={<FeedOrderDetails item={ingredient} />} />
-          <Route path="profile/orders/:number" element={<FeedOrderDetails item={ingredient} />} />
+          <Route path="feed/:number" element={<FeedOrderDetails item={order} />} />
+          <Route path="profile/orders/:number" element={<FeedOrderDetails item={order} />} />
         </Route>
       </Routes>
 
@@ -94,13 +94,13 @@ function App() {
 	        />
           <Route path='feed/:number' element={
 	            <Modal title={''} onClose={handleModalClose}>
-	              <FeedOrderDetails item={ingredient}/>
+	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          }
 	        />
           <Route path='profile/orders/:number' element={
 	            <Modal title={''} onClose={handleModalClose}>
-	              <FeedOrderDetails item={ingredient}/>
+	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          }
 	        />

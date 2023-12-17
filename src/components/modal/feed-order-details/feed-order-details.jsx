@@ -68,7 +68,7 @@ const FeedOrderDetails = ({ item }) => {
   const userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
 
   return dataOrder && 
-  <div className={item === undefined ? appStyles.cover : null }>
+  <div className={item === undefined && !setTarget ? appStyles.cover : null }>
     <section className={`${style.mainContainer} `}>
       {setTarget 
         ? null 
