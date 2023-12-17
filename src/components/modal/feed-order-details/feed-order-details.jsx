@@ -1,14 +1,17 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderNumberDetails } from "../../../service/actions/order-number";
 import { StatusOrder } from "../../feed/status-order/status-order";
 
+import appStyles from "../../app/app.module.css"
 import style from "./feed-order-details.module.css";
 const FeedOrderDetails = ({ item }) => {
+
   const dispatch = useDispatch();
   const location = useLocation()
   const { number } = useParams();
@@ -62,9 +65,11 @@ const FeedOrderDetails = ({ item }) => {
     }
   }, [order, item])
 
+  const userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
+
   return dataOrder && 
-  
-    <section className={style.mainContainer}>
+  <div className={item === undefined ? appStyles.cover : null }>
+    <section className={`${style.mainContainer} `}>
       {setTarget 
         ? null 
         : <span className={`text text_type_digits-default mb-10`}>
@@ -104,15 +109,31 @@ const FeedOrderDetails = ({ item }) => {
         })}
       </ul>
       <div className={`${style.ingrBottom} ${filtered.length > 4 ? style.ingrBottom_gradient : null }`}>
+      <div className={`mt-1 text text_type_main-small ${style.data}`}>
         <FormattedDate
           date={new Date(updatedAt)}
-          className={`mt-1 text text_type_main-small ${style.data}`}
+          className={`text text_type_main-small ${style.data}`}
         />
+        <span>{userTimezone}</span>
+        </div>
         <span className={`text text_type_digits-default ${style.ingrPrice}`}>
           {totalPrice}
         </span>
         <CurrencyIcon type="primary" />
       </div>
     </section>
+    </div>
+};
+
+FeedOrderDetails.propTypes = {
+  item: PropTypes.shape({
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    name: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    updatedAt: PropTypes.string.isRequired,
+  }),
 };
 export default FeedOrderDetails;

@@ -7,9 +7,16 @@
   display: flex;
   flex-direction: column;
 }
+.mainContainer_flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .mainContainer > span:first-of-type {
   text-align: center;
 }
+
 .burgerName {
     max-height: 120px;
 
@@ -81,6 +88,8 @@
   color: var(--colors-interface-success);
 }
 .data {
+  display:flex;
+  gap: 10px;
   color: var(--text-inactive-color);
 }
 .image {

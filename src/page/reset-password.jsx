@@ -6,7 +6,7 @@ export function ResetPassword() {
   const location = useLocation();
 
   const fromForgotPassword = location.state?.from === "forgot-password";
-  console.log(fromForgotPassword)
+
   return (
     <>
       {fromForgotPassword ? (

@@ -5,11 +5,11 @@ import { useParams } from "react-router-dom";
 import {oneIngrPropType} from "../../../utils/prop-types";
 import { NotFound404 } from '../../../page';
 
+import appStyles from "../../app/app.module.css"
 import styles from "./ingredient-details.module.css";
 
 function IngredientDetails({item}) {
-  console.log(item)
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { ingredientId } = useParams();
   const { data } = useSelector((store) => store.dataList);
   const [ingredient, setIngredient] = useState(null);
@@ -30,8 +30,8 @@ function IngredientDetails({item}) {
     { label: "Жиры, г", value: valueIngr('fat') },
     { label: "Углеводы, г", value: valueIngr('carbohydrates') },
   ];
-
   return (
+    <div className={item === undefined ? appStyles.cover : null }>
     <section className={styles.section}>
       {ingredient === null && loading ? (
         <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
@@ -39,7 +39,7 @@ function IngredientDetails({item}) {
         </h3>
       ) : ingredient ? (
         <>
-        {item ? null : (<h2 className="mt-20 text text_type_main-large">Детали ингредиента</h2>)}
+        {item ? null : (<h2 className=" text text_type_main-large">Детали ингредиента</h2>)}
           <img
             src={valueIngr('image_large')}
             className={styles.img}
@@ -70,8 +70,10 @@ function IngredientDetails({item}) {
       )
       }
     </section>
+    </div>
   );
 }
+
 IngredientDetails.propTypes = {
   item: oneIngrPropType,
 };

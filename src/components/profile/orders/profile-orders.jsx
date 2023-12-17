@@ -15,8 +15,8 @@ const ProfileOrders = () => {
     const [orderData, setOrderData] = useState({ orders: null });
     const { orders } = orderData;
     
-    const cookie = useCookie.getCookie('accessToken')
-    const queryToken = cookie.replace('Bearer', '').trim()
+    // const cookie = useCookie.getCookie('accessToken')
+    // const queryToken = cookie.replace('Bearer', '').trim()
 
     let listOrderDone = []
     let listOrderWorking = []
@@ -33,7 +33,7 @@ const ProfileOrders = () => {
     }
     //
     useEffect(() => {
-        dispatch(connect(`orders?token=${queryToken}`));
+        dispatch(connect(`orders?token=${useCookie.queryToken()}`));
       return () => {
         dispatch(disconnect())
       }
