@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { wsAction } from "../actions/ws-action";
 import thunk from "redux-thunk";
 
 import { getDataReducer } from "./app";
@@ -9,11 +10,11 @@ import { makeOrderReducer } from "./burger-constructor";
 import { modalReducer } from "./modal";
 import { switchTabReducer } from "./burger-ingredients";
 import { authReducer } from "./user-auth";
-import { wcReducer } from "./wc-reducer";
+import { wsReducer } from "./ws-reducer";
 import { getOrderDetailsReducer } from "./order-number";
 import { socketMiddleware } from "../middleware/socket-middleware";
 
-const liveWcMiddleware = socketMiddleware();
+const liveWcMiddleware = socketMiddleware(wsAction);
 
 const rootReducer = combineReducers({
   dataList: getDataReducer,
@@ -23,7 +24,7 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   tab: switchTabReducer,
   user: authReducer,
-  wc: wcReducer,
+  ws: wsReducer,
 });
 export const store = createStore(
     rootReducer, composeWithDevTools( applyMiddleware(thunk, liveWcMiddleware))

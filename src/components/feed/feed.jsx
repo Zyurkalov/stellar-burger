@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 
-import { connect, disconnect } from "../../service/actions/wc-action";
+import { connect, disconnect } from "../../service/actions/ws-action";
 import { hardData } from "../../constatnts/hard-data";
 import ListOrder from "./list-order/list-order";
 import BoardOrder from "./board-order/board-order";
@@ -12,7 +12,7 @@ function FeedComponent()  {
     const [orderData, setOrderData] = useState({ orders: null, total: null, totalToday: null });
     // const {orders, total, totalToday} = hardData
     const dispatch = useDispatch()
-    const getOrders = useSelector((state) => state.wc.orders);
+    const getOrders = useSelector((state) => state.ws.orders);
     const { orders, total, totalToday } = orderData;
 
     let listOrderDone = []

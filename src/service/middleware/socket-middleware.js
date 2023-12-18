@@ -1,21 +1,11 @@
-import {
-  LIVE_CONNECT,
-  LIVE_DISCONNECT,
-  WS_CONNECTING,
-  WS_CONNECTION_OPEN,
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_GET_ORDERS,
-  WS_SEND_ORDERS,
-} from "../actions/wc-action";
 import { showLoading, closeModal } from "../actions/modal";
 import { api } from "../../utils/user-api";
-import { connect } from "../actions/wc-action";
+import { connect } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
 
 const {queryToken, setCookie} = useCookie
 
-export function socketMiddleware() {
+export const socketMiddleware = (objAction)  => {
   return (store) => {
     let socket = null;
     let closing = false;
@@ -26,14 +16,14 @@ export function socketMiddleware() {
       const { dispatch } = store;
       url = payload;
 
-      if (type === LIVE_CONNECT) {
+      if (type === objAction.connect) {
         socket = new WebSocket(url);
-        dispatch({ type: WS_CONNECTING });
+        dispatch({ type: objAction.connecting });
         dispatch(showLoading('загружаем даные'))
       }
       if (socket) {
         socket.onopen = () => {
-          dispatch({ type: WS_CONNECTION_OPEN });
+          dispatch({ type: objAction.open });
           console.log(`wc соединение установлено`);
         };
 
@@ -51,13 +41,13 @@ export function socketMiddleware() {
                 dispatch(connect(`orders?token=${queryToken()}`));
               };
           } else {
-            dispatch({ type: WS_GET_ORDERS, payload: parsedData });
+            dispatch({ type: objAction.getMessage, payload: parsedData });
           }
         };
 
         socket.onclose = (event) => {
           const { data } = event;
-          dispatch({ type: WS_CONNECTION_CLOSED });
+          dispatch({ type: objAction.closed });
           if (/*event.wasClean*/ closing) {
             console.log(`wc соединение закрыто корректно`);
           } else {
@@ -69,14 +59,14 @@ export function socketMiddleware() {
 
         socket.onerror = (event) => {
           const { data } = event;
-          dispatch({ type: WS_CONNECTION_ERROR, payload: data?.message });
+          dispatch({ type: objAction.error, payload: data?.message });
           console.log(`Ошибка соединения: ${event.message}`);
         };
 
-        if (type === WS_SEND_ORDERS) {
+        if (type === objAction.sendMessage) {
           socket.send(JSON.stringify(action.payload));
         }
-        if (type === LIVE_DISCONNECT) {
+        if (type === objAction.disconnect) {
           closing = true;
           socket.close();
           socket = null;

@@ -4,13 +4,13 @@ import ListOrder from "../../feed/list-order/list-order"
 import { useCookie } from "../../../utils/useCookie"
 import { useParams, useSearchParams, useLocation  } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { connect, disconnect } from "../../../service/actions/wc-action"
+import { connect, disconnect } from "../../../service/actions/ws-action"
 
 
 const ProfileOrders = () => {
     // const {orders} = hardData
     const dispatch = useDispatch()
-    const getOrders = useSelector((state) => state.wc.orders);
+    const getOrders = useSelector((state) => state.ws.orders);
 
     const [orderData, setOrderData] = useState({ orders: null });
     const { orders } = orderData;

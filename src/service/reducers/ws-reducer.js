@@ -1,10 +1,4 @@
-import {
-  WS_CONNECTING,
-  WS_CONNECTION_OPEN,
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_GET_ORDERS,
-} from "../actions/wc-action";
+import { wsAction } from "../actions/ws-action";
 
 const WebsocketStatus = {
   CONNECTING: "CONNECTING...",
@@ -17,35 +11,35 @@ const initialState = {
   error: "",
 };
 
-export function wcReducer(state = initialState, action) {
+export function wsReducer(state = initialState, action) {
   switch (action.type) {
-    case WS_CONNECTING:
+    case wsAction.connecting:
       return {
         ...state,
         status: WebsocketStatus.CONNECTING,
         error: "",
       };
-    case WS_CONNECTION_OPEN:
+    case wsAction.open:
       return {
         ...state,
         status: WebsocketStatus.ONLINE,
         error: "",
       };
 
-    case WS_CONNECTION_ERROR:
+    case wsAction.error:
       return {
         ...state,
         status: WebsocketStatus.OFFLINE,
         error: action.payload,
       };
-    case WS_CONNECTION_CLOSED:
+    case wsAction.closed:
       return {
         ...state,
         status: WebsocketStatus.OFFLINE,
         orders: [],
         error: "",
       };
-    case WS_GET_ORDERS:
+    case wsAction.getMessage:
       return {
         ...state,
         orders: [action.payload],
