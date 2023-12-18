@@ -80,7 +80,7 @@ function App() {
 
           <Route path='ingredients/:ingredientId' element={<IngredientDetails />}/>
           <Route path="feed/:number" element={<FeedOrderDetails item={order} />} />
-          <Route path="profile/orders/:number" element={<FeedOrderDetails item={order} />} />
+          <Route path="profile/orders/:number" element={<ProtectedRoute element={<FeedOrderDetails item={order} />} />} />
         </Route>
       </Routes>
 
@@ -98,11 +98,11 @@ function App() {
 	            </Modal>
 	          }
 	        />
-          <Route path='profile/orders/:number' element={
+          <Route path='profile/orders/:number' element={<ProtectedRoute element={
 	            <Modal title={''} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
-	          }
+	          } />}
 	        />
         </Routes>
       )}
