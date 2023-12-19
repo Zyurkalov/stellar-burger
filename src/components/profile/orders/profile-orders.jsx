@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { hardData } from "../../../constatnts/hard-data"
 import ListOrder from "../../feed/list-order/list-order"
 import { useCookie } from "../../../utils/useCookie"
-import { useParams, useSearchParams, useLocation  } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { connect, disconnect } from "../../../service/actions/ws-action"
 
@@ -14,9 +12,6 @@ const ProfileOrders = () => {
 
     const [orderData, setOrderData] = useState({ orders: null });
     const { orders } = orderData;
-    
-    // const cookie = useCookie.getCookie('accessToken')
-    // const queryToken = cookie.replace('Bearer', '').trim()
 
     let listOrderDone = []
     let listOrderWorking = []
@@ -42,8 +37,6 @@ const ProfileOrders = () => {
     useEffect(() => {
       if(getOrders.length > 0) {
         setOrderData(({orders: getOrders[0]?.orders || null}))
-        // const { orders } = getOrders[0];
-        // setOrderData({ orders: orders }); 
       }
     },[getOrders])
 

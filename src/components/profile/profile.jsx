@@ -1,4 +1,3 @@
-import { ProfileInputList } from "./input-list/input-list"
 import { ProfileNavigation } from "./navigation/navigation"
 import { Outlet } from "react-router-dom"
 

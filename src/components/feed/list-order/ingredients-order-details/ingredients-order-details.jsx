@@ -1,14 +1,11 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation } from "react-router-dom";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
 
 import PropTypes from 'prop-types';
 import style from "./ingredients-order-details.module.css";
 
 export function IngredientsOrderDetails({list}) {
-  // const location = useLocation()
   const currencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);
   const {
     dataList: { data },

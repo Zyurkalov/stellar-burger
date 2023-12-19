@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
 
 import { connect, disconnect } from "../../service/actions/ws-action";
-import { hardData } from "../../constatnts/hard-data";
 import ListOrder from "./list-order/list-order";
 import BoardOrder from "./board-order/board-order";
 import mainStyles from "../constructor/constructor.module.css"

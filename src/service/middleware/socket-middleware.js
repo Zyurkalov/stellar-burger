@@ -2,7 +2,7 @@ import { showLoading, closeModal } from "../actions/modal";
 import { api } from "../../utils/user-api";
 import { connect, disconnect } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
-import { WS_URL } from "../../constatnts/apiUrl";
+import { congrat } from "../../constatnts/congrat";
 
 const {queryToken, setCookie, getCookie} = useCookie
 
@@ -33,7 +33,6 @@ export const socketMiddleware = (objAction)  => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch(closeModal());
-          console.log(parsedData?.message)
           if (parsedData.message === "Invalid or missing token") {  
             dispatch(disconnect()) 
             const refresh = await api.refreshToken(); 
@@ -41,6 +40,7 @@ export const socketMiddleware = (objAction)  => {
                 setCookie("refreshToken", refresh.refreshToken);
                 setCookie("accessToken", refresh.accessToken);
                 dispatch(connect(`orders?token=${queryToken()}`));
+                congrat()
               };
               
           } else {
@@ -57,8 +57,6 @@ export const socketMiddleware = (objAction)  => {
             setTimeout(() => {
               dispatch(connect(`orders?token=${queryToken()}`))
             }, 3000)
-            
-            // dispatch({ type: LIVE_CONNECT, payload: url });
           }
         };
 

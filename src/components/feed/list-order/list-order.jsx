@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { IngredientsOrderDetails } from "./ingredients-order-details/ingredients-order-details";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,7 +11,6 @@ import mainStyle from "../../constructor/constructor.module.css"
 
 export default function ListOrder({data, addOrder}) {
   const location = useLocation()
-  const {number} = useParams()
   const userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
   
   return (
