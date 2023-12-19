@@ -1,9 +1,10 @@
 import { showLoading, closeModal } from "../actions/modal";
 import { api } from "../../utils/user-api";
-import { connect } from "../actions/ws-action";
+import { connect, disconnect } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
+import { WS_URL } from "../../constatnts/apiUrl";
 
-const {queryToken, setCookie} = useCookie
+const {queryToken, setCookie, getCookie} = useCookie
 
 export const socketMiddleware = (objAction)  => {
   return (store) => {
@@ -20,39 +21,43 @@ export const socketMiddleware = (objAction)  => {
         socket = new WebSocket(url);
         dispatch({ type: objAction.connecting });
         dispatch(showLoading('загружаем даные'))
+        
       }
       if (socket) {
         socket.onopen = () => {
           dispatch({ type: objAction.open });
-          console.log(`wc соединение установлено`);
+          console.log(`ws соединение установлено`);
         };
 
         socket.onmessage = async (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch(closeModal());
-
-          if (parsedData.message === "Invalid or missing token") {   
+          console.log(parsedData?.message)
+          if (parsedData.message === "Invalid or missing token") {  
+            dispatch(disconnect()) 
             const refresh = await api.refreshToken(); 
               if (refresh.success) {
                 setCookie("refreshToken", refresh.refreshToken);
                 setCookie("accessToken", refresh.accessToken);
-                socket.close();
                 dispatch(connect(`orders?token=${queryToken()}`));
               };
+              
           } else {
             dispatch({ type: objAction.getMessage, payload: parsedData });
           }
         };
 
         socket.onclose = (event) => {
-          const { data } = event;
           dispatch({ type: objAction.closed });
           if (/*event.wasClean*/ closing) {
-            console.log(`wc соединение закрыто корректно`);
+            console.log(`ws соединение закрыто корректно`);
           } else {
-            console.log(`Непредвиденное закрытие wc соединения`);
-            dispatch(connect(`orders?token=${queryToken()}`));
+            console.log(`Непредвиденное закрытие ws соединения`);
+            setTimeout(() => {
+              dispatch(connect(`orders?token=${queryToken()}`))
+            }, 3000)
+            
             // dispatch({ type: LIVE_CONNECT, payload: url });
           }
         };

@@ -1,4 +1,4 @@
-import { WC_URL } from "../../constatnts/apiUrl";
+import { WS_URL } from "../../constatnts/apiUrl";
 
 // const LIVE_CONNECT = 'LIVE_CONNECT'
 // const LIVE_DISCONNECT = 'LIVE_DISCONNECT'
@@ -23,7 +23,7 @@ export const wsAction = {
 
 export const connect = (teg) => ({
     type: wsAction.connect,
-    payload: `${WC_URL}/${teg}`
+    payload: `${WS_URL}/${teg}`
 })
 export const disconnect = () => ({
     type: wsAction.disconnect

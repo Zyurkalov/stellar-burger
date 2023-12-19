@@ -36,11 +36,13 @@ export default function BoardOrder({doneList, workingList, total, totalToday}) {
                         : value.list.map((number, index) => {
                             if(index < 30){
                             return (
-                                <li key={index}>
-                            <Link to={`/feed/${number}`} state={{ background: location }} className={`text text_type_digits-default ${mainStyle.link} ${value.header === "Готовы:" 
+                                <li key={index} className={`text text_type_digits-default ${value.header === "Готовы:" 
+                                ? style.orderStatus_done 
+                                : style.orderStatus_working}`}>{number}
+                            {/* <Link to={`/feed/${number}`} state={{ background: location }} className={`text text_type_digits-default ${mainStyle.link} ${value.header === "Готовы:" 
                                 ? style.orderStatus_done 
                                 : style.orderStatus_working}`} key={index}>{number}
-                            </Link>
+                            </Link> */}
                             </li>)
                             }}
                         )}

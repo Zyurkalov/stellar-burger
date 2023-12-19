@@ -34,10 +34,10 @@ const ProfileOrders = () => {
     //
     useEffect(() => {
         dispatch(connect(`orders?token=${useCookie.queryToken()}`));
-      return () => {
-        dispatch(disconnect())
+        return () => {
+          dispatch(disconnect())
       }
-    },[])
+    },[dispatch])
     
     useEffect(() => {
       if(getOrders.length > 0) {

@@ -22,7 +22,7 @@ export default function ListOrder({data, addOrder}) {
         addOrder(order)
         return (
           <li className={`${style.container} ${mainStyle.shadow}`} key={index}>
-            <Link key={index} to={`${location.pathname}/${number}`} state={{ background: location, order: order}} className={`${style.links}`}>
+            <Link key={index} to={`${location.pathname}/${number}`} state={{ background: location, order: order, from: location.pathname}} className={`${style.links}`}>
             <div className={style.flexContainer}>
               <span className="text text_type_digits-default">{`#${number}`}</span>
               <div className={`text text_type_main-small ${style.data}`}>

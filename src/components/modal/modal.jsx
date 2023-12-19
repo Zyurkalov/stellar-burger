@@ -14,11 +14,12 @@ function Modal({ title, from, children, onClose }) {
   const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   // const background = location.state && location.state.background;
-  const pathName = location.state?.background?.pathname ?? null;
-  const setTarget = pathName ==='/feed' || pathName ==='/profile/orders'
-  const { number } = useParams();
+  // const pathName = location.state?.background?.pathname ?? null;
+  // const setTarget = pathName ==='/feed' || pathName ==='/profile/orders'
+  // const { number } = useParams();
+  const checkFrom = from ==='/feed' || from ==='/profile/orders'
 
   const close = () => {
     if(onClose) {
@@ -45,15 +46,16 @@ function Modal({ title, from, children, onClose }) {
     <ModalOverlay>
       <div className={`p-10 ${styles.ingrCont} ${modalLoadingStatus || modalErrorStatus ? styles.ingrCont_background : null}`}>
         
-        {/* {setTarget ? null :  */}
+        {/* {setFrom ? null :  */}
           <div className={`mt-4 mb-6 ${styles.headCont}`}>
-          {setTarget
+          {/* {setFrom
             ? (number 
               ? <h2 className="mb-6 text text_type_digits-default">{`#${number}`}</h2> 
               : <h2 className="text text_type_main-large">Детали ингредиента</h2>)
             // ? <h2 className="mb-6 text text_type_digits-default">{`#${number}` || null}</h2>
             : <h2 className="text text_type_main-large">{title || null}</h2>
-          }
+          } */}
+              <h2 className={`text text_type_main-large ${checkFrom ? `mb-6 text_type_digits-default` : null}`}>{title || null}</h2>
               <div className={styles.cursorPointer}>
                 {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => close()} /> : null}
               </div>
@@ -68,7 +70,7 @@ function Modal({ title, from, children, onClose }) {
 
 Modal.propTypes = {
   title: PropTypes.string,
-  // from: PropTypes.string,
+  from: PropTypes.string,
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func
 };

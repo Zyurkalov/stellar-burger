@@ -23,7 +23,7 @@ export const loadingStatus = (type) => ({
   type: LOADING_STATUS,
   payload: type
 })
-
+// в запросах, |* служит обозначением красной строки для текста 
 export const login = (data) => {
   return (dispatch) => {
     dispatch(showLoading('стыковка...'))
@@ -59,7 +59,7 @@ export const registration = (data) => {
         if (res.success) {
           addUser(res)
           setCookie("accessToken", res.accessToken)
-          setCookie("refreshToken", res.refreshToken, {expires: 20})
+          setCookie("refreshToken", res.refreshToken, {expires: 10})
           dispatch(setUserData(res.user));
         }
         return res;

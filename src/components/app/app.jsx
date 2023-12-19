@@ -52,15 +52,12 @@ function App() {
   const handleModalClose = () => {
     // navigate("/", { replace: true });
     navigate(-1)
-    // Возникает непредвиденное поведение:
-    // при открытом модальном окне заказа, модальное окно с составом ингредиента
-    // может быть вызвано поверх ее, чего пользователь не ожидает
   };
 
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(checkUserAuth())
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
@@ -80,7 +77,7 @@ function App() {
 
           <Route path='ingredients/:ingredientId' element={<IngredientDetails />}/>
           <Route path="feed/:number" element={<FeedOrderDetails item={order} />} />
-          <Route path="profile/orders/:number" element={<ProtectedRoute element={<FeedOrderDetails item={order} />} />} />
+          <Route path="profile/orders/:number" element={<FeedOrderDetails item={order} />} />
         </Route>
       </Routes>
 
@@ -93,13 +90,13 @@ function App() {
 	          }
 	        />
           <Route path='feed/:number' element={
-	            <Modal title={''} onClose={handleModalClose}>
+	            <Modal title={`#${location?.state?.order?.number}`} from={`${location?.state?.from}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          }
 	        />
           <Route path='profile/orders/:number' element={<ProtectedRoute element={
-	            <Modal title={''} onClose={handleModalClose}>
+	            <Modal title={`#${location?.state?.order?.number}`} from={`${location?.state?.from}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          } />}
