@@ -9,11 +9,19 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import PropTypes from "prop-types";
 
-function Modal({ title, from, children, onClose }) {
+function Modal({ title, styleTitle, from, children, onClose }) {
   const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
-  const checkFrom = from ==='/feed' || from ==='/profile/orders'
+
+  let styleFonts = '' 
+  switch (styleTitle) {
+    case 'order': 
+      styleFonts = `mb-6 text_type_digits-default`
+      break;
+    default:
+      styleFonts = `text_type_main-large`
+  }
 
   const close = () => {
     if(onClose) {
@@ -40,12 +48,11 @@ function Modal({ title, from, children, onClose }) {
     <ModalOverlay>
       <div className={`p-10 ${styles.ingrCont} ${modalLoadingStatus || modalErrorStatus ? styles.ingrCont_background : null}`}>
           <div className={`mt-4 mb-6 ${styles.headCont}`}>
-              <h2 className={`text text_type_main-large ${checkFrom ? `mb-6 text_type_digits-default` : null}`}>{title || null}</h2>
+              <h2 className={`text ${styleFonts}`}>{title || null}</h2>
               <div className={styles.cursorPointer}>
                 {!modalLoadingStatus ? <CloseIcon type="primary" onClick={() => close()} /> : null}
               </div>
           </div>
-        {/* } */}
         {children}
       </div>
     </ModalOverlay>,
@@ -57,7 +64,8 @@ Modal.propTypes = {
   title: PropTypes.string,
   from: PropTypes.string,
   children: PropTypes.node.isRequired,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  styleFonts: PropTypes.string,
 };
 
 export default Modal;

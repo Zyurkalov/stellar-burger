@@ -1,7 +1,7 @@
 import { wsAction } from "../actions/ws-action";
 
 const WebsocketStatus = {
-  CONNECTING: "CONNECTING...",
+  CONNECTING: "CONNECTING",
   ONLINE: "ONLINE",
   OFFLINE: "OFFLINE",
 };

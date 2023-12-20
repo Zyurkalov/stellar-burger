@@ -16,6 +16,7 @@ export const StatusOrder = ({value}) => {
       case 'pending':
         statusText = 'Готовится';
         statusColor = style.status_default
+        break;
       default:
         statusText = 'Создан';
         statusColor = style.status_default

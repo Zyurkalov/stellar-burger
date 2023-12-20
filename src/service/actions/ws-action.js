@@ -28,3 +28,7 @@ export const connect = (teg) => ({
 export const disconnect = () => ({
     type: wsAction.disconnect
 })
+export const error = (text) => ({
+    type: wsAction.error,
+    payload: text,
+})

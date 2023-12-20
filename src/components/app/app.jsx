@@ -90,13 +90,13 @@ function App() {
 	          }
 	        />
           <Route path='feed/:number' element={
-	            <Modal title={`#${location?.state?.order?.number}`} from={`${location?.state?.from}`} onClose={handleModalClose}>
+	            <Modal title={`#${location?.state?.order?.number}`} styleTitle={'order'} from={`${location?.state?.from}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          }
 	        />
           <Route path='profile/orders/:number' element={<ProtectedRoute element={
-	            <Modal title={`#${location?.state?.order?.number}`} from={`${location?.state?.from}`} onClose={handleModalClose}>
+	            <Modal title={`#${location?.state?.order?.number}`} styleTitle={'order'} from={`${location?.state?.from}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          } />}

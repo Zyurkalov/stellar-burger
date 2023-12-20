@@ -1,4 +1,4 @@
-import { showLoading, closeModal } from "../actions/modal";
+import { showLoading, closeModal, showModalError } from "../actions/modal";
 import { api } from "../../utils/user-api";
 import { connect, disconnect } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
@@ -35,13 +35,22 @@ export const socketMiddleware = (objAction)  => {
           dispatch(closeModal());
           if (parsedData.message === "Invalid or missing token") {  
             dispatch(disconnect()) 
-            const refresh = await api.refreshToken(); 
+            //вернуть обратно:
+            dispatch(showModalError(congrat))
+            setTimeout(async () => {
+              const refresh = await api.refreshToken(); 
               if (refresh.success) {
                 setCookie("refreshToken", refresh.refreshToken);
                 setCookie("accessToken", refresh.accessToken);
                 dispatch(connect(`orders?token=${queryToken()}`));
-                congrat()
-              };
+              }
+            }, 8*1000);
+            // const refresh = await api.refreshToken(); 
+            //   if (refresh.success) {
+            //     setCookie("refreshToken", refresh.refreshToken);
+            //     setCookie("accessToken", refresh.accessToken);
+            //     dispatch(connect(`orders?token=${queryToken()}`));
+            //   };
               
           } else {
             dispatch({ type: objAction.getMessage, payload: parsedData });
