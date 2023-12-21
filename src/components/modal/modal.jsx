@@ -9,18 +9,18 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import PropTypes from "prop-types";
 
-function Modal({ title, styleTitle, from, children, onClose }) {
+function Modal({ title, styleTitle, children, onClose }) {
   const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
   const portal = document.getElementById("portal");
   const dispatch = useDispatch();
 
   let styleFonts = '' 
   switch (styleTitle) {
-    case 'order': 
-      styleFonts = `mb-6 text_type_digits-default`
+    case 'large': 
+      styleFonts = `text_type_main-large`
       break;
     default:
-      styleFonts = `text_type_main-large`
+      styleFonts = `mb-6 text_type_digits-default`
   }
 
   const close = () => {
@@ -62,10 +62,9 @@ function Modal({ title, styleTitle, from, children, onClose }) {
 
 Modal.propTypes = {
   title: PropTypes.string,
-  from: PropTypes.string,
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func,
-  styleFonts: PropTypes.string,
+  styleTitle: PropTypes.string,
 };
 
 export default Modal;

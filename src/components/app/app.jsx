@@ -84,19 +84,19 @@ function App() {
       {background && (
         <Routes>
 	        <Route path='ingredients/:ingredientId' element={
-	            <Modal title={'Детали ингредиента'} onClose={handleModalClose}>
+	            <Modal title={'Детали ингредиента'} styleTitle={'large'} onClose={handleModalClose}>
 	              <IngredientDetails item={ingredient}/>
 	            </Modal>
 	          }
 	        />
           <Route path='feed/:number' element={
-	            <Modal title={`#${location?.state?.order?.number}`} styleTitle={'order'} from={`${location?.state?.from}`} onClose={handleModalClose}>
+	            <Modal title={`#${location?.state?.order?.number}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          }
 	        />
           <Route path='profile/orders/:number' element={<ProtectedRoute element={
-	            <Modal title={`#${location?.state?.order?.number}`} styleTitle={'order'} from={`${location?.state?.from}`} onClose={handleModalClose}>
+	            <Modal title={`#${location?.state?.order?.number}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
 	            </Modal>
 	          } />}

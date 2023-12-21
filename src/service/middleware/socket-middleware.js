@@ -33,25 +33,14 @@ export const socketMiddleware = (objAction)  => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch(closeModal());
-          if (parsedData.message === "Invalid or missing token") {  
+          if (parsedData.message === "Invalid or missing token") { 
             dispatch(disconnect()) 
-            //вернуть обратно:
-            dispatch(showModalError(congrat))
-            setTimeout(async () => {
-              const refresh = await api.refreshToken(); 
+            const refresh = await api.refreshToken(); 
               if (refresh.success) {
                 setCookie("refreshToken", refresh.refreshToken);
                 setCookie("accessToken", refresh.accessToken);
-                dispatch(connect(`orders?token=${queryToken()}`));
-              }
-            }, 8*1000);
-            // const refresh = await api.refreshToken(); 
-            //   if (refresh.success) {
-            //     setCookie("refreshToken", refresh.refreshToken);
-            //     setCookie("accessToken", refresh.accessToken);
-            //     dispatch(connect(`orders?token=${queryToken()}`));
-            //   };
-              
+                await dispatch(connect(`orders?token=${queryToken()}`));
+              };  
           } else {
             dispatch({ type: objAction.getMessage, payload: parsedData });
           }
@@ -65,7 +54,7 @@ export const socketMiddleware = (objAction)  => {
             console.log(`Непредвиденное закрытие ws соединения`);
             setTimeout(() => {
               dispatch(connect(`orders?token=${queryToken()}`))
-            }, 3000)
+            }, 2000)
           }
         };
 
