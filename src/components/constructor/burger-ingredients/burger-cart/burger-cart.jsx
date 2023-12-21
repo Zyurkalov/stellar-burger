@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
-import style from "./burger-cart.module.css";
 import { oneIngrPropType } from "../../../../utils/prop-types";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import style from "./burger-cart.module.css";
 
 function BurgerCart({item}) {
   let location = useLocation();

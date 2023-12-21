@@ -1,5 +1,7 @@
+import FeedComponent from "../components/feed/feed"
+
 export function Feed() {
     return (
-        <p>Feed</p>
+        <FeedComponent></FeedComponent>
     )
 }

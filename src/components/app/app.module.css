@@ -24,3 +24,10 @@
   flex-direction: row;
   gap: 60px;
 }
+
+.cover {
+  height: calc( 100vh - 275px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

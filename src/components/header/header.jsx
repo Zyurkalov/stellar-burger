@@ -39,7 +39,7 @@ function Header(props) {
       <MenuList
         text={"Личный кабинет"}
         icon={ProfileIcon}
-        active={path === "/profile"}
+        active={path === "/profile" ||  path === "/profile/orders"}
       />
     ),
     [path]
@@ -47,7 +47,7 @@ function Header(props) {
 
   return (
     <div className={headerStyles.position}>
-      <header className={`m-10 ${headerStyles.header}`}>
+      <header className={`m-10 mt-5 ${headerStyles.header}`}>
         <div className={headerStyles.headContainer}>
           <nav>
             <ul className={headerStyles.headerList}>

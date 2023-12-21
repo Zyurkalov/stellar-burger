@@ -1,0 +1,10 @@
+.status {};
+.status_default {
+    color: var(--text-primary-color);
+}
+.status_done {
+    color: var(--colors-interface-success);
+}
+.status_cancel {
+    color: var(--colors-interface-error);
+}
