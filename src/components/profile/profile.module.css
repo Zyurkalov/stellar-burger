@@ -1,7 +1,8 @@
 .сontainer {
-    max-width: 1240px;
+    width: 1240px;
     min-width: 20px;
-    margin: 12svh auto 0;
+    /* margin: 12svh auto 0; */
+    margin: 0 auto;
 
     display: flex;
     flex-direction: row;

@@ -1,3 +1,9 @@
+:root {
+  --box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.06), 0px 4px 8px 0px rgba(0, 0, 0, 0.04);
+  --button-normal: 2px solid #801AB2;
+  --interface-bg: #131316;
+}
+
 body {
   margin: 0;
 }

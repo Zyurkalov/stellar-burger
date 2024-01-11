@@ -12,7 +12,7 @@ export function ProtectedRoute({ element, anonymous = false }) {
     return <Navigate to={ from } />;
   }
   if (!anonymous && !refreshToken) {
-    return <Navigate to="/login" state={{ from: location }}/>;
+    return <Navigate to="/login" state={{ from: location.pathname }}/>;
   }
   return element;
 }
