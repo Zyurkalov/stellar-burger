@@ -8,11 +8,28 @@ import {
 const ingredients = {
   bun: [],
   other: [],
+  list: []
 };
 
 export const ingredientReducer = (state = ingredients, action) => {
   const updatedBun = state.bun;
   const updatedOther = [...state.other];
+  const commonList = [...state.list];
+
+  const addIngrReducer = (list, addedIngr) => {
+    const check = () => {
+      return list.length > 0 && list[0].type === 'bun';
+    }
+    if (addedIngr.type === 'bun') {
+      if (check()) {
+        list[0] = addedIngr;
+      } else {
+        list.unshift(addedIngr);
+      }
+    } else {
+      list.push(addedIngr);
+    }
+  };
 
   switch (action.type) {
     case ADD_INGREDIENT:
@@ -20,14 +37,16 @@ export const ingredientReducer = (state = ingredients, action) => {
       if (action.ingr.type === 'bun') {
         updatedBun[0] = action.ingr
         action.ingr.count = 1
+        addIngrReducer(commonList, action.ingr)
       } else {
+        addIngrReducer(commonList, action.ingr)
         const findedTwins = updatedOther.filter((ingr) => {
               return ingr._id === action.ingr._id;
             })
         action.ingr.count = findedTwins.length + 1;
         updatedOther.push(action.ingr)
       }
-      return { ...state, bun: updatedBun, other: updatedOther};
+      return { ...state, bun: updatedBun, other: updatedOther, list: commonList};
 
     case DELETE_INGREDIENT:
       updatedOther.splice(action.ingr, 1);
@@ -49,6 +68,7 @@ export const ingredientReducer = (state = ingredients, action) => {
       return {
         bun: [],
         other: [],
+        list: [],
       }
 
     default:

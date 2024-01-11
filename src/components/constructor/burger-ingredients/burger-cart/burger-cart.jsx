@@ -4,10 +4,11 @@ import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
 import { oneIngrPropType } from "../../../../utils/prop-types";
-import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import {counterComponent} from "./counter/counter"
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./burger-cart.module.css";
 
-function BurgerCart({item}) {
+const BurgerCart = ({item}) => {
   let location = useLocation();
 
   const [{isDrag}, dragRef] = useDrag({
@@ -19,29 +20,14 @@ function BurgerCart({item}) {
   })
 
   const compCurrencyIcon = useMemo(() => <CurrencyIcon />, []);
-
-  // логика подсчета количества ингредиентов
   const ingrList = useSelector((state) => state.ingrList.other);
   const bunList = useSelector((state) => state.ingrList.bun);
-  
-  const findedCopyIngr = ingrList.filter((ingr) => {
-    return ingr._id === item._id;
-  });
-  const findedCopyBun = ingrList.filter((ingr) => {
-    return ingr._id === item._id;
-  });
-
-  let counterComponent = item.type !== 'bun' 
-  ? (findedCopyIngr.length > 0) 
-    ? <Counter count={findedCopyIngr.length} size="default" extraClass="m-1" />
-    : null
-  : (bunList.length > 0 && bunList[0]._id === item._id) 
-    ? <Counter count={bunList.length * 2} size="default" extraClass="m-1" />
-    : null;
+  const commonList = useSelector((state) => state.ingrList.list);
+  console.log(commonList)
 
   return (
     <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} className={style.cart} ref={dragRef}>
-      {counterComponent}
+      {counterComponent(item, ingrList, bunList)}
       <img src={item.image} alt={item.name} />
       <div className={style.cartPrice}>
         <p className="mt-2 text text_type_digits-default">{item.price}</p>
