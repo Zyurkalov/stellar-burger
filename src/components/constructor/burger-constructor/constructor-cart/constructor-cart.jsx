@@ -16,10 +16,10 @@ import {
 import style from "./constructor-cart.module.css";
 
 export function ConstructorCart({ ingredient, index }) {
-  const idIngr = ingredient._id;
-
   const ref = useRef(null);
   const dispatch = useDispatch();
+  const idIngr = ingredient._id;
+  
   const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);
 
   const [{ isDrag }, dragRef] = useDrag({

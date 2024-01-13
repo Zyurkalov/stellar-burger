@@ -26,12 +26,12 @@ const rootReducer = combineReducers({
   user: authReducer,
   ws: wsReducer,
 });
-export const store = createStore(
-    rootReducer, composeWithDevTools( applyMiddleware(thunk, liveWcMiddleware))
-);
-// export const store = configureStore({
-//     reducer: rootReducer,
-//     middleware: (getDefaultMiddleware) =>
-//       getDefaultMiddleware().concat(thunk, liveTableMiddleware),
-//   });
+// export const store = createStore(
+//     rootReducer, composeWithDevTools( applyMiddleware(thunk, liveWcMiddleware))
+// );
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(thunk, liveWcMiddleware),
+  });
   

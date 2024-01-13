@@ -16,17 +16,25 @@ import style from "./burger-constructor.module.css";
 
 function BurgerConstructor() {
   // const ref = useRef(null);
-  const refIngrList = useRef(null)
   const dispatch = useDispatch();
   const navigate = useNavigate()
-
-  const bunList = useSelector((state) => state.ingrList.bun);
-  const otherList = useSelector((state) => state.ingrList.other);
-  const bun = bunList && bunList.length > 0 ? bunList[0] : null;
-
-  const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
   const { getCookie } = useCookie
+  const refIngrList = useRef(null)
   const refreshToken = getCookie("refreshToken")
+
+  // const bunList = useSelector((state) => state.ingrList.bun);
+  // const otherList = useSelector((state) => state.ingrList.other);
+  const commonList = useSelector((state) => state.ingrList.list);
+  const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
+  const checkBun = (index) => commonList[0].type === 'bun' ? index+1 : index;
+
+  const getListType = (type = 'other') => {
+    return type !== 'bun' 
+    ? commonList.filter((ingr) => { return ingr.type !== 'bun'})
+    : commonList.filter((ingr) => { return ingr.type === 'bun'})
+  }
+  const otherList = getListType()
+  const bun = getListType('bun') && getListType('bun').length > 0 ? getListType('bun')[0] : null;
 
   const totalPrice = (otherList && otherList.length > 0)
   ? otherList.reduce((acc, ingredient) => acc + ingredient.price, 0) + (bun ? bun.price * 2 : 0)
@@ -94,7 +102,7 @@ const [{ isHover }, dropTarget] = useDrop({
             {otherList.length === 0 ? (
                 <div className={`${style.defaultBorder} ${style.defaultBorder_medium}`}>
                   <p className={`text text_type_main-medium ${style.defaultText}`}>
-                    Выберите начинку
+                    Добавьте начинку
                   </p>
                 </div>
             ) : (
@@ -105,14 +113,9 @@ const [{ isHover }, dropTarget] = useDrop({
               >
                 {otherList.map((ingredient, index) => (
                   <React.Fragment key={ingredient.uniqueId}>
-                    <ConstructorCart ingredient={ingredient} index={index}/>
+                    <ConstructorCart ingredient={ingredient} index={checkBun(index)}/>
                     {otherList.length <= 1 ? (
                       <div className={`${style.defaultBorder} ${style.defaultBorder_small}`} >
-                        {/* <p className={`text text_type_main-medium ${style.defaultText}`}>
-                          {otherList[0].type === "main"
-                            ? "Не забудьте соус"
-                            : "А как же начинка?"}
-                        </p> */}
                       </div>
                     ) : null}
                   </React.Fragment>
