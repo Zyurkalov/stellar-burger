@@ -11,6 +11,7 @@ import { openOrderModal } from "../../../service/actions/modal";
 import { oneIngrPropType } from "../../../utils/prop-types";
 import { useCookie } from "../../../utils/useCookie";
 
+import { TIngredient } from "../../../Types/type";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 
@@ -19,52 +20,62 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const { getCookie } = useCookie
-  const refIngrList = useRef(null)
+  const refIngrList = useRef<HTMLUListElement>(null)
   const refreshToken = getCookie("refreshToken")
 
   // const bunList = useSelector((state) => state.ingrList.bun);
   // const otherList = useSelector((state) => state.ingrList.other);
   const commonList = useSelector((state) => state.ingrList.list);
   const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
-  const checkBun = (index) => commonList[0].type === 'bun' ? index+1 : index;
 
-  const getListType = (type = 'other') => {
-    return type !== 'bun' 
-    ? commonList.filter((ingr) => { return ingr.type !== 'bun'})
-    : commonList.filter((ingr) => { return ingr.type === 'bun'})
-  }
-  const otherList = getListType()
-  const bun = getListType('bun') && getListType('bun').length > 0 ? getListType('bun')[0] : null;
+  const [bunIngr, ...otherIngr] = commonList
+  const checkBun = (index: number):number => bunIngr?.type === 'bun' ? index+1 : index;
 
-  const totalPrice = (otherList && otherList.length > 0)
-  ? otherList.reduce((acc, ingredient) => acc + ingredient.price, 0) + (bun ? bun.price * 2 : 0)
-  : (bun ? bun.price * 2 : 0);
+  // const getListType = (type = 'other') => {
+  //   return type !== 'bun' 
+  //   ? commonList.filter((ingr) => { return ingr.type !== 'bun'})
+  //   : commonList.filter((ingr) => { return ingr.type === 'bun'})
+  // }
+  // const otherList = getListType()
+  // const bun = getListType('bun') && getListType('bun').length > 0 ? getListType('bun')[0] : null;
+  const bun =  bunIngr?.type === 'bun' ? bunIngr : null
+  // const bun = getBun()
+  // const getListOther = () => bun ? otherIngr : commonList
+  const otherList = bun ? otherIngr : commonList
+
+  const bunPrice: number = bun ? bun.price * 2 : 0;
+  const totalPrice: number = (otherList && otherList.length > 0)
+  ? otherList.reduce((acc: number, ingredient: TIngredient):number => acc + ingredient.price, 0) + bunPrice
+  : bunPrice;
   
-  const arrIngrID = () => {
+  const getListIngrID = ():number | null[] => {
     if(bun) {
       return [bun, ...otherList, bun].map((ingr) => ingr._id)
     } else {return []}
   }
+  const listIngrID = getListIngrID()
+
 const [{ isHover }, dropTarget] = useDrop({
     accept: ["ingredient"],
     drop(ingr) {
       dispatch(addIngredient(ingr));
     },
   });
-  const toggleModal = () => {
+  const toggleModal = (): void => {
     if (refreshToken) {
       dispatch(openOrderModal());
-      dispatch(makeOrderApi(arrIngrID()));
+      dispatch(makeOrderApi(listIngrID));
     } else {
       navigate("/login");
     }
   };
 
-  const burger = (pos) => 
+
+  const burger = (pos:string): JSX.Element => 
     {return (bun != null ? (
       <li className={`mb-4 ${style.component}`}>
         <div style={{ visibility: "hidden" }}>
-          <DragIcon />
+          <DragIcon type="primary"/>
         </div>
         <ConstructorElement
           type={pos === 'top' ? "top" : "bottom"}
@@ -111,7 +122,7 @@ const [{ isHover }, dropTarget] = useDrop({
                 className={` ${style.listComponents} ${style.scrollBar}`}
                 ref={refIngrList}
               >
-                {otherList.map((ingredient, index) => (
+                {otherList.map((ingredient: TIngredient, index: number) => (
                   <React.Fragment key={ingredient.uniqueId}>
                     <ConstructorCart ingredient={ingredient} index={checkBun(index)}/>
                     {otherList.length <= 1 ? (
@@ -128,7 +139,7 @@ const [{ isHover }, dropTarget] = useDrop({
           <div className={`mt-8 mr-4 ${style.price}`}>
             <div className={`${style.price} ${style.price_icon}`}>
               <h3 className="text text_type_digits-medium">{totalPrice}</h3>
-              <CurrencyIcon />
+              <CurrencyIcon type="primary"/>
             </div>
             <Button
               htmlType="button"
@@ -157,8 +168,8 @@ const [{ isHover }, dropTarget] = useDrop({
   );
 }
 
-BurgerConstructor.propTypes = {
-  ingrList: PropTypes.arrayOf(PropTypes.exact(oneIngrPropType.isRequired)),
-};
+// BurgerConstructor.propTypes = {
+//   ingrList: PropTypes.arrayOf(PropTypes.exact(oneIngrPropType.isRequired)),
+// };
 
 export default BurgerConstructor;

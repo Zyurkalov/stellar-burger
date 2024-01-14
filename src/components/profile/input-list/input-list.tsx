@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { ChangeEvent, FormEvent } from 'react';
 
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
@@ -7,7 +8,7 @@ import { editProfile } from "../../../service/actions/user-auth";
 import style from "./input-list.module.css";
 
 export function ProfileInputList() {
-  const userData = {email: sessionStorage.email, name: sessionStorage.name}
+  const userData: {email:string, name: string} = {email: sessionStorage.email, name: sessionStorage.name}
   const dispatch = useDispatch()
 
   const initialValue = {
@@ -17,12 +18,12 @@ export function ProfileInputList() {
   }
   const {values, setValues, handleChange, handleValid, isValid, setIsValid} = useFormAndValidation(initialValue, true)
   
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(editProfile(values));
     setIsValid(false)
   };
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e)
     handleValid(e)
     if (e.target.value === userData[e.target.name]) {setIsValid(false)};

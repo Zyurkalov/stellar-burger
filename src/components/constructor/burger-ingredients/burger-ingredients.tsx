@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { switchTab } from "../../../service/actions/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TIngredient } from "../../../Types/type";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
@@ -16,13 +17,13 @@ function BurgerIngredients() {
   const { data, dataFailed, dataRequest, error } = useSelector(
     (state) => state.dataList
   );
-  const ingrList = useSelector((state) => state.ingrList.other);
+  // const ingrList = useSelector((state) => state.ingrList.other);
   const currentTab = useSelector((state) => state.tab.current);
 
-  const tabRef = useRef(null);
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+  const tabRef = useRef<HTMLDivElement>(null);
+  const bunRef = useRef<HTMLDivElement>(null);
+  const sauceRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
     const tabBottom = tabRef.current?.getBoundingClientRect().bottom;
@@ -48,9 +49,9 @@ function BurgerIngredients() {
 
   const decompositionArr = useCallback(
     (category) => {
-      const filteredData = data.filter((item) => item.type === category);
+      const filteredData: TIngredient[] = data.filter((item: TIngredient) => item.type === category);
       if (filteredData) {
-        return filteredData.map((item) => (
+        return filteredData.map((item: TIngredient) => (
           <BurgerCart key={item._id} item={item} />
         ));
       }
@@ -59,39 +60,33 @@ function BurgerIngredients() {
   );
 
   const setCategories = ["bun", "sauce", "main"];
-  const setTab = (tab) => {
+  const setTab = (tab: string): void => {
     dispatch(switchTab(tab));
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+  const getTab = (): JSX.Element[] => {
+    const defaultName: {[key: string]: string} = {
+      "bun": "Булки",
+      "sauce": "Соусы",
+      "main": "Начинки",
+    };
+    return Object.keys(defaultName).map((key: string) => (
+      <Tab
+        key={key}
+        value={key}
+        active={currentTab === key}
+        onClick={() => setTab(key)}
+      >
+        {defaultName[key]}
+      </Tab>
+    ));
   };
 
   return (
     <div>
       <nav style={{ display: "flex" }} className="mt-5" ref={tabRef}>
-        <Tab
-          id="bun"
-          value="bun"
-          active={currentTab === "bun"}
-          onClick={() => setTab("bun")}
-        >
-          Булки
-        </Tab>
-        <Tab
-          id="sauce"
-          value="sauce"
-          active={currentTab === "sauce"}
-          onClick={() => setTab("sauce")}
-        >
-          Соусы
-        </Tab>
-        <Tab
-          id="main"
-          value="main"
-          active={currentTab === "main"}
-          onClick={() => setTab("main")}
-        >
-          Начинки
-        </Tab>
+        {getTab()}
       </nav>
       <section
         className={`${style.cardSection} ${style.scrollBar}`}

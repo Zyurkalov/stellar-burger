@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, FC, useRef } from "react";
 import { useDrop, useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import {
@@ -6,7 +6,7 @@ import {
   moveIngredient,
 } from "../../../../service/actions/constructor";
 import { oneIngrPropType } from "../../../../utils/prop-types";
-import { useRef } from "react";
+import { TIngredient } from "../../../../Types/type";
 import PropTypes from "prop-types";
 
 import {
@@ -15,12 +15,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./constructor-cart.module.css";
 
-export function ConstructorCart({ ingredient, index }) {
+export const ConstructorCart: FC<{ingredient: TIngredient, index: number}> = ({ ingredient, index }) => {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const idIngr = ingredient._id;
   
-  const compDragIcon = useMemo((index) => <DragIcon key={index} />, []);
+  const createDragIcon = (index: number) => <DragIcon key={index} type="primary"/>;
+  const compDragIcon = useMemo(() => createDragIcon(index), [index]);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "draggingIngr",
@@ -42,7 +43,7 @@ export function ConstructorCart({ ingredient, index }) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: {idIngr: string | number, index: number}, monitor) {
       if (!ref.current) {
         return;
       }
@@ -53,10 +54,10 @@ export function ConstructorCart({ ingredient, index }) {
       }
       //высчитываем координаты, внутри dropRef:
       const clientOffset = monitor.getClientOffset();
-      const boundingRect = ref.current?.getBoundingClientRect();
+      const boundingRect = (ref.current as HTMLElement | null)?.getBoundingClientRect();
 
-      const boundingCountY = (boundingRect.bottom - boundingRect.top) / 2;
-      const hoverCountY = clientOffset.y - boundingRect.top;
+      const boundingCountY = boundingRect ? (boundingRect.bottom - boundingRect.top) / 2 : 0;
+      const hoverCountY = boundingRect ? (clientOffset ? clientOffset.y - boundingRect.top : null) : 0;
 
       if (dragIndex === hoverIndex && hoverCountY === boundingCountY) {
         return;
@@ -82,7 +83,7 @@ export function ConstructorCart({ ingredient, index }) {
   );
 }
 
-ConstructorCart.propTypes = {
-  ingredient: oneIngrPropType.isRequired,
-  index: PropTypes.number,
-};
+// ConstructorCart.propTypes = {
+//   ingredient: oneIngrPropType.isRequired,
+//   index: PropTypes.number,
+// };

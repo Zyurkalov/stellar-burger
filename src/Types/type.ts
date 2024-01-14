@@ -1,6 +1,6 @@
 export {};
 
-export interface TIngredient {
+export type TIngredient = {
     calories: number;
     carbohydrates: number;
     // count?: number;
@@ -16,3 +16,8 @@ export interface TIngredient {
     __v: number | string;
     _id: number | string;
 }
+
+export type TProtectedRoute = {
+    element: JSX.Element, 
+    anonymous?: boolean
+  }
