@@ -6,29 +6,32 @@ import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation"
 import { editProfile } from "../../../service/actions/user-auth";
 
 import style from "./input-list.module.css";
+import { TRegistration, TUser } from "../../../Types/type";
+
 
 export function ProfileInputList() {
-  const userData: {email:string, name: string} = {email: sessionStorage.email, name: sessionStorage.name}
+  const userData: TUser = {email: sessionStorage.email, name: sessionStorage.name}
   const dispatch = useDispatch()
 
-  const initialValue = {
+  const initialValue: TRegistration = {
     name: userData.name || "",
     email: userData.email || "",
     password: "",
   }
   const {values, setValues, handleChange, handleValid, isValid, setIsValid} = useFormAndValidation(initialValue, true)
   
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>):void => {
     e.preventDefault();
     dispatch(editProfile(values));
     setIsValid(false)
   };
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>):void => {
     handleChange(e)
     handleValid(e)
-    if (e.target.value === userData[e.target.name]) {setIsValid(false)};
+    if (e.target.value === userData[e.target.name as keyof typeof userData]) 
+      {setIsValid(false)};
   };
-  const resetChange = () => {
+  const resetChange = ():void => {
     setValues(initialValue)
   }
 
@@ -36,21 +39,21 @@ export function ProfileInputList() {
     <div>
       <form className={style.form}>
         <Input
-          onChange={onChange}
+          onChange={() => onChange}
           value={values.name}
           name={"name"}
           placeholder="Имя"
           icon="EditIcon"
         />
         <EmailInput
-          onChange={onChange}
+          onChange={() => onChange}
           value={values.email}
           name={"email"}
           placeholder="Логин"
           isIcon={true}
         />
         <PasswordInput
-          onChange={onChange}
+          onChange={() => onChange}
           value={values.password}
           name={"password"}
           placeholder="Пароль"
@@ -63,7 +66,8 @@ export function ProfileInputList() {
               type="secondary"
               size="medium"
               extraClass="pr-6"
-              onClick={resetChange}
+              onClick={() => resetChange}
+              // onClick={resetChange}
             >
               Отмена
             </Button>
@@ -71,7 +75,8 @@ export function ProfileInputList() {
               htmlType="submit" 
               type="primary" 
               size="medium"
-              onClick={handleSubmit}>
+              onClick={() => handleSubmit}>
+              {/* onClick={handleSubmit}> */}
               Сохранить
             </Button>
           </div>

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 import style from "./navigation.module.css";
 
-export function ProfileNavigation() {
+export const ProfileNavigation = () => {
   const dispatch = useDispatch();
   const location = useLocation()
   const state = location.state?.path || 'main';
@@ -14,7 +14,7 @@ export function ProfileNavigation() {
     dispatch(logout())
   }
   const path = window.location.pathname;
-  const setActive = ({isActive}) => isActive ? style.linkActive : style.linkDisabled;
+  const setActive = (status: boolean) => status ? style.linkActive : style.linkDisabled;
 
   return (
     <nav className={style.сontainer__leftMenu}>
@@ -23,10 +23,13 @@ export function ProfileNavigation() {
           <NavLink to="" state={{path: 'main'}} className={() => path === "/profile" ? style.linkActive : style.linkDisabled }>Профиль</NavLink>
         </li>
         <li className={`text text_type_main-medium ${style.linkText}`}>
-          <NavLink to="orders" state={{path: 'order'}} className={setActive}>История заказов</NavLink>
+          <NavLink to="orders" state={{path: 'order'}} className={({isActive}) => setActive(isActive)}>История заказов</NavLink>
         </li>
         <li className={`text text_type_main-medium ${style.linkText}`}>
-          <NavLink to="" className={style.linkDisabled} onClick={() => logoutProfile()}>Выход</NavLink>
+          {/* <NavLink to="" className={style.linkDisabled} onClick={() => logoutProfile()}>Выход</NavLink> */}
+          <button onClick={() => logoutProfile()} className={`${style.button} text_type_main-medium text_color_inactive`}>
+        Выход
+      </button>
         </li>
       </ul>
       <span className={"text text_type_main-default text_color_inactive"}>

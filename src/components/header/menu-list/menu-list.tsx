@@ -1,7 +1,9 @@
 import style from "./menu-list.module.css";
-import { useState } from "react";
+import { useState, FC } from "react";
+import { TMenuList } from "../../../Types/type";
+import { TIconProps } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils";
 
-function MenuList({ text, icon: Component, active }) {
+const MenuList: FC<{text: TMenuList, icon: TIconProps | any, active: boolean} > = ({ text, icon: Component, active }): JSX.Element =>  {
   const color = {
     active: "#F2F2F3",
     disabled: "#8585AD",

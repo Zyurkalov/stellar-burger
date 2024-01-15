@@ -4,7 +4,7 @@ import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation"
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../../service/actions/user-auth";
 
-import style from "./register.module.css";
+import style from "./registration.module.css";
 
 export function RegisterComponent() {
   const { values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: "", name: "" })

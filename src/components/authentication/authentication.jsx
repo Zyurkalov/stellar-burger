@@ -1,4 +1,4 @@
-import { RegisterLink } from "./register/register-link";
+import { RegisterLink } from "./registration/registration-link";
 import { LoginLink } from "./login/login-link";
 import { ForgotPasswordLink } from "./forgot-password/forgot-password-link";
 

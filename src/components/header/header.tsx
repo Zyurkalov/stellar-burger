@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, FC } from "react";
 import Modal from "../modal/modal";
 import MenuList from "./menu-list/menu-list";
 import ModalLoading from "../modal/modal-loading/modal-loading";
@@ -11,8 +11,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import headerStyles from "./header.module.css";
+import { THeaderProps } from "../../Types/type";
 
-function Header(props) {
+const Header:FC<{className: string, state: THeaderProps}> = (props): JSX.Element => {
+  console.log(typeof props)
   const { modalLoadingStatus, modalErrorStatus } = props.state;
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,7 +22,9 @@ function Header(props) {
 
   const compConstructor = useMemo(
     () => (
-      <MenuList text={"Конструктор"} icon={BurgerIcon} active={path === "/"} />
+      <MenuList text={"Конструктор"} 
+      icon={BurgerIcon} 
+      active={path === "/"} />
     ),
     [path]
   );

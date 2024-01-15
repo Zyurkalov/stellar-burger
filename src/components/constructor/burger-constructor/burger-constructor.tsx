@@ -55,9 +55,10 @@ function BurgerConstructor() {
   }
   const listIngrID = getListIngrID()
 
-const [{ isHover }, dropTarget] = useDrop({
+// const [{ isHover }, dropTarget] = useDrop({
+const [, dropTarget] = useDrop({
     accept: ["ingredient"],
-    drop(ingr) {
+    drop(ingr: TIngredient) {
       dispatch(addIngredient(ingr));
     },
   });
