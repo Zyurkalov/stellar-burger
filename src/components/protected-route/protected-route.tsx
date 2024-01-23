@@ -1,11 +1,10 @@
 import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useCookie } from "../../utils/useCookie";
-import { TProtectedRoute } from "../../Types/type";
+import { TProtectedRoute } from "../../Types";
 const { getCookie } = useCookie
 
 export const ProtectedRoute: FC<TProtectedRoute> = ({ element, anonymous = false }) => {
-  console.log(element)
   const refreshToken = getCookie("refreshToken")
   const location = useLocation();
   const from = location.state?.from || '/';

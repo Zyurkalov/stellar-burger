@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, SyntheticEvent } from 'react';
 
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { editProfile } from "../../../service/actions/user-auth";
 
 import style from "./input-list.module.css";
-import { TRegistration, TUser } from "../../../Types/type";
+import { TRegistration, TUser } from "../../../Types";
 
 
 export function ProfileInputList() {
@@ -20,18 +20,18 @@ export function ProfileInputList() {
   }
   const {values, setValues, handleChange, handleValid, isValid, setIsValid} = useFormAndValidation(initialValue, true)
   
-  const handleSubmit = (e: FormEvent<HTMLFormElement>):void => {
+  const handleSubmit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     dispatch(editProfile(values));
     setIsValid(false)
   };
-  const onChange = (e: ChangeEvent<HTMLInputElement>):void => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e)
     handleValid(e)
     if (e.target.value === userData[e.target.name as keyof typeof userData]) 
       {setIsValid(false)};
   };
-  const resetChange = ():void => {
+  const resetChange = () => {
     setValues(initialValue)
   }
 
@@ -39,21 +39,21 @@ export function ProfileInputList() {
     <div>
       <form className={style.form}>
         <Input
-          onChange={() => onChange}
+          onChange={onChange}
           value={values.name}
           name={"name"}
           placeholder="Имя"
           icon="EditIcon"
         />
         <EmailInput
-          onChange={() => onChange}
+          onChange={onChange}
           value={values.email}
           name={"email"}
           placeholder="Логин"
           isIcon={true}
         />
         <PasswordInput
-          onChange={() => onChange}
+          onChange={onChange}
           value={values.password}
           name={"password"}
           placeholder="Пароль"
@@ -66,7 +66,7 @@ export function ProfileInputList() {
               type="secondary"
               size="medium"
               extraClass="pr-6"
-              onClick={() => resetChange}
+              onClick={resetChange}
               // onClick={resetChange}
             >
               Отмена
@@ -75,7 +75,7 @@ export function ProfileInputList() {
               htmlType="submit" 
               type="primary" 
               size="medium"
-              onClick={() => handleSubmit}>
+              onClick={handleSubmit}>
               {/* onClick={handleSubmit}> */}
               Сохранить
             </Button>

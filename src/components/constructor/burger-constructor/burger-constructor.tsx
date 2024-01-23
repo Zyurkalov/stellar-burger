@@ -11,7 +11,7 @@ import { openOrderModal } from "../../../service/actions/modal";
 import { oneIngrPropType } from "../../../utils/prop-types";
 import { useCookie } from "../../../utils/useCookie";
 
-import { TIngredient } from "../../../Types/type";
+import { TIngredient } from "../../../Types";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
 

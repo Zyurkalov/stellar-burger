@@ -1,6 +1,6 @@
 import style from "./menu-list.module.css";
 import { useState, FC } from "react";
-import { TMenuList } from "../../../Types/type";
+import { TMenuList } from "../../../Types";
 import { TIconProps } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils";
 
 const MenuList: FC<{text: TMenuList, icon: TIconProps | any, active: boolean} > = ({ text, icon: Component, active }): JSX.Element =>  {

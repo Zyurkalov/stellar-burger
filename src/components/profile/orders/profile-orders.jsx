@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ListOrder from "../../feed/list-order/list-order"
+import { ListOrder } from "../../feed/list-order/list-order"
 import { useCookie } from "../../../utils/useCookie"
 import { useDispatch, useSelector } from "react-redux"
 import { connect, disconnect } from "../../../service/actions/ws-action"

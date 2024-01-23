@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { oneIngrPropType } from "../../../../utils/prop-types";
 import {СounterComponent} from "./counter/counter"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../../../Types/type";
+import { TIngredient } from "../../../../Types";
 import style from "./burger-cart.module.css";
 
 const BurgerCart: FC<{ item: TIngredient }> = ({item}) => {
@@ -38,8 +38,8 @@ const BurgerCart: FC<{ item: TIngredient }> = ({item}) => {
   );
 }
 
-BurgerCart.propTypes = {
-  item: oneIngrPropType.isRequired
-};
+// BurgerCart.propTypes = {
+//   item: oneIngrPropType.isRequired
+// };
 
 export default BurgerCart;

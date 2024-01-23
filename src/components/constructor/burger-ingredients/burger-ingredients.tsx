@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { switchTab } from "../../../service/actions/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../../Types/type";
+import { TIngredient } from "../../../Types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 

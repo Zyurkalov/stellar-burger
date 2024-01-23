@@ -56,8 +56,8 @@ const fetchWithRefresh = async (options) => {
 const getUser = async () => {
   return await fetchWithRefresh(optionGetUser);
 };
-const editProfile = async (inputForm) => {
-  return await fetchWithRefresh(optionEditProfile(inputForm));
+const editProfile = async (form) => {
+  return await fetchWithRefresh(optionEditProfile(form));
 };
 
 const forgotPassword = (form) => {

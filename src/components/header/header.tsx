@@ -11,10 +11,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import headerStyles from "./header.module.css";
-import { THeaderProps } from "../../Types/type";
+import { THeaderProps } from "../../Types";
 
 const Header:FC<{className: string, state: THeaderProps}> = (props): JSX.Element => {
-  console.log(typeof props)
   const { modalLoadingStatus, modalErrorStatus } = props.state;
   const location = useLocation();
   const navigate = useNavigate();
