@@ -14,7 +14,7 @@ export const typeOrderAction = {
     actionCompleted: COMPLETED_ORDDER_DETAILS,
 }
 
-export const getOrderNumberDetails = (numb: number) => {
+export const getOrderNumberDetails = (numb: number | string) => {
     return function(dispatch: AppDispatch) {
         dispatch({
             type: AWAIT_ORDDER_DETAILS

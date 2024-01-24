@@ -2,11 +2,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../service/actions/user-auth";
 import { useLocation } from "react-router-dom";
+import { useAppDispatch } from "../../../utils/hooks/useAppStore";
 
 import style from "./navigation.module.css";
 
 export const ProfileNavigation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation()
   const state = location.state?.path || 'main';
 

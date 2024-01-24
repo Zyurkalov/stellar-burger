@@ -14,6 +14,7 @@ import { useCookie } from "../../../utils/useCookie";
 import { TIngredient } from "../../../Types";
 import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
+import { RootState } from "../../../service/reducers";
 
 function BurgerConstructor() {
   // const ref = useRef(null);
@@ -25,8 +26,8 @@ function BurgerConstructor() {
 
   // const bunList = useSelector((state) => state.ingrList.bun);
   // const otherList = useSelector((state) => state.ingrList.other);
-  const commonList = useSelector((state) => state.ingrList.list);
-  const orderStatus = useSelector((state) => state.makeOrder.orderSuccess)
+  const commonList = useSelector((state: RootState) => state.ingrList.list);
+  const orderStatus = useSelector((state: RootState) => state.makeOrder.orderSuccess)
 
   const [bunIngr, ...otherIngr] = commonList
   const checkBun = (index: number):number => bunIngr?.type === 'bun' ? index+1 : index;
@@ -48,7 +49,7 @@ function BurgerConstructor() {
   ? otherList.reduce((acc: number, ingredient: TIngredient):number => acc + ingredient.price, 0) + bunPrice
   : bunPrice;
   
-  const getListIngrID = ():number | null[] => {
+  const getListIngrID = (): string[] | [] => {
     if(bun) {
       return [bun, ...otherList, bun].map((ingr) => ingr._id)
     } else {return []}

@@ -1,6 +1,7 @@
 import { ChangeEvent, SyntheticEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks/useAppStore';
 
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { forgotPassword } from "../../../service/actions/user-auth";
@@ -9,14 +10,14 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import style from "./forgot-password.module.css";
 
 export function ForgotPassworComponent() {
-  const {values, handleChange, handleValid,setIsValid, isValid} = useFormAndValidation({email: "",})
+  const {values, handleChange, handleValid,setIsValid, isValid} = useFormAndValidation({email: ""}, true)
   const status = isValid && values?.email
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e)
-    handleValid()
+    handleValid(e)
   };
 
   const sendEmail = (e: SyntheticEvent<Element, Event>) => {
@@ -31,8 +32,8 @@ export function ForgotPassworComponent() {
             console.error(data.error);
           }
         })
-        .catch((error) => {
-          console.error(error); 
+        .catch((err) => {
+          console.error(err); 
         });
     }
   };

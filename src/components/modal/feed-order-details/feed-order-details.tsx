@@ -1,58 +1,69 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
 import PropTypes from "prop-types";
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderNumberDetails } from "../../../service/actions/order-number";
 import { StatusOrder } from "../../feed/status-order/status-order";
+import { useTimezone } from "../../../service/useTimezone";
 
 import appStyles from "../../app/app.module.css"
 import style from "./feed-order-details.module.css";
-const FeedOrderDetails = ({ item }) => {
 
-  const dispatch = useDispatch();
-  const location = useLocation()
+import { TListOrders, TIngredient } from '../../../Types'
+
+const FeedOrderDetails = ({item}: {item: TListOrders}) => {
+
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const timezone = useTimezone();
   const { number } = useParams();
 
   const pathName = location.state?.background.pathname
   const setTarget = pathName ==='/feed' || pathName ==='/profile/orders'
 
-  const [dataOrder, setDataOrder] = useState(null);
+  const [dataOrder, setDataOrder] = useState<TListOrders | null>(null);
   const { name, status, ingredients, updatedAt } = dataOrder || {};
-  let filtered = [];
+
+  let filtered: TIngredient[] = [];
   let totalPrice = 0;
 
   const {
     dataList: { data },
     getOrderNumber: { order },
-  } = useSelector((store) => store);
+  } = useAppSelector((store) => store);
 
-  const getTotalPrice = (value) => {
+  const getTotalPrice = (value: TIngredient) => {
     totalPrice += value.price;
   };
   const getFiltered = () => {
-    ingredients.forEach((_id) => {
-      const findIngr = data.find((ingr) => ingr._id === _id);
-      if (findIngr) {
-        getTotalPrice(findIngr);
-        if (filtered.indexOf(findIngr) < 0) {
-          filtered.push(findIngr);
+    if (ingredients) {
+      ingredients.forEach((_id: string) => {
+        const findIngr = data.find((ingr) => ingr._id === _id);
+        if (findIngr) {
+          getTotalPrice(findIngr);
+          if (filtered.indexOf(findIngr) < 0) {
+            filtered.push(findIngr);
+          }
         }
-      }
-    });
+      });
+    }
   };
-  const getTwinsIngr = (target) => {
-    const twin = ingredients.filter((id) => id === target._id);
-    return twin.length;
+  const getTwinsIngr = (target: TIngredient) => {
+    if (ingredients){
+      const twin = ingredients.filter((id) => id === target._id);
+      return twin.length;
+    }
   };
   if (ingredients) {
     getFiltered();
   }
 
   useEffect(() => {
-    if (item === undefined) {
+    if (item === undefined && number !== undefined) {
       dispatch(getOrderNumberDetails(number));
     } else {
       setDataOrder(item);
@@ -65,10 +76,10 @@ const FeedOrderDetails = ({ item }) => {
     }
   }, [order, item])
 
-  const userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
+  // const userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
 
   return dataOrder && 
-  <div className={item === undefined && !setTarget ? appStyles.cover : null }>
+  <div className={item === undefined && !setTarget ? appStyles.cover : undefined }>
     <section className={`${style.mainContainer} `}>
       {setTarget 
         ? null 
@@ -110,11 +121,13 @@ const FeedOrderDetails = ({ item }) => {
       </ul>
       <div className={`${style.ingrBottom} ${filtered.length > 4 ? style.ingrBottom_gradient : null }`}>
       <div className={`mt-1 text text_type_main-small ${style.data}`}>
-        <FormattedDate
-          date={new Date(updatedAt)}
-          className={`text text_type_main-small ${style.data}`}
-        />
-        <span>{userTimezone}</span>
+        {updatedAt ?
+          <FormattedDate
+            date={new Date(updatedAt)}
+            className={`text text_type_main-small ${style.data}`}
+          />
+         :null }
+        <span>{timezone}</span>
         </div>
         <span className={`text text_type_digits-default ${style.ingrPrice}`}>
           {totalPrice}
@@ -125,15 +138,15 @@ const FeedOrderDetails = ({ item }) => {
     </div>
 };
 
-FeedOrderDetails.propTypes = {
-  item: PropTypes.shape({
-    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-    name: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-  }),
-};
+// FeedOrderDetails.propTypes = {
+//   item: PropTypes.shape({
+//     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+//     name: PropTypes.string.isRequired,
+//     _id: PropTypes.string.isRequired,
+//     status: PropTypes.string.isRequired,
+//     number: PropTypes.number.isRequired,
+//     createdAt: PropTypes.string.isRequired,
+//     updatedAt: PropTypes.string.isRequired,
+//   }),
+// };
 export default FeedOrderDetails;

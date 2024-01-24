@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../utils/hooks/useAppStore";
 import image from "../../../images/done.svg";
 import style from "./order-details.module.css";
 
 function OrderDetails() {
-  const { orderNumber, orderRequest, orderFailed, orderSuccess, text } = useSelector((state) => state.makeOrder)
+  const { orderNumber, orderRequest, orderFailed, orderSuccess, text } = useAppSelector((state) => state.makeOrder)
   return (
     <div className={`${style.mainCont}`}>
       {orderRequest ? (

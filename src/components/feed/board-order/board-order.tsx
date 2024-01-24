@@ -12,14 +12,18 @@ export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, total
         {header:"Готовы:", list: doneList}, 
         {header:"В работе:", list: workingList}
     ]
-    function getCount(num: number): {multiple: number | null, remainder: string | number} {
+    function getCount(num: number | null ): {multiple: number | null, remainder: string | number | null} {
+        if(num === null) {
+            return {multiple: null, remainder: null}
+        }
         const multiple = Math.floor(num / 1000)
         const remainder = (num % 1000)
 
-        if(multiple < 1) {
-            return { multiple: null, remainder};
-        }
-        return {multiple, remainder: remainder.toString().padStart(3, '0')}
+        // if(multiple < 1) {
+        //     return { multiple: null, remainder};
+        // }
+        // return {multiple, remainder: remainder.toString().padStart(3, '0')}
+        return multiple < 1 ? { multiple: null, remainder} : {multiple, remainder: remainder.toString().padStart(3, '0')}
     }
     function getColumnCount(list: number[]): number {
         const numColumns = Math.ceil(list.length / 10);

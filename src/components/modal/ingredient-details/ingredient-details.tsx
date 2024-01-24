@@ -1,18 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import { useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
+import { useAppSelector } from '../../../utils/hooks/useAppStore';
 
 import {oneIngrPropType} from "../../../utils/prop-types";
 import { NotFound404 } from '../../../page';
 
 import appStyles from "../../app/app.module.css"
 import styles from "./ingredient-details.module.css";
+import { TIngredient } from '../../../Types';
 
-function IngredientDetails({item}) {
+type TTeg = 'image_large' | "name" | 'calories' | 'proteins' | 'fat' | 'carbohydrates'
+
+const IngredientDetails: FC<{item?: TIngredient}> = ({item}) => {
   // const dispatch = useDispatch();
   const { ingredientId } = useParams();
-  const { data } = useSelector((store) => store.dataList);
-  const [ingredient, setIngredient] = useState(null);
+  const { data } = useAppSelector((store) => store.dataList);
+  const [ingredient, setIngredient] = useState<TIngredient | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ function IngredientDetails({item}) {
     }
   }, [data, ingredient, ingredientId]);
 
-  const valueIngr = (teg) => ingredient?.[teg] || null;
+  const valueIngr = (teg: TTeg) => (ingredient?.[teg] || '') as string;
   const maket = [
     { label: "Калории, ккал", value: valueIngr('calories') },
     { label: "Белки, г", value: valueIngr('proteins') },
@@ -31,7 +35,7 @@ function IngredientDetails({item}) {
     { label: "Углеводы, г", value: valueIngr('carbohydrates') },
   ];
   return (
-    <div className={item === undefined ? appStyles.cover : null }>
+    <div className={item === undefined ? appStyles.cover : undefined }>
     <section className={styles.section}>
       {ingredient === null && loading ? (
         <h3 className={`mb-8 text text_type_main-medium ${styles.name}`}>
@@ -74,7 +78,7 @@ function IngredientDetails({item}) {
   );
 }
 
-IngredientDetails.propTypes = {
-  item: oneIngrPropType,
-};
+// IngredientDetails.propTypes = {
+//   item: oneIngrPropType,
+// };
 export default IngredientDetails;

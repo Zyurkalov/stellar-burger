@@ -4,6 +4,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { IngredientsOrderDetails } from "./ingredients-order-details/ingredients-order-details";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { StatusOrder } from "../status-order/status-order";
+import { useTimezone } from "../../../service/useTimezone";
 
 import PropTypes from 'prop-types';
 import style from "./list-order.module.css";
@@ -13,13 +14,14 @@ import { TListOrders } from "../../../Types";
 
 export const ListOrder: FC<{data: TListOrders[], addOrder: Function}> = ({data, addOrder}) => {
   const location = useLocation()
+  const timezone = useTimezone()
   // const userTimezone: string | null | undefined = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now()).find(part => part.type === 'timeZoneName').value;
-  let userTimezone: string | null = null;
+  // let userTimezone: string | null = null;
 
-  if (typeof Intl !== 'undefined') {
-      userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now())
-          .find((part) => part.type === 'timeZoneName')?.value || null;
-  }
+  // if (typeof Intl !== 'undefined') {
+  //     userTimezone = Intl.DateTimeFormat('en', { timeZoneName: 'short' }).formatToParts(Date.now())
+  //         .find((part) => part.type === 'timeZoneName')?.value || null;
+  // }
 
   return (
     !data ? <h2>Loading...</h2> :
@@ -34,7 +36,7 @@ export const ListOrder: FC<{data: TListOrders[], addOrder: Function}> = ({data, 
               <span className="text text_type_digits-default">{`#${number}`}</span>
               <div className={`text text_type_main-small ${style.data}`}>
                 <FormattedDate date={new Date(createdAt)} />
-                <span>{userTimezone}</span>
+                <span>{timezone}</span>
               </div>
             </div>
             <div>

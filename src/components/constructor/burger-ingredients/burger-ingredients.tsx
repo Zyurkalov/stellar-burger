@@ -1,10 +1,12 @@
 import { useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
 
 import { switchTab } from "../../../service/actions/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../../Types";
+
+import { TIngredient, TType } from "../../../Types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
@@ -14,11 +16,11 @@ import style from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const { data, dataFailed, dataRequest, error } = useSelector(
+  const { data, dataFailed, dataRequest, error } = useAppSelector(
     (state) => state.dataList
   );
   // const ingrList = useSelector((state) => state.ingrList.other);
-  const currentTab = useSelector((state) => state.tab.current);
+  const currentTab = useAppSelector((state) => state.tab.current);
 
   const tabRef = useRef<HTMLDivElement>(null);
   const bunRef = useRef<HTMLDivElement>(null);
@@ -59,26 +61,26 @@ function BurgerIngredients() {
     [data]
   );
 
-  const setCategories = ["bun", "sauce", "main"];
-  const setTab = (tab: string): void => {
+  const setCategories: TType[] = ["bun", "sauce", "main"];
+  const setTab = (tab: TType)=> {
     dispatch(switchTab(tab));
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
   const getTab = (): JSX.Element[] => {
-    const defaultName: {[key: string]: string} = {
+    const defaultName: {[key in TType]: string} = {
       "bun": "Булки",
       "sauce": "Соусы",
       "main": "Начинки",
     };
-    return Object.keys(defaultName).map((key: string) => (
+    return Object.keys(defaultName).map((key) => (
       <Tab
         key={key}
         value={key}
         active={currentTab === key}
-        onClick={() => setTab(key)}
+        onClick={() => setTab(key as TType)}
       >
-        {defaultName[key]}
+        {defaultName[key as TType]}
       </Tab>
     ));
   };

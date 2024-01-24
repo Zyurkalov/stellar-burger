@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 import { Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 import Header from "../header/header";
@@ -13,12 +14,13 @@ import { getIngredients } from "../../service/actions/app";
 import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword } from "../../page";
 import { ProfileInputList } from "../profile/input-list/input-list";
 import { checkUserAuth } from "../../service/actions/user-auth";
+import { TListOrders, TIngredient } from "../../Types";
 
 import appStyles from "./app.module.css";
 import { RootState } from "../../service/reducers";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
 
   const {
@@ -32,7 +34,7 @@ function App() {
     },
     // dataList: { data },
 
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
 
   const homeState = {
     modalOrderStatus,

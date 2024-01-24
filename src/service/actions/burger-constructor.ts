@@ -23,7 +23,7 @@ type TOrderFailed = {
 export type TBurgerAction = TOrderAwait | TOrderSuccess | TOrderFailed;
 
 
-export function makeOrderApi(value: string[]) {
+export function makeOrderApi(value: string[] | number []) {
   return function (dispatch: AppDispatch) {
     dispatch({ type: AWAIT_ORDER });
     request('orders', ingrOption.sendOrder(value))

@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
-import { useEffect } from "react";
+import { useEffect, FC, SyntheticEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { closeModal } from "../../service/actions/modal";
@@ -9,10 +10,10 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 import PropTypes from "prop-types";
 
-function Modal({ title, styleTitle, children, onClose }) {
-  const { modalLoadingStatus, modalErrorStatus } = useSelector((state) => state.modal);
-  const portal = document.getElementById("portal");
-  const dispatch = useDispatch();
+const Modal: FC<{title?: string | null, styleTitle?: string, children?: React.ReactNode, onClose?: () => void}> = ({ title, styleTitle, children, onClose }) => {
+  const { modalLoadingStatus, modalErrorStatus } = useAppSelector((state) => state.modal);
+  const portal = document.getElementById("portal") as HTMLElement;
+  const dispatch = useAppDispatch();
 
   let styleFonts = '' 
   switch (styleTitle) {
@@ -31,10 +32,14 @@ function Modal({ title, styleTitle, children, onClose }) {
     }
   };
   useEffect(() => {
-    const handleCloseModal = (event) => {
-      if ((event.key === "Escape") || (event.target.id === "template")) {
+    const handleCloseModal = (event: KeyboardEvent | MouseEvent) => {
+      if ((event instanceof KeyboardEvent && event.key === "Escape") || 
+      (event instanceof MouseEvent && event.target instanceof HTMLDivElement && event.target.id === "template")) {
         close()
       }
+      // if ((event.key === "Escape") || (event.target.id === "template")) {
+      //   close()
+      // }
     };
     window.addEventListener("keydown", handleCloseModal);
     window.addEventListener("click", handleCloseModal);
@@ -60,11 +65,11 @@ function Modal({ title, styleTitle, children, onClose }) {
   );
 }
 
-Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  onClose: PropTypes.func,
-  styleTitle: PropTypes.string,
-};
+// Modal.propTypes = {
+//   title: PropTypes.string,
+//   children: PropTypes.node.isRequired,
+//   onClose: PropTypes.func,
+//   styleTitle: PropTypes.string,
+// };
 
 export default Modal;

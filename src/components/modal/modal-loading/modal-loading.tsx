@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../utils/hooks/useAppStore";
 import style from "./modal-loading.module.css";
 
 function ModalLoading() {
   const { modalErrorStatus, errorMessage, modalLoadingStatus, loadingMessage } =
-  useSelector((state) => state.modal);
+  useAppSelector((state) => state.modal);
   const message = () => modalErrorStatus ? errorMessage : modalLoadingStatus ? loadingMessage : 'Юра, мы все просрали!'
   const splitText = message().split('|* ');
 

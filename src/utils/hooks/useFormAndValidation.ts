@@ -1,6 +1,8 @@
 import {useState, useCallback, ChangeEvent, FormEvent, SyntheticEvent} from 'react'
 
-export const useFormAndValidation = <T>(initialState: T = {} as T, oneInput = false) => {
+type TInput = {email: string} | {name: string, email: string, password: string} | {email: string, password: string} | {password: string, token: string}
+
+export const useFormAndValidation = <T extends TInput>(initialState: T = {} as T, oneInput = false) => {
     const [values, setValues] = useState(initialState)
     const [errors, setErrors] = useState({})
     const [isValid, setIsValid] = useState(false)

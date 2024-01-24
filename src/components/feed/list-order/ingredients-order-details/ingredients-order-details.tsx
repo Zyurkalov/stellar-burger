@@ -1,14 +1,15 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useMemo } from "react";
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../../utils/hooks/useAppStore";
 
 import PropTypes from 'prop-types';
 import style from "./ingredients-order-details.module.css";
 import { TIngredient } from "../../../../Types";
 
-export const IngredientsOrderDetails: FC<{list: number[]}> = ({list}) => {
+export const IngredientsOrderDetails: FC<{list: string[] | null}> = ({list}) => {
   const currencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);
-  const {dataList: { data }} = useSelector((store) => store);
+  const {dataList: { data }} = useAppSelector((store) => store);
 
   let filtered: TIngredient[] = [];
   let totalPrice = 0;
@@ -17,8 +18,11 @@ export const IngredientsOrderDetails: FC<{list: number[]}> = ({list}) => {
       totalPrice += value.price;
   }
   const getFiltered = () => {
+    if (list === null) {
+      return null
+    }
     list.forEach((id) => {
-      const findIngr = data.find((ingr: TIngredient) => ingr._id === id);
+      const findIngr = data.find((ingr: TIngredient) => ingr._id === id.toString());
       if (findIngr) {
         getTotalPrice(findIngr)
         if (filtered.indexOf(findIngr) < 0) {

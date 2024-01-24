@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 
 import { connect, disconnect } from "../../service/actions/ws-action";
 import { ListOrder } from "./list-order/list-order";
@@ -7,12 +8,21 @@ import {BoardOrder} from "./board-order/board-order";
 import { TListOrders } from "../../Types";
 import mainStyles from "../constructor/constructor.module.css"
 
+import { TIngredient } from "../../Types"
+
+type TOrderData = {
+  orders: TListOrders[] | null,
+  success?: boolean,
+  total: number | null,
+  totalToday: number | null
+};
+
 function FeedComponent()  {
     const [mainClass, setMainClass] = useState(mainStyles.main);
-    const [orderData, setOrderData] = useState({ orders: null, total: null, totalToday: null });
+    const [orderData, setOrderData] = useState<TOrderData>({ orders: null, total: null, totalToday: null });
     // const {orders, total, totalToday} = hardData
-    const dispatch = useDispatch()
-    const getOrders = useSelector((state) => state.ws.orders);
+    const dispatch = useAppDispatch()
+    const getOrders = useAppSelector((state) => state.ws.orders);
     const { orders, total, totalToday } = orderData;
 
     let listOrderDone: number[] = []

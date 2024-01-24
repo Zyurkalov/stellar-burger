@@ -10,7 +10,7 @@ import { TRegistration, TUser } from "../../../Types";
 
 
 export function ProfileInputList() {
-  const userData: TUser = {email: sessionStorage.email, name: sessionStorage.name}
+  const userData: {email:string, name: string} = {email: sessionStorage.email, name: sessionStorage.name}
   const dispatch = useDispatch()
 
   const initialValue: TRegistration = {

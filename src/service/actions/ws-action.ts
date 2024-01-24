@@ -1,5 +1,5 @@
 import { WS_URL } from "../../constatnts/apiUrl";
-import { TIngredient } from "../../Types";
+import { TIngredient, TListOrders } from "../../Types";
 
 const CONNECTING: 'CONNECTING' = 'CONNECTING';
 const ONLINE: 'ONLINE' = 'ONLINE';
@@ -40,36 +40,20 @@ export const wsAction = {
     getMessage: WS_GET_MESSAGE,
     sendMessage: WS_SEND_MESSAGE,
 }
-type TConnect = {
-  readonly type: typeof LIVE_CONNECT,
-  readonly payload: string,
-}
-type TError = {
-  readonly type: typeof WS_CONNECTION_ERROR,
-  readonly payload: string | null,
-}
-type TDisconnect = {
-  readonly type: typeof LIVE_DISCONNECT
-}
-type TConnecting = {
-  readonly type: typeof WS_CONNECTING
-}
-type TConnectionOpen = {
-  readonly type: typeof WS_CONNECTION_OPEN
-}
-type TConnectionClosed = {
-  readonly type: typeof WS_CONNECTION_CLOSED
-}
-type TGetMessage = {
-  readonly type: typeof WS_GET_MESSAGE,
-  // payload: {order: TIngredient[], success: boolean, total: number, totalToday: number},
-  payload: any,
-}
-type TSendMessage = {
-  readonly type: typeof WS_SEND_MESSAGE
-}
+type TAction<Type extends TypeWsStatus, Payload = undefined> = Payload extends undefined
+  ? { readonly type: Type }
+  : { readonly type: Type, readonly payload: Payload }
 
-export type TypeWsAction = TConnect | TDisconnect | TError | TConnecting | TConnectionOpen | TConnectionClosed | TGetMessage | TSendMessage;
+type TConnect = TAction<typeof LIVE_CONNECT, string>
+type TError = TAction<typeof WS_CONNECTION_ERROR, string | null>
+type TDisconnect = TAction<typeof LIVE_DISCONNECT>
+type TConnecting = TAction<typeof WS_CONNECTING>
+type TConnectionOpen = TAction<typeof WS_CONNECTION_OPEN>
+type TConnectionClosed = TAction<typeof WS_CONNECTION_CLOSED>
+type TGetMessage = TAction<typeof WS_GET_MESSAGE, { orders: TListOrders[], success: boolean, total: number, totalToday: number }>
+type TSendMessage = TAction<typeof WS_SEND_MESSAGE>
+
+export type TypeWsAction = TConnect | TDisconnect | TError | TConnecting | TConnectionOpen | TConnectionClosed | TGetMessage | TSendMessage
 export const connect = (teg: string): TConnect => ({
     type: wsAction.connect,
     payload: `${WS_URL}/${teg}`

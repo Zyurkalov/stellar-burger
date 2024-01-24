@@ -3,19 +3,25 @@ import { ListOrder } from "../../feed/list-order/list-order"
 import { useCookie } from "../../../utils/useCookie"
 import { useDispatch, useSelector } from "react-redux"
 import { connect, disconnect } from "../../../service/actions/ws-action"
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
+import { TListOrders } from "../../../Types";
 
 
 const ProfileOrders = () => {
     // const {orders} = hardData
-    const dispatch = useDispatch()
-    const getOrders = useSelector((state) => state.ws.orders);
+    const dispatch = useAppDispatch()
+    const getOrders = useAppSelector((state) => state.ws.orders);
 
-    const [orderData, setOrderData] = useState({ orders: null });
-    const { orders } = orderData;
+    // const [orderData, setOrderData] = useState({ orders: null });
+    const [{ orders }, setOrderData] = useState<{orders: TListOrders[] | null}>({ orders: null });
 
     let listOrderDone = []
     let listOrderWorking = []
-    function addToListOrders(value) {
+
+    function addToListOrders(value: TListOrders) {
+      if(value === null) {
+        return null
+      }  
       const { status, number } = value;
       if (status === 'canceled') {
         return;
@@ -35,7 +41,7 @@ const ProfileOrders = () => {
     },[dispatch])
     
     useEffect(() => {
-      if(getOrders.length > 0) {
+      if(getOrders.length > 0 ) {
         setOrderData(({orders: getOrders[0]?.orders || null}))
       }
     },[getOrders])

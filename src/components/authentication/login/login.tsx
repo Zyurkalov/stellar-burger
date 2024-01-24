@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, SyntheticEvent } from 'react';
+import { useAppDispatch } from '../../../utils/hooks/useAppStore';
 import { useDispatch } from "react-redux";
 
 import { EmailInput, PasswordInput, Button,} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,11 +12,11 @@ export function LoginComponent() {
   const {values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: ""})
   const status = isValid && values.email && values.password
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e)
-    handleValid()
+    handleValid(e)
   };
 
   const handleSubmit = (e: SyntheticEvent<Element, Event>) => {

@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from '../../../utils/hooks/useAppStore';
 
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,11 +15,11 @@ export function ResetPasswordComponent() {
   const status = isValid && values.token && values.password
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e)
-    handleValid()
+    handleValid(e)
   };
   const sendNewPass = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

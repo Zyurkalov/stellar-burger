@@ -2,10 +2,11 @@ import Modal from "../components/modal/modal";
 import OrderDetails from "../components/modal/order-details/order-details";
 import Constructor from "../components/constructor/constructor";
 import { useSelector } from "react-redux";
+import { useAppSelector } from "../utils/hooks/useAppStore";
 
 export function Home() {
   
-  const { modalIngrStatus, modalOrderStatus } = useSelector((store) => store.modal)
+  const { modalIngrStatus, modalOrderStatus } = useAppSelector((store) => store.modal)
   const stateModal = modalIngrStatus || modalOrderStatus;
 
   return (
@@ -13,9 +14,10 @@ export function Home() {
       <Constructor />
       {stateModal && (
         <Modal title={modalIngrStatus ? "Детали ингредиента" : null}>
-          {modalOrderStatus ? (
+          {/* модальные окна были переписаны, этот код можно удалить */}
+          {/* {modalOrderStatus ? (
             <OrderDetails />
-          ) : null}
+          ) : null} */}
         </Modal>
       )}
     </>

@@ -132,7 +132,7 @@ export const checkUserAuth = () => {
   }
 }
 
-export const editProfile = (inputForm: string) => {
+export const editProfile = <T>(inputForm: T) => {
     return (dispatch: AppDispatch) => {
       return api.editProfile(inputForm)
       .then((res) => {
@@ -144,7 +144,7 @@ export const editProfile = (inputForm: string) => {
     }
   }
 
-export const forgotPassword = (email: string) => {
+export const forgotPassword = <T>(email: T) => {
   return (dispatch: AppDispatch) => {
   return api.forgotPassword(email)
   .catch((err) => {
@@ -153,7 +153,7 @@ export const forgotPassword = (email: string) => {
   }
 }
 
-export const passwordReset = (form: string) => {
+export const passwordReset = <T>(form: T) => {
   return (dispatch: AppDispatch) => {
   return api.passwordReset(form)
   .catch((err) => {

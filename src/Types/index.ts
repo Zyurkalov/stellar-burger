@@ -1,7 +1,7 @@
 
 export type TType = "bun" | "main" | "sauce";
 export type TMenuList = "Конструктор" | "Лента заказов" | "Личный кабинет";
-export type TOrderStatus = 'done' | 'canceled' | 'pending' | 'created'; //возможно указаны не все литеральные типы
+export type TOrderStatus = 'done' | 'canceled' | 'pending' | 'created' | undefined; //возможно указаны не все литеральные типы
 export type TToken = "accessToken" | "refreshToken";
 
 export type TIngredient = {
@@ -18,7 +18,7 @@ export type TIngredient = {
   type: TType;
   uniqueId?: string;
   __v: number | string;
-  _id: number | string;
+  _id: string;
 };
 
 export type TProtectedRoute = {
@@ -28,11 +28,12 @@ export type TProtectedRoute = {
 
 export type TUser = {
   email: string;
-  name: string;
+  password: string;
+  name?: string
 };
 
 export type TRegistration = {
-  password: string;
+  name: string;
 } & TUser;
 
 export type TAnswerDataIngredient = {
@@ -54,11 +55,12 @@ export type TBoardOrder = {
 }
 
 export type TListOrders = {
-  createdAt: string;
-  ingredients: number[];
+  createdAt: number | string;
+  ingredients: string[] | null;
   name: string;
   number: number;
   status: TOrderStatus; 
-  updatedAt: string;
+  updatedAt: number | string;
   _id: string | number;
 }
+

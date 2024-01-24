@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import {FC} from "react"
 import styles from "./../modal-overlay/modal-overlay.module.css"
 
-function ModalOverlay({children}) {
+const ModalOverlay: FC<{children: React.ReactNode}> = ({children}) => {
 
   return (
     <template className={`${styles.overlay}`} id={"template"}>

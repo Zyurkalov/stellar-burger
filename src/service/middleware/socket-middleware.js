@@ -2,7 +2,6 @@ import { showLoading, closeModal, showModalError } from "../actions/modal";
 import { api } from "../../utils/user-api";
 import { connect, disconnect } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
-import { congrat } from "../../constatnts/congrat";
 
 const {queryToken, setCookie, getCookie} = useCookie
 
