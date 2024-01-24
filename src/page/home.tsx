@@ -14,10 +14,9 @@ export function Home() {
       <Constructor />
       {stateModal && (
         <Modal title={modalIngrStatus ? "Детали ингредиента" : null}>
-          {/* модальные окна были переписаны, этот код можно удалить */}
-          {/* {modalOrderStatus ? (
+          {modalOrderStatus ? (
             <OrderDetails />
-          ) : null} */}
+          ) : null}
         </Modal>
       )}
     </>

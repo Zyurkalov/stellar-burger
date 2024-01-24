@@ -5,7 +5,7 @@ import style from "./modal-loading.module.css";
 function ModalLoading() {
   const { modalErrorStatus, errorMessage, modalLoadingStatus, loadingMessage } =
   useAppSelector((state) => state.modal);
-  const message = () => modalErrorStatus ? errorMessage : modalLoadingStatus ? loadingMessage : 'Юра, мы все просрали!'
+  const message = () => (modalErrorStatus ? errorMessage : modalLoadingStatus ? loadingMessage : 'Юра, мы все просрали!') as string;
   const splitText = message().split('|* ');
 
   return (

@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ import style from "./feed-order-details.module.css";
 
 import { TListOrders, TIngredient } from '../../../Types'
 
-const FeedOrderDetails = ({item}: {item: TListOrders}) => {
+const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
 
   const dispatch = useAppDispatch();
   const location = useLocation();

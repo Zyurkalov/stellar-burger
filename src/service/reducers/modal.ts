@@ -11,7 +11,7 @@ type TInitialState = {
     loadingMessage: string | null,
     errorMessage: string | null,
 }
-const initialState = {
+const initialState: TInitialState = {
     modalOrderStatus: false,
     modalIngrStatus: false,
     modalLoadingStatus: false,

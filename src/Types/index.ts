@@ -42,8 +42,8 @@ export type TAnswerDataIngredient = {
 }
 
 export type THeaderProps = {
-  errorMessage: string;
-  loadingMessage: string;
+  errorMessage: string | null;
+  loadingMessage: string | null;
   modalErrorStatus: boolean;
   modalLoadingStatus: boolean;
 };
