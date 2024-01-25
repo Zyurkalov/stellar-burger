@@ -1,14 +1,11 @@
 import { SWITCH_TAB, TSwitchTab } from "../actions/burger-ingredients";
-import { TType } from "../../Types/index"
+import { TInitialStateBurgerIngredient as TReducer} from "./types";
 
-type TInitialSTate = {
-  current: TType
-}
-const initialState: TInitialSTate = {
+const initialState: TReducer = {
   current: "bun",
 };
 
-export const switchTabReducer = (state = initialState, action: TSwitchTab): TInitialSTate => {
+export const switchTabReducer = (state = initialState, action: TSwitchTab): TReducer => {
   switch (action.type) {
     case SWITCH_TAB :
       return {

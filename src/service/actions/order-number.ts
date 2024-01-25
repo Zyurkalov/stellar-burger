@@ -1,4 +1,4 @@
-import { TAnswerDataIngredient } from "../../Types";
+import { TAnswerDataIngredient, TIngredient } from "../../Types";
 import request from "../../utils/request";
 import { AppDispatch } from "../reducers";
 
@@ -13,6 +13,27 @@ export const typeOrderAction = {
     actionGet: GET_ORDDER_DETAILS,
     actionCompleted: COMPLETED_ORDDER_DETAILS,
 }
+type TAwaitOrderDetails = {
+    type: typeof AWAIT_ORDDER_DETAILS;
+    request: boolean;
+  }
+  type TCompletedOrderDetails = {
+    type: typeof COMPLETED_ORDDER_DETAILS;
+    request: boolean;
+    error: boolean;
+  }
+  type TErrorOrderDetails = {
+    type: typeof ERROR_ORDDER_DETAILS;
+    request: boolean;
+    error: string;
+  }
+  type TGetOrderDetails = {
+    type: typeof GET_ORDDER_DETAILS;
+    request: boolean;
+    error: boolean;
+    payload: TIngredient[];
+  }
+export type TOrderNumberAction = TAwaitOrderDetails | TCompletedOrderDetails | TErrorOrderDetails | TGetOrderDetails
 
 export const getOrderNumberDetails = (numb: number | string) => {
     return function(dispatch: AppDispatch) {

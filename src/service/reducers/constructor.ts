@@ -4,19 +4,17 @@ import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
   CLEANING_INGREDIENT_LIST,
-  TConsructorAction,
+  TConsructorAction as TAction,
 } from "../actions/constructor";
+import { TInitialStateIngredient as TReducer } from "./types";
 
-type TInitialState = {
-  list: TIngredient[] | [],
-}
-const initialState: TInitialState = {
+const initialState: TReducer= {
   // bun: [],
   // other: [],
   list: [],
 };
 
-export const ingredientReducer = (state = initialState, action: TConsructorAction): TInitialState => {
+export const ingredientReducer = (state = initialState, action: TAction): TReducer => {
   // const updatedBun = state.bun;
   // const updatedOther = [...state.other];
   const commonList = [...state.list];

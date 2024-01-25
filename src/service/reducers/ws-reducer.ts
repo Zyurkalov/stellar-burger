@@ -1,34 +1,14 @@
-import { TIngredient, TListOrders } from "../../Types";
-import { wsAction, WebsocketStatus, TypeWsStatus, TypeWsAction } from "../actions/ws-action";
 
-// const CONNECTING: 'CONNECTING' = 'CONNECTING';
-// const ONLINE: 'ONLINE' = 'ONLINE';
-// const OFFLINE: 'OFFLINE' = 'OFFLINE';
+import { wsAction, WebsocketStatus, TypeWsAction as TAction } from "../actions/ws-action";
+import { TInitialStateWcReducer as TReducer} from "./types";
 
-// const WebsocketStatus = {
-//   CONNECTING: CONNECTING,
-//   ONLINE: ONLINE,
-//   OFFLINE: OFFLINE,
-// };
-type TOrders = {
-  orders: TListOrders[], 
-  success: boolean, 
-  total: number | null, 
-  totalToday: number | null,
-}
-
-type TInitialState = {
-  status: 'CONNECTING' | 'ONLINE' | 'OFFLINE',
-  orders: TOrders[] | [],
-  error: string | null,
-}
-const initialState: TInitialState = {
+const initialState: TReducer = {
   status: WebsocketStatus.OFFLINE,
   orders: [],
   error: "",
 };
 
-export const wsReducer = (state: TInitialState = initialState, action: TypeWsAction): TInitialState => {
+export const wsReducer = (state: TReducer = initialState, action: TAction): TReducer => {
   switch (action.type) {
     case wsAction.connecting:
       return {

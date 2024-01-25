@@ -1,6 +1,7 @@
+
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import "./index.css";
 import {store} from "./service/reducers/index"
@@ -9,9 +10,9 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router>
       <App />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

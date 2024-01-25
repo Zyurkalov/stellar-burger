@@ -1,7 +1,7 @@
 import { api } from "../../utils/user-api";
 import { userState } from "../../utils/userState";
 import { useCookie } from "../../utils/useCookie";
-import { TUser } from "../../Types";
+import { TUserAuth } from "../../Types";
 import { AppDispatch } from "../reducers";
 import { closeModal, showLoading, showModalError } from "./modal";
 
@@ -14,7 +14,20 @@ export const USER_LOADING: "USER_DATA_LOADING" = "USER_DATA_LOADING";
 export const LOADING_STATUS: 'LOADING_STATUS' ='LOADING_STATUS'
 export const USER_DATA: "USER_DATA" = "USER_DATA";
 
-export const setUserData = (data: TUser) => ({
+type TSetUserData = {
+  type: typeof USER_DATA,
+  payload: TUserAuth,
+}
+type TUserLogout = {
+  type: typeof USER_LOGOUT,
+}
+type TLoadingStatus = {
+  type: typeof LOADING_STATUS,
+  payload: boolean,
+}
+export type TUserAuthAction = TSetUserData | TUserLogout | TLoadingStatus
+
+export const setUserData = (data: TUserAuth) => ({
   type: USER_DATA,
   payload: data,
 });
@@ -25,8 +38,8 @@ export const loadingStatus = (type: boolean) => ({
   type: LOADING_STATUS,
   payload: type
 })
-// в запросах, |* служит обозначением красной строки для текста 
-export const login = (data: TUser) => {
+
+export const login = (data: TUserAuth) => {
   return (dispatch: AppDispatch) => {
     dispatch(showLoading('стыковка...'))
     return api
@@ -42,6 +55,7 @@ export const login = (data: TUser) => {
       .then(() => {delayedExecution(dispatch)})
       .catch((err) => {
         dispatch(showModalError(`Стыковка не разрешена|* Неверный логин или пароль`))
+        // символ |* служит красной строкой для текста 
         console.log(err)
       })
   };
@@ -52,7 +66,7 @@ const delayedExecution = (dispatch: AppDispatch) => {
   }, 250); 
 };
 
-export const registration = (data: TUser) => {
+export const registration = (data: TUserAuth) => {
   return (dispatch: AppDispatch) => {
     dispatch(showLoading('запускаем|* идентификацию'))
     return api

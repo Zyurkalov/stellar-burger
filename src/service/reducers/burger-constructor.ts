@@ -2,17 +2,11 @@ import {
   AWAIT_ORDER,
   MAKE_ORDER_SUCCESS,
   MAKE_ORDER_FAILED,
-  TBurgerAction
+  TBurgerAction as TAction
 } from "../actions/burger-constructor";
+import { TInitialStateBurgerConstructor as TReducer } from "./types";
 
-type TInitialState = {
-  orderRequest: boolean,
-  orderFailed: boolean,
-  orderSuccess: boolean,
-  orderNumber: number | null,
-  text: string | null,
-}
-const initialState: TInitialState = {
+const initialState: TReducer = {
   orderRequest: false,
   orderFailed: false,
   orderSuccess: false,
@@ -20,7 +14,7 @@ const initialState: TInitialState = {
   text: '',
 };
 
-export const makeOrderReducer = (state = initialState, action: TBurgerAction): TInitialState => {
+export const makeOrderReducer = (state = initialState, action: TAction): TReducer => {
   switch (action.type) {
     case AWAIT_ORDER: {
       return {

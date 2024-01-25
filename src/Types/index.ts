@@ -26,7 +26,7 @@ export type TProtectedRoute = {
   anonymous?: boolean;
 };
 
-export type TUser = {
+export type TUserAuth = {
   email: string;
   password: string;
   name?: string
@@ -34,7 +34,7 @@ export type TUser = {
 
 export type TRegistration = {
   name: string;
-} & TUser;
+} & TUserAuth;
 
 export type TAnswerDataIngredient = {
   orders: TIngredient[];
@@ -52,6 +52,12 @@ export type TBoardOrder = {
   workingList: number[]; 
   total: number | null; 
   totalToday: number | null;
+}
+export type TOrders = {
+  orders: TListOrders[], 
+  success: boolean, 
+  total: number | null, 
+  totalToday: number | null,
 }
 
 export type TListOrders = {

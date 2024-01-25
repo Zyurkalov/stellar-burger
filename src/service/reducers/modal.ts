@@ -1,17 +1,9 @@
 import { TIngredient } from "../../Types"
 import { MODAL_ORDER_OPEN, MODAL_INGR_OPEN, MODAL_CLOSE, MODAL_LOADING, MODAL_ERROR_OPEN } from "../actions/modal"
-import { TypeModalAction } from "../actions/modal"
+import { TypeModalAction as TAction } from "../actions/modal"
+import { TInitialStateModal as TReducer } from "./types"
 
-type TInitialState = {
-    modalOrderStatus: boolean,
-    modalIngrStatus: boolean,
-    modalLoadingStatus: boolean,
-    modalErrorStatus: boolean,
-    compIngr: TIngredient[] | {},
-    loadingMessage: string | null,
-    errorMessage: string | null,
-}
-const initialState: TInitialState = {
+const initialState: TReducer = {
     modalOrderStatus: false,
     modalIngrStatus: false,
     modalLoadingStatus: false,
@@ -21,7 +13,7 @@ const initialState: TInitialState = {
     errorMessage: '',
 }
 
-export const modalReducer = (state = initialState, action: TypeModalAction): TInitialState => {
+export const modalReducer = (state = initialState, action: TAction): TReducer => {
     switch (action.type) {
         case MODAL_ORDER_OPEN: {
             return {

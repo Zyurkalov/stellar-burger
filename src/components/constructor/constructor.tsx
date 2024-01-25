@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-function Constructor() {
+export function ConstructorComponent() {
   const [mainClass, setMainClass] = useState(mainStyles.main);
 
   // переписать под отдельный хук:
@@ -31,4 +31,4 @@ function Constructor() {
   );
 }
 
-export default Constructor;
+export default ConstructorComponent;

@@ -1,22 +1,17 @@
-import { AWAIT_DATA, GET_DATA_FAILED, GET_DATA_SUCCESS, TAppAction } from "../actions/app";
+import { AWAIT_DATA, GET_DATA_FAILED, GET_DATA_SUCCESS, TAppAction as TAction } from "../actions/app";
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from "./index"
 import { TIngredient } from "../../Types";
+import { TInitialStateApp as TReducer } from "./types";
 
-type TInitialState = {
-  dataRequest: boolean;
-  dataFailed: boolean;
-  data: TIngredient[] | [];
-  error: string | null;
-}
-const initialState: TInitialState = {
+const initialState: TReducer = {
   dataRequest: false,
   dataFailed: false,
   data: [],
   error: '',
 };
-export const getDataReducer = (state = initialState, action: TAppAction):TInitialState => {
+export const getDataReducer = (state = initialState, action: TAction): TReducer => {
   switch (action.type) {
     case AWAIT_DATA: {
       return {
