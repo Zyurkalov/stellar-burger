@@ -1,4 +1,4 @@
-import { TIngredient } from "../../Types";
+import { TIngredient } from "../../types";
 import {
   DELETE_INGREDIENT,
   ADD_INGREDIENT,

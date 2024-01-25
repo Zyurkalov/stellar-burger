@@ -1,6 +1,5 @@
-// import { AWAIT_DATA, GET_DATA_SUCCESS, GET_DATA_FAILED } from "../../constatnts/actions";
-import { TIngredient } from "../../Types";
-import { AppDispatch } from "../reducers";
+import { TIngredient } from "../../types";
+import { AppDispatch } from "..";
 import request from "../../utils/request";
 
 export const AWAIT_DATA: "AWAIT_DATA" = "AWAIT_DATA"

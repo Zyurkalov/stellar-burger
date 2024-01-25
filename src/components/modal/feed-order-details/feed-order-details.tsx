@@ -8,12 +8,12 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getOrderNumberDetails } from "../../../service/actions/order-number";
 import { StatusOrder } from "../../feed/status-order/status-order";
-import { useTimezone } from "../../../service/useTimezone";
+import { useTimezone } from "../../../utils/hooks/useTimezone";
 
 import appStyles from "../../app/app.module.css"
 import style from "./feed-order-details.module.css";
 
-import { TListOrders, TIngredient } from '../../../Types'
+import { TListOrders, TIngredient } from '../../../types'
 
 const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
 

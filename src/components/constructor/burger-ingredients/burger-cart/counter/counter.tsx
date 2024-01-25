@@ -1,5 +1,5 @@
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../../../../Types";
+import { TIngredient } from "../../../../../types";
 import { ReactNode } from 'react';
 
 export const СounterComponent = (targetIngr: TIngredient, listIngr: TIngredient[]): ReactNode => {

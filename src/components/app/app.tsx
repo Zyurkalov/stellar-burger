@@ -14,10 +14,9 @@ import { getIngredients } from "../../service/actions/app";
 import { NotFound404, Home, Profile, Feed, Login, Register, ResetPassword, ForgotPassword } from "../../page";
 import { ProfileInputList } from "../profile/input-list/input-list";
 import { checkUserAuth } from "../../service/actions/user-auth";
-import { TListOrders, TIngredient } from "../../Types";
+import { TListOrders, TIngredient } from "../../types";
 
 import appStyles from "./app.module.css";
-import { RootState } from "../../service/reducers";
 
 function App() {
   const dispatch = useAppDispatch();

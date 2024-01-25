@@ -6,7 +6,7 @@ import {
   moveIngredient,
 } from "../../../../service/actions/constructor";
 import { oneIngrPropType } from "../../../../utils/prop-types";
-import { TIngredient } from "../../../../Types";
+import { TIngredient } from "../../../../types";
 import PropTypes from "prop-types";
 
 import {

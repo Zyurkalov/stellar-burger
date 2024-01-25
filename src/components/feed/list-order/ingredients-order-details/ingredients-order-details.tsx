@@ -5,7 +5,7 @@ import { useAppSelector } from "../../../../utils/hooks/useAppStore";
 
 import PropTypes from 'prop-types';
 import style from "./ingredients-order-details.module.css";
-import { TIngredient } from "../../../../Types";
+import { TIngredient } from "../../../../types";
 
 export const IngredientsOrderDetails: FC<{list: string[] | null}> = ({list}) => {
   const currencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);

@@ -1,4 +1,4 @@
-import { TToken } from "../Types";
+import { TToken } from "../types";
 
 function getCookie(name: TToken) {
   // было предупреждение об "лишних символах", ниже скорректированный код

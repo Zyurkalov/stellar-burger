@@ -1,4 +1,4 @@
-import { TIngredient, TType, TOrders, TRegistration } from "../../Types";
+import { TIngredient, TType, TOrders, TRegistration } from "../../types";
 
 export type TInitialStateApp = {
   dataRequest: boolean;

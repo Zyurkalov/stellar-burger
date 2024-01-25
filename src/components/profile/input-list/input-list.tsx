@@ -6,7 +6,7 @@ import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation"
 import { editProfile } from "../../../service/actions/user-auth";
 
 import style from "./input-list.module.css";
-import { TRegistration, TUserAuth } from "../../../Types";
+import { TRegistration, TUserAuth } from "../../../types";
 
 
 export function ProfileInputList() {

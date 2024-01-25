@@ -1,4 +1,4 @@
-import { TIngredient } from "../../Types";
+import { TIngredient } from "../../types";
 
 export const MODAL_ORDER_OPEN: 'MODAL_ORDER_OPEN' = 'MODAL_ORDER_OPEN';
 export const MODAL_INGR_OPEN: 'MODAL_INGR_OPEN' = 'MODAL_INGR_OPEN';

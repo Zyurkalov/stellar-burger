@@ -1,4 +1,6 @@
-const addUser = (res) => {
+
+
+const addUser = (res: {user: {email: string, name: string}}) => {
     sessionStorage.setItem("name", res.user.name);
     sessionStorage.setItem("email", res.user.email);
 }

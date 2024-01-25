@@ -1,13 +1,14 @@
 import { showLoading, closeModal, showModalError } from "../actions/modal";
 import { api } from "../../utils/user-api";
-import { connect, disconnect } from "../actions/ws-action";
+import { connect, disconnect, wsAction } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
+import { Middleware } from "redux";
 
 const {queryToken, setCookie, getCookie} = useCookie
 
-export const socketMiddleware = (objAction)  => {
+export const socketMiddleware = (objAction: typeof wsAction): Middleware  => {
   return (store) => {
-    let socket = null;
+    let socket: WebSocket | null = null;
     let closing = false;
     let url = "";
 
@@ -28,7 +29,7 @@ export const socketMiddleware = (objAction)  => {
           console.log(`ws соединение установлено`);
         };
 
-        socket.onmessage = async (event) => {
+        socket.onmessage = async (event: MessageEvent<string>) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch(closeModal());
@@ -45,7 +46,7 @@ export const socketMiddleware = (objAction)  => {
           }
         };
 
-        socket.onclose = (event) => {
+        socket.onclose = () => {
           dispatch({ type: objAction.closed });
           if (/*event.wasClean*/ closing) {
             console.log(`ws соединение закрыто корректно`);
@@ -57,7 +58,8 @@ export const socketMiddleware = (objAction)  => {
           }
         };
 
-        socket.onerror = (event) => {
+        socket.onerror = (event: ErrorEvent & any) => {
+          console.log(event)
           const { data } = event;
           dispatch({ type: objAction.error, payload: data?.message });
           console.log(`Ошибка соединения: ${event.message}`);

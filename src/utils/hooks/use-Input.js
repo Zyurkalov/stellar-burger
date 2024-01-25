@@ -1,41 +1,43 @@
-import { useState } from "react";
+// переписан на useFormAndValidation
 
-// этот хук можно использовать для изменении значении инпутов
-// и изменения состояния для кнопки submit
+// import { useState } from "react";
 
-export const useInput = (initialState = {}, oneInput = false) => {
-  const [input, setInput] = useState(initialState);
-  const [active, setActive] = useState(false);
+// // этот хук можно использовать для изменении значении инпутов
+// // и изменения состояния для кнопки submit
 
-  const changedInput = (bool) => {
-    setActive(bool);
-  };
-  // const modifiedInput = (event) => {
-  //   const key = event.target.name;
-  //   setInput({ ...input, [key]: event.target.value });
-  //   setActive(true);
-  // };
+// export const useInput = (initialState = {}, oneInput = false) => {
+//   const [input, setInput] = useState(initialState);
+//   const [active, setActive] = useState(false);
 
-  const modifiedInput = (event) => {
-    const key = event.target.name;
-    setInput({ ...input, [key]: event.target.value });
+//   const changedInput = (bool) => {
+//     setActive(bool);
+//   };
+//   // const modifiedInput = (event) => {
+//   //   const key = event.target.name;
+//   //   setInput({ ...input, [key]: event.target.value });
+//   //   setActive(true);
+//   // };
 
-    if (oneInput) {
-      const length = event.target.value.length <= 0;
-      if (length ) {
-        setActive(false);
-      } else {
-        setActive(true);
-      }
-    } else {
-      const length = Object.values(input).every((value) => value.length <= 0);
-      if (length) {
-        setActive(false);
-      } else {
-        setActive(true);
-      }
-    }
-  };
+//   const modifiedInput = (event) => {
+//     const key = event.target.name;
+//     setInput({ ...input, [key]: event.target.value });
 
-  return {input, setInput, changedInput, active, modifiedInput};
-};
+//     if (oneInput) {
+//       const length = event.target.value.length <= 0;
+//       if (length ) {
+//         setActive(false);
+//       } else {
+//         setActive(true);
+//       }
+//     } else {
+//       const length = Object.values(input).every((value) => value.length <= 0);
+//       if (length) {
+//         setActive(false);
+//       } else {
+//         setActive(true);
+//       }
+//     }
+//   };
+
+//   return {input, setInput, changedInput, active, modifiedInput};
+// };

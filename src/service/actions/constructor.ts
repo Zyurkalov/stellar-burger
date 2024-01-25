@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TIngredient } from '../../Types';
+import { TIngredient } from '../../types';
 
 export const ADD_INGREDIENT: "ADD_INGREDIENT" = "ADD_INGREDIENT";
 export const DELETE_INGREDIENT: "DELETE_INGREDIENT" = "DELETE_INGREDIENT";

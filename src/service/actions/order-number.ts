@@ -1,6 +1,6 @@
-import { TAnswerDataIngredient, TIngredient } from "../../Types";
+import { TAnswerDataIngredient, TIngredient } from "../../types";
 import request from "../../utils/request";
-import { AppDispatch } from "../reducers";
+import { AppDispatch } from "..";
 
 export const AWAIT_ORDDER_DETAILS: 'AWAIT_ORDDER_DETAILS' = 'AWAIT_ORDDER_DETAILS'
 export const ERROR_ORDDER_DETAILS: 'ERROR_ORDDER_DETAILS' = 'ERROR_ORDDER_DETAILS'

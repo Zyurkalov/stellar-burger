@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { FC } from "react"
 import style from './status-order.module.css'
-import { TOrderStatus } from '../../../Types';
+import { TOrderStatus } from '../../../types';
 export const StatusOrder: FC<{value: TOrderStatus}> = ({value}) => {
 
     let statusText = '';

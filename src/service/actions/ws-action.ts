@@ -1,5 +1,5 @@
 import { WS_URL } from "../../constatnts/apiUrl";
-import { TIngredient, TListOrders } from "../../Types";
+import { TIngredient, TListOrders } from "../../types";
 
 const CONNECTING: 'CONNECTING' = 'CONNECTING';
 const ONLINE: 'ONLINE' = 'ONLINE';

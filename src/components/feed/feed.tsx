@@ -5,10 +5,10 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 import { connect, disconnect } from "../../service/actions/ws-action";
 import { ListOrder } from "./list-order/list-order";
 import {BoardOrder} from "./board-order/board-order";
-import { TListOrders } from "../../Types";
+import { TListOrders } from "../../types";
 import mainStyles from "../constructor/constructor.module.css"
 
-import { TIngredient } from "../../Types"
+import { TIngredient } from "../../types"
 
 type TOrderData = {
   orders: TListOrders[] | null,

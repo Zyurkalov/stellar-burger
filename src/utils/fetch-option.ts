@@ -1,8 +1,9 @@
+import { TRegistration, TUserAuth } from "../types";
 import { useCookie } from "./useCookie";
 const { getCookie } = useCookie
 
 //// значения объекта ingrOption
-const sendOrder = (value) => ({
+const sendOrder = (value: string[] | number []) => ({
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -12,7 +13,7 @@ const sendOrder = (value) => ({
 });
 
 //// значения объекта userOption
-const registration = (data) => ({
+const registration = (data: TRegistration) => ({
   method: `POST`,
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -21,7 +22,7 @@ const registration = (data) => ({
     name: data.name,
   }),
 });
-const login = (data) => ({
+const login = (data: TUserAuth) => ({
   method: `POST`,
   headers: {
     "Content-Type": "application/json",
@@ -42,14 +43,14 @@ const refreshToken = () => ({
     "Content-Type": "application/json"},
   body: JSON.stringify({ token: getCookie("refreshToken") }),
 });
-const forgotPassword = (data) => ({
+const forgotPassword = (data: {email: string}) => ({
   method: "POST",
   headers: {
     "Content-Type": "application/json",
   },
   body: JSON.stringify(data),
 });
-const resetPassword = (data) => ({
+const resetPassword = (data: {password: string, token: string}) => ({
   method: "POST",
   headers: {
     "Content-Type": "application/json",

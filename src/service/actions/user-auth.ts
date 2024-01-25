@@ -1,8 +1,8 @@
 import { api } from "../../utils/user-api";
 import { userState } from "../../utils/userState";
 import { useCookie } from "../../utils/useCookie";
-import { TUserAuth } from "../../Types";
-import { AppDispatch } from "../reducers";
+import { TRegistration, TUserAuth } from "../../types";
+import { AppDispatch } from "..";
 import { closeModal, showLoading, showModalError } from "./modal";
 
 const { getCookie, setCookie, deleteCookie } = useCookie
@@ -66,7 +66,7 @@ const delayedExecution = (dispatch: AppDispatch) => {
   }, 250); 
 };
 
-export const registration = (data: TUserAuth) => {
+export const registration = (data: TRegistration) => {
   return (dispatch: AppDispatch) => {
     dispatch(showLoading('запускаем|* идентификацию'))
     return api
@@ -146,7 +146,7 @@ export const checkUserAuth = () => {
   }
 }
 
-export const editProfile = <T>(inputForm: T) => {
+export const editProfile = (inputForm: TRegistration) => {
     return (dispatch: AppDispatch) => {
       return api.editProfile(inputForm)
       .then((res) => {
@@ -158,7 +158,7 @@ export const editProfile = <T>(inputForm: T) => {
     }
   }
 
-export const forgotPassword = <T>(email: T) => {
+export const forgotPassword = (email: {email: string}) => {
   return (dispatch: AppDispatch) => {
   return api.forgotPassword(email)
   .catch((err) => {
@@ -167,7 +167,7 @@ export const forgotPassword = <T>(email: T) => {
   }
 }
 
-export const passwordReset = <T>(form: T) => {
+export const passwordReset = (form: {password: string, token: string}) => {
   return (dispatch: AppDispatch) => {
   return api.passwordReset(form)
   .catch((err) => {

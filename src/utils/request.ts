@@ -1,17 +1,17 @@
 import { API_URL } from "../constatnts/apiUrl"
 
-function checkResponse(res) {
+function checkResponse(res: Response) {
   return res.ok
     ? res.json()
     : res.json().then((data) => Promise.reject(data));
 }
-function checkSuccess(res) {
+function checkSuccess<T extends { success: boolean }>(res: T) {
   return res && res.success 
     ? res 
     : Promise.reject(res);
 }
 
-  export default function request (endpoint, option={}) {
+  export default function request (endpoint: string, option = {}) {
     return fetch(`${API_URL}${endpoint}`, option)
     .then(checkResponse)
     .then(checkSuccess)

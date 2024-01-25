@@ -2,7 +2,7 @@ import request from "../../utils/request";
 import { ingrOption } from "../../utils/fetch-option";
 import { CLEANING_INGREDIENT_LIST } from "./constructor";
 
-import { AppDispatch } from "../reducers";
+import { AppDispatch } from "..";
 
 export const AWAIT_ORDER: "AWAIT_ORDER" = "AWAIT_ORDER";
 export const MAKE_ORDER_SUCCESS: "MAKE_ORDER_SUCCESS" = "MAKE_ORDER_SUCCESS";

@@ -1,4 +1,4 @@
-import { TIngredient } from "../../Types"
+import { TIngredient } from "../../types"
 import { MODAL_ORDER_OPEN, MODAL_INGR_OPEN, MODAL_CLOSE, MODAL_LOADING, MODAL_ERROR_OPEN } from "../actions/modal"
 import { TypeModalAction as TAction } from "../actions/modal"
 import { TInitialStateModal as TReducer } from "./types"

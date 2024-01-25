@@ -8,7 +8,7 @@ import { NotFound404 } from '../../../page';
 
 import appStyles from "../../app/app.module.css"
 import styles from "./ingredient-details.module.css";
-import { TIngredient } from '../../../Types';
+import { TIngredient } from '../../../types';
 
 type TTeg = 'image_large' | "name" | 'calories' | 'proteins' | 'fat' | 'carbohydrates'
 

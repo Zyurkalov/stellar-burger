@@ -4,7 +4,7 @@ import mainStyle from "./../../constructor/constructor.module.css"
 import style from "./board-order.module.css"
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
-import { TBoardOrder } from '../../../Types';
+import { TBoardOrder } from '../../../types';
 
 export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, totalToday}) => {
     // const location = useLocation()

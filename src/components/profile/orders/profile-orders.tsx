@@ -4,7 +4,7 @@ import { useCookie } from "../../../utils/useCookie"
 import { useDispatch, useSelector } from "react-redux"
 import { connect, disconnect } from "../../../service/actions/ws-action"
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
-import { TListOrders } from "../../../Types";
+import { TListOrders } from "../../../types";
 
 
 const ProfileOrders = () => {
