@@ -3,6 +3,7 @@ import { api } from "../../utils/user-api";
 import { connect, disconnect, wsAction } from "../actions/ws-action";
 import { useCookie } from "../../utils/useCookie";
 import { Middleware } from "redux";
+import { isErrorEvent } from "../../utils/isErrorEvent";
 
 const {queryToken, setCookie, getCookie} = useCookie
 
@@ -58,11 +59,16 @@ export const socketMiddleware = (objAction: typeof wsAction): Middleware  => {
           }
         };
 
-        socket.onerror = (event: ErrorEvent & any) => {
-          console.log(event)
-          const { data } = event;
-          dispatch({ type: objAction.error, payload: data?.message });
-          console.log(`Ошибка соединения: ${event.message}`);
+        socket.onerror = (event: Event | ErrorEvent) => {
+          // const { data } = event;
+          // dispatch({ type: objAction.error, payload: data?.message });
+          // console.log(`Ошибка соединения: ${event.message}`);
+          if (isErrorEvent(event)) {
+            const errorEvent = event as ErrorEvent;
+            const { message } = errorEvent;
+            dispatch({ type: objAction.error, payload: message });
+            console.log(`Connection error: ${message}`);
+          }
         };
 
         if (type === objAction.sendMessage) {

@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+// не используется после перехода на ТС, можно удалить
+
 const ingredientPropType = PropTypes.arrayOf(
   PropTypes.shape({
     _id: PropTypes.string.isRequired,

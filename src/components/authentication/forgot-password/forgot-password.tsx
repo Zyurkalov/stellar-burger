@@ -1,4 +1,4 @@
-import { ChangeEvent, SyntheticEvent } from 'react';
+import { ChangeEvent, SyntheticEvent, FormEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks/useAppStore';
@@ -20,7 +20,7 @@ export function ForgotPassworComponent() {
     handleValid(e)
   };
 
-  const sendEmail = (e: SyntheticEvent<Element, Event>) => {
+  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (values.email) {
       dispatch(forgotPassword(values))

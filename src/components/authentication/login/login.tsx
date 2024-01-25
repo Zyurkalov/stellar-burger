@@ -19,7 +19,7 @@ export function LoginComponent() {
     handleValid(e)
   };
 
-  const handleSubmit = (e: SyntheticEvent<Element, Event>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch(login(values))
   }
