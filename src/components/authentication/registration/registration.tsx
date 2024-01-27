@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from '../../../utils/hooks/useAppStore';
 import { useNavigate } from "react-router-dom";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
@@ -11,7 +10,7 @@ import style from "./registration.module.css";
 export function RegisterComponent() {
   const { values, handleChange, handleValid, isValid} = useFormAndValidation({email: "", password: "", name: "" })
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const status = isValid && values.email && values.password && values.name
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
