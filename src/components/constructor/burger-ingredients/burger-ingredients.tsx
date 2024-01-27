@@ -8,10 +8,6 @@ import { TType } from "../../../types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
-// import PropTypes from "prop-types";
-// import { ingredientPropType } from "../../../utils/prop-types";
-// import { store } from "../../../service/reducers";
-
 function BurgerIngredients() {
   const dispatch = useAppDispatch();
   const { data, dataFailed, dataRequest, error } = useAppSelector(

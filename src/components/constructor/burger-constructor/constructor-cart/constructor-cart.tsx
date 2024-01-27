@@ -81,7 +81,3 @@ export const ConstructorCart: FC<{ingredient: TIngredient, index: number}> = ({ 
   );
 }
 
-// ConstructorCart.propTypes = {
-//   ingredient: oneIngrPropType.isRequired,
-//   index: PropTypes.number,
-// };

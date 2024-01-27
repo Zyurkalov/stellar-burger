@@ -167,8 +167,5 @@ const [, dropTarget] = useDrop({
   );
 }
 
-// BurgerConstructor.propTypes = {
-//   ingrList: PropTypes.arrayOf(PropTypes.exact(oneIngrPropType.isRequired)),
-// };
 
 export default BurgerConstructor;
