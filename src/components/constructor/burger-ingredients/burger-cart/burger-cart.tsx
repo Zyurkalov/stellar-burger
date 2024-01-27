@@ -1,9 +1,8 @@
 import { useMemo, FC, ReactNode } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../../utils/hooks/useAppStore";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
-import { oneIngrPropType } from "../../../../utils/prop-types";
 import {СounterComponent} from "./counter/counter"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredient } from "../../../../types";
@@ -20,8 +19,8 @@ const BurgerCart: FC<{ item: TIngredient }> = ({item}) => {
     })
   })
 
-  const compCurrencyIcon: ReactNode = useMemo(() => <CurrencyIcon type="primary"/>, []);
-  const commonList: TIngredient[] = useSelector((state:any) => state.ingrList.list);
+  const compCurrencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);
+  const commonList = useAppSelector((state) => state.ingrList.list);
 
   return (
     <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location, ingredient: item }} className={style.cart} ref={dragRef}>
@@ -37,9 +36,5 @@ const BurgerCart: FC<{ item: TIngredient }> = ({item}) => {
     </Link>
   );
 }
-
-// BurgerCart.propTypes = {
-//   item: oneIngrPropType.isRequired
-// };
 
 export default BurgerCart;

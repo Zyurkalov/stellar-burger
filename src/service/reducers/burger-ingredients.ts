@@ -1,4 +1,5 @@
-import { SWITCH_TAB, TSwitchTab } from "../actions/burger-ingredients";
+import { TSwitchTab } from "../actions/types";
+import { SWITCH_TAB } from "../../constatnts/actions";
 import { TInitialStateBurgerIngredient as TReducer} from "./types";
 
 const initialState: TReducer = {

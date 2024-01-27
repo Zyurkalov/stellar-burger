@@ -1,9 +1,12 @@
-import {
-  AWAIT_ORDER,
-  MAKE_ORDER_SUCCESS,
-  MAKE_ORDER_FAILED,
-  TBurgerAction as TAction
-} from "../actions/burger-constructor";
+// import {
+//   AWAIT_ORDER,
+//   MAKE_ORDER_SUCCESS,
+//   MAKE_ORDER_FAILED,
+//   TBurgerAction as TAction
+// } from "../actions/burger-constructor";
+
+import { TBurgerAction as TAction } from "../actions/types";
+import { AWAIT_ORDER, MAKE_ORDER_SUCCESS, MAKE_ORDER_FAILED} from "../../constatnts/actions"
 import { TInitialStateBurgerConstructor as TReducer } from "./types";
 
 const initialState: TReducer = {

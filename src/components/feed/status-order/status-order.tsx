@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import { FC } from "react"
 import style from './status-order.module.css'
 import { TOrderStatus } from '../../../types';
@@ -26,7 +26,5 @@ export const StatusOrder: FC<{value: TOrderStatus}> = ({value}) => {
 
     return <p className={`mt-2 text text_type_main-small ${statusColor}`}>{statusText}</p>;
 }
-// StatusOrder.propsTypes = {
-//     status: PropTypes.string.isRequired
-// }
+
 

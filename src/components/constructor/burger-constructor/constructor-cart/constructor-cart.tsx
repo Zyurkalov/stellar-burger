@@ -1,13 +1,11 @@
 import { useMemo, FC, useRef } from "react";
 import { useDrop, useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../../utils/hooks/useAppStore";
 import {
   deleteIngredient,
   moveIngredient,
 } from "../../../../service/actions/constructor";
-import { oneIngrPropType } from "../../../../utils/prop-types";
 import { TIngredient } from "../../../../types";
-import PropTypes from "prop-types";
 
 import {
   DragIcon,
@@ -17,7 +15,7 @@ import style from "./constructor-cart.module.css";
 
 export const ConstructorCart: FC<{ingredient: TIngredient, index: number}> = ({ ingredient, index }) => {
   const ref = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const idIngr = ingredient._id;
   
   const createDragIcon = (index: number) => <DragIcon key={index} type="primary"/>;

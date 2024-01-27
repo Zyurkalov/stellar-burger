@@ -4,28 +4,11 @@ import { useCookie } from "../../utils/useCookie";
 import { TRegistration, TUserAuth } from "../../types";
 import { AppDispatch } from "..";
 import { closeModal, showLoading, showModalError } from "./modal";
+import { USER_DATA, USER_LOGOUT, LOADING_STATUS } from "../../constatnts/actions";
 
 const { getCookie, setCookie, deleteCookie } = useCookie
 const { addUser, removeUser } = userState
 const refreshToken = getCookie("refreshToken")
-
-export const USER_LOGOUT: "USER_LOGOUT" = "USER_LOGOUT";
-export const USER_LOADING: "USER_DATA_LOADING" = "USER_DATA_LOADING";
-export const LOADING_STATUS: 'LOADING_STATUS' ='LOADING_STATUS'
-export const USER_DATA: "USER_DATA" = "USER_DATA";
-
-type TSetUserData = {
-  type: typeof USER_DATA,
-  payload: TUserAuth,
-}
-type TUserLogout = {
-  type: typeof USER_LOGOUT,
-}
-type TLoadingStatus = {
-  type: typeof LOADING_STATUS,
-  payload: boolean,
-}
-export type TUserAuthAction = TSetUserData | TUserLogout | TLoadingStatus
 
 export const setUserData = (data: TUserAuth) => ({
   type: USER_DATA,

@@ -1,12 +1,10 @@
 import { useCallback, useRef } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
 
 import { switchTab } from "../../../service/actions/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { TIngredient, TType } from "../../../types";
+import { TType } from "../../../types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 
@@ -15,7 +13,7 @@ import style from "./burger-ingredients.module.css";
 // import { store } from "../../../service/reducers";
 
 function BurgerIngredients() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { data, dataFailed, dataRequest, error } = useAppSelector(
     (state) => state.dataList
   );
@@ -51,9 +49,9 @@ function BurgerIngredients() {
 
   const decompositionArr = useCallback(
     (category) => {
-      const filteredData: TIngredient[] = data.filter((item: TIngredient) => item.type === category);
+      const filteredData = data.filter((item) => item.type === category);
       if (filteredData) {
-        return filteredData.map((item: TIngredient) => (
+        return filteredData.map((item) => (
           <BurgerCart key={item._id} item={item} />
         ));
       }
@@ -67,7 +65,7 @@ function BurgerIngredients() {
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
-  const getTab = (): JSX.Element[] => {
+  const getTab = () => {
     const defaultName: {[key in TType]: string} = {
       "bun": "Булки",
       "sauce": "Соусы",
@@ -136,8 +134,5 @@ function BurgerIngredients() {
     </div>
   );
 }
-// BurgerIngredients.propTypes = {
-//   data: ingredientPropType,
-// };
 
 export default BurgerIngredients;

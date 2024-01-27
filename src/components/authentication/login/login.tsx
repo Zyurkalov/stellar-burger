@@ -1,6 +1,5 @@
-import { ChangeEvent, FormEvent, SyntheticEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { useAppDispatch } from '../../../utils/hooks/useAppStore';
-import { useDispatch } from "react-redux";
 
 import { EmailInput, PasswordInput, Button,} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";

@@ -1,4 +1,4 @@
-import { API_URL } from "../constatnts/apiUrl"
+import { API_URL } from "../constatnts/url"
 
 function checkResponse(res: Response) {
   return res.ok

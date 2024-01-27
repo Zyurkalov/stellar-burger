@@ -1,11 +1,14 @@
-import { showLoading, closeModal, showModalError } from "../actions/modal";
+import { showLoading, closeModal } from "../actions/modal";
+// import { showLoading, closeModal, showModalError } from "../actions/modal";
 import { api } from "../../utils/user-api";
-import { connect, disconnect, wsAction } from "../actions/ws-action";
+import { connect, disconnect} from "../actions/ws-action";
+import { wsAction } from "../../constatnts/actions";
 import { useCookie } from "../../utils/useCookie";
 import { Middleware } from "redux";
 import { isErrorEvent } from "../../utils/isErrorEvent";
 
-const {queryToken, setCookie, getCookie} = useCookie
+const { queryToken, setCookie } = useCookie
+// const {queryToken, setCookie, getCookie} = useCookie
 
 export const socketMiddleware = (objAction: typeof wsAction): Middleware  => {
   return (store) => {

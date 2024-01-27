@@ -1,19 +1,16 @@
 import { useEffect, useState, FC } from 'react';
-import { useSelector} from "react-redux";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from '../../../utils/hooks/useAppStore';
 
-import {oneIngrPropType} from "../../../utils/prop-types";
 import { NotFound404 } from '../../../page';
+import { TIngredient } from '../../../types';
 
 import appStyles from "../../app/app.module.css"
 import styles from "./ingredient-details.module.css";
-import { TIngredient } from '../../../types';
 
 type TTeg = 'image_large' | "name" | 'calories' | 'proteins' | 'fat' | 'carbohydrates'
 
 const IngredientDetails: FC<{item?: TIngredient}> = ({item}) => {
-  // const dispatch = useDispatch();
   const { ingredientId } = useParams();
   const { data } = useAppSelector((store) => store.dataList);
   const [ingredient, setIngredient] = useState<TIngredient | null>(null);
@@ -78,7 +75,4 @@ const IngredientDetails: FC<{item?: TIngredient}> = ({item}) => {
   );
 }
 
-// IngredientDetails.propTypes = {
-//   item: oneIngrPropType,
-// };
 export default IngredientDetails;

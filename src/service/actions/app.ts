@@ -1,23 +1,7 @@
 import { TIngredient } from "../../types";
 import { AppDispatch } from "..";
 import request from "../../utils/request";
-
-export const AWAIT_DATA: "AWAIT_DATA" = "AWAIT_DATA"
-export const GET_DATA_SUCCESS: "GET_DATA_SUCCESS" = "GET_DATA_SUCCESS"
-export const GET_DATA_FAILED: "GET_DATA_FAILED" = "GET_DATA_FAILED"
-
-export type AwaitData = {
-  readonly type: typeof AWAIT_DATA
-}
-export type DataSuccess = {
-  readonly type: typeof GET_DATA_SUCCESS;
-  readonly feed: TIngredient[];
-}
-export type DataFailed = {
-  readonly type: typeof GET_DATA_FAILED;
-  readonly error: string;
-}
-export type TAppAction = AwaitData | DataSuccess | DataFailed;
+import { AWAIT_DATA, GET_DATA_SUCCESS, GET_DATA_FAILED } from "../../constatnts/actions";
 
 export function getIngredients() {
   return function (dispatch: AppDispatch) {

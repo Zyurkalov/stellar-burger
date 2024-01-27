@@ -1,8 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
-import PropTypes from "prop-types";
 
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -138,15 +136,4 @@ const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
     </div>
 };
 
-// FeedOrderDetails.propTypes = {
-//   item: PropTypes.shape({
-//     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-//     name: PropTypes.string.isRequired,
-//     _id: PropTypes.string.isRequired,
-//     status: PropTypes.string.isRequired,
-//     number: PropTypes.number.isRequired,
-//     createdAt: PropTypes.string.isRequired,
-//     updatedAt: PropTypes.string.isRequired,
-//   }),
-// };
 export default FeedOrderDetails;

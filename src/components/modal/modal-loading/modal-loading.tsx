@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useAppSelector } from "../../../utils/hooks/useAppStore";
 import style from "./modal-loading.module.css";
 

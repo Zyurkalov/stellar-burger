@@ -1,8 +1,6 @@
-import { AWAIT_DATA, GET_DATA_FAILED, GET_DATA_SUCCESS, TAppAction as TAction } from "../actions/app";
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from ".."
-import { TIngredient } from "../../types";
+import { AWAIT_DATA, GET_DATA_FAILED, GET_DATA_SUCCESS } from "../../constatnts/actions";
+import { TAppAction as TAction } from "../actions/types";
+
 import { TInitialStateApp as TReducer } from "./types";
 
 const initialState: TReducer = {

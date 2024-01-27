@@ -1,7 +1,6 @@
 import Modal from "../components/modal/modal";
 import OrderDetails from "../components/modal/order-details/order-details";
 import Constructor from "../components/constructor/constructor";
-import { useSelector } from "react-redux";
 import { useAppSelector } from "../utils/hooks/useAppStore";
 
 export function Home() {

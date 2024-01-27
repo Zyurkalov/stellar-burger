@@ -1,7 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { combineReducers } from "redux";
+// import { createStore, combineReducers, applyMiddleware } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { wsAction } from "./actions/ws-action";
+// import { composeWithDevTools } from "redux-devtools-extension";
+import { wsAction } from "../constatnts/ws";
 import thunk from "redux-thunk";
 
 import { getDataReducer } from "./reducers/app";

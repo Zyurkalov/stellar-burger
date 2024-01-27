@@ -1,6 +1,6 @@
-
-import { wsAction, WebsocketStatus, TypeWsAction as TAction } from "../actions/ws-action";
+import { WebsocketStatus, wsAction } from "../../constatnts/ws";
 import { TInitialStateWcReducer as TReducer} from "./types";
+import { TypeWsAction as TAction } from "../actions/types";
 
 const initialState: TReducer = {
   status: WebsocketStatus.OFFLINE,

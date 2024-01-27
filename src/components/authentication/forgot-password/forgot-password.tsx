@@ -1,7 +1,6 @@
-import { ChangeEvent, SyntheticEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks/useAppStore';
+import { useAppDispatch } from '../../../utils/hooks/useAppStore';
 
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { forgotPassword } from "../../../service/actions/user-auth";

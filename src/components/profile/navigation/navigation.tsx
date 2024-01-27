@@ -1,5 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { logout } from "../../../service/actions/user-auth";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch } from "../../../utils/hooks/useAppStore";

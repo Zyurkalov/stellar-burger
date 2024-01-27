@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+
 import { useAppSelector } from "../../../utils/hooks/useAppStore";
 import image from "../../../images/done.svg";
 import style from "./order-details.module.css";

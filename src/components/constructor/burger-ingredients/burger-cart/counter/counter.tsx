@@ -8,7 +8,7 @@ export const СounterComponent = (targetIngr: TIngredient, listIngr: TIngredient
   const foundCopyIngr = listIngr.filter((ingr) => {
     return ingr._id === _id;
   }).length;
-  const counter = (count:number = 0, factor:number = 1) => (
+  const counter = (count = 0, factor = 1) => (
     <Counter count={count * factor} size="default" extraClass="m-1" />
   );
 

@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
-import { useEffect, FC, SyntheticEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,7 +7,6 @@ import { closeModal } from "../../service/actions/modal";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 
 import styles from "./modal.module.css";
-import PropTypes from "prop-types";
 
 const Modal: FC<{title?: string | null, styleTitle?: string, children?: React.ReactNode, onClose?: () => void}> = ({ title, styleTitle, children, onClose }) => {
   const { modalLoadingStatus, modalErrorStatus } = useAppSelector((state) => state.modal);
@@ -37,9 +35,9 @@ const Modal: FC<{title?: string | null, styleTitle?: string, children?: React.Re
       (event instanceof MouseEvent && event.target instanceof HTMLDivElement && event.target.id === "template")) {
         close()
       }
-      // if ((event.key === "Escape") || (event.target.id === "template")) {
-      //   close()
-      // }
+      if (event.target instanceof HTMLTemplateElement && event.target && event.target.id === "template") {
+        close()
+      }
     };
     window.addEventListener("keydown", handleCloseModal);
     window.addEventListener("click", handleCloseModal);
@@ -64,12 +62,5 @@ const Modal: FC<{title?: string | null, styleTitle?: string, children?: React.Re
     portal
   );
 }
-
-// Modal.propTypes = {
-//   title: PropTypes.string,
-//   children: PropTypes.node.isRequired,
-//   onClose: PropTypes.func,
-//   styleTitle: PropTypes.string,
-// };
 
 export default Modal;

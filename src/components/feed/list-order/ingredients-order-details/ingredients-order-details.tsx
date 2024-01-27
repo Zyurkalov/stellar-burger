@@ -1,11 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
 import { useAppSelector } from "../../../../utils/hooks/useAppStore";
 
-import PropTypes from 'prop-types';
-import style from "./ingredients-order-details.module.css";
 import { TIngredient } from "../../../../types";
+import style from "./ingredients-order-details.module.css";
 
 export const IngredientsOrderDetails: FC<{list: string[] | null}> = ({list}) => {
   const currencyIcon = useMemo(() => <CurrencyIcon type="primary"/>, []);
@@ -22,7 +20,7 @@ export const IngredientsOrderDetails: FC<{list: string[] | null}> = ({list}) => 
       return null
     }
     list.forEach((id) => {
-      const findIngr = data.find((ingr: TIngredient) => ingr._id === id.toString());
+      const findIngr = data.find((ingr) => ingr._id === id.toString());
       if (findIngr) {
         getTotalPrice(findIngr)
         if (filtered.indexOf(findIngr) < 0) {
@@ -81,6 +79,3 @@ export const IngredientsOrderDetails: FC<{list: string[] | null}> = ({list}) => 
   );
 }
 
-// IngredientsOrderDetails.propTypes = {
-//   list: PropTypes.arrayOf(PropTypes.string).isRequired,
-// }

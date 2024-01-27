@@ -1,10 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
-import PropTypes, { number } from 'prop-types';
-import mainStyle from "./../../constructor/constructor.module.css"
-import style from "./board-order.module.css"
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
 import { TBoardOrder } from '../../../types';
+
+import style from "./board-order.module.css"
 
 export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, totalToday}) => {
     // const location = useLocation()
@@ -25,7 +22,7 @@ export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, total
         // return {multiple, remainder: remainder.toString().padStart(3, '0')}
         return multiple < 1 ? { multiple: null, remainder} : {multiple, remainder: remainder.toString().padStart(3, '0')}
     }
-    function getColumnCount(list: number[]): number {
+    function getColumnCount(list: number[]){
         const numColumns = Math.ceil(list.length / 10);
         return Math.min(numColumns, 3);
       }
@@ -72,9 +69,3 @@ export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, total
         </div>
       );
 }
-// BoardOrder.propTypes = {
-//     doneList: PropTypes.arrayOf(PropTypes.number).isRequired,
-//     workingList: PropTypes.arrayOf(PropTypes.number).isRequired,
-//     total:PropTypes.number.isRequired,
-//     totalToday:PropTypes.number.isRequired,
-// } 

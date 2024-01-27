@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 
 import { connect, disconnect } from "../../service/actions/ws-action";
@@ -7,8 +6,6 @@ import { ListOrder } from "./list-order/list-order";
 import {BoardOrder} from "./board-order/board-order";
 import { TListOrders } from "../../types";
 import mainStyles from "../constructor/constructor.module.css"
-
-import { TIngredient } from "../../types"
 
 type TOrderData = {
   orders: TListOrders[] | null,

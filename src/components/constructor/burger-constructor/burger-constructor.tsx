@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
 import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
 
@@ -8,17 +8,14 @@ import { addIngredient } from "../../../service/actions/constructor";
 import { makeOrderApi } from "../../../service/actions/burger-constructor";
 import { ConstructorCart } from "./constructor-cart/constructor-cart";
 import { openOrderModal } from "../../../service/actions/modal";
-import { oneIngrPropType } from "../../../utils/prop-types";
 import { useCookie } from "../../../utils/useCookie";
 
 import { TIngredient } from "../../../types";
-import PropTypes from "prop-types";
 import style from "./burger-constructor.module.css";
-import { RootState } from "../../../service";
 
 function BurgerConstructor() {
   // const ref = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
   const { getCookie } = useCookie
   const refIngrList = useRef<HTMLUListElement>(null)
@@ -26,11 +23,11 @@ function BurgerConstructor() {
 
   // const bunList = useSelector((state) => state.ingrList.bun);
   // const otherList = useSelector((state) => state.ingrList.other);
-  const commonList = useSelector((state: RootState) => state.ingrList.list);
-  const orderStatus = useSelector((state: RootState) => state.makeOrder.orderSuccess)
+  const commonList = useAppSelector((state) => state.ingrList.list);
+  const orderStatus = useAppSelector((state) => state.makeOrder.orderSuccess)
 
   const [bunIngr, ...otherIngr] = commonList
-  const checkBun = (index: number):number => bunIngr?.type === 'bun' ? index+1 : index;
+  const checkBun = (index: number) => bunIngr?.type === 'bun' ? index+1 : index;
 
   // const getListType = (type = 'other') => {
   //   return type !== 'bun' 
@@ -44,9 +41,9 @@ function BurgerConstructor() {
   // const getListOther = () => bun ? otherIngr : commonList
   const otherList = bun ? otherIngr : commonList
 
-  const bunPrice: number = bun ? bun.price * 2 : 0;
-  const totalPrice: number = (otherList && otherList.length > 0)
-  ? otherList.reduce((acc: number, ingredient: TIngredient):number => acc + ingredient.price, 0) + bunPrice
+  const bunPrice = bun ? bun.price * 2 : 0;
+  const totalPrice = (otherList && otherList.length > 0)
+  ? otherList.reduce((acc, ingredient) => acc + ingredient.price, 0) + bunPrice
   : bunPrice;
   
   const getListIngrID = (): string[] | [] => {
@@ -63,7 +60,7 @@ const [, dropTarget] = useDrop({
       dispatch(addIngredient(ingr));
     },
   });
-  const toggleModal = (): void => {
+  const toggleModal = () => {
     if (refreshToken) {
       dispatch(openOrderModal());
       dispatch(makeOrderApi(listIngrID));
@@ -73,7 +70,7 @@ const [, dropTarget] = useDrop({
   };
 
 
-  const burger = (pos:string): JSX.Element => 
+  const burger = (pos:string) => 
     {return (bun != null ? (
       <li className={`mb-4 ${style.component}`}>
         <div style={{ visibility: "hidden" }}>
@@ -124,7 +121,7 @@ const [, dropTarget] = useDrop({
                 className={` ${style.listComponents} ${style.scrollBar}`}
                 ref={refIngrList}
               >
-                {otherList.map((ingredient: TIngredient, index: number) => (
+                {otherList.map((ingredient, index) => (
                   <React.Fragment key={ingredient.uniqueId}>
                     <ConstructorCart ingredient={ingredient} index={checkBun(index)}/>
                     {otherList.length <= 1 ? (

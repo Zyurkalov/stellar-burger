@@ -1,16 +1,15 @@
-
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { IngredientsOrderDetails } from "./ingredients-order-details/ingredients-order-details";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { StatusOrder } from "../status-order/status-order";
 import { useTimezone } from "../../../utils/hooks/useTimezone";
 
-import PropTypes from 'prop-types';
-import style from "./list-order.module.css";
-import mainStyle from "../../constructor/constructor.module.css"
 import { FC } from "react";
 import { TListOrders } from "../../../types";
+
+import style from "./list-order.module.css";
+import mainStyle from "../../constructor/constructor.module.css"
 
 export const ListOrder: FC<{data: TListOrders[], addOrder: Function}> = ({data, addOrder}) => {
   const location = useLocation()
@@ -60,16 +59,3 @@ export const ListOrder: FC<{data: TListOrders[], addOrder: Function}> = ({data, 
     </ul>
   );
 }
-
-// ListOrder.propTypes = {
-//   data: PropTypes.arrayOf(PropTypes.shape({
-//     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-//     _id: PropTypes.string.isRequired,
-//     status: PropTypes.string.isRequired,
-//     number: PropTypes.number.isRequired,
-//     createdAt: PropTypes.string.isRequired,
-//     updatedAt: PropTypes.string.isRequired,
-//   })).isRequired,
-//   addOrder: PropTypes.func.isRequired
-
-// };

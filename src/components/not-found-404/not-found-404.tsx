@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./not-found-404.module.css";
 
-export const Component404 = (): JSX.Element => {
+export const Component404 = () => {
     return (
         <div className={styles.boxContainer}>
             <div aria-label="страница 404" className={styles.header}>

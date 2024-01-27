@@ -4,8 +4,8 @@ import {
   ADD_INGREDIENT,
   MOVE_INGREDIENT,
   CLEANING_INGREDIENT_LIST,
-  TConsructorAction as TAction,
-} from "../actions/constructor";
+} from "../../constatnts/actions";
+import { TConsructorAction as TAction } from "../actions/types";
 import { TInitialStateIngredient as TReducer } from "./types";
 
 const initialState: TReducer= {

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../utils/hooks/useAppStore";
 import { ChangeEvent, FormEvent, SyntheticEvent } from 'react';
 
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,12 +6,12 @@ import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation"
 import { editProfile } from "../../../service/actions/user-auth";
 
 import style from "./input-list.module.css";
-import { TRegistration, TUserAuth } from "../../../types";
+import { TRegistration } from "../../../types";
 
 
 export function ProfileInputList() {
   const userData: {email:string, name: string} = {email: sessionStorage.email, name: sessionStorage.name}
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const initialValue: TRegistration = {
     name: userData.name || "",

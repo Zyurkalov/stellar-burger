@@ -1,10 +1,7 @@
 import { TType } from "../../types"
+import { TSwitchTab } from "./types"
+import { SWITCH_TAB } from "../../constatnts/actions"
 
-export const SWITCH_TAB: 'SWITCH_TAB' = 'SWITCH_TAB'
-export type TSwitchTab = {
-    readonly type: typeof SWITCH_TAB,
-    readonly value: TType
-}
 export const switchTab = (tab:TType):TSwitchTab  => ({
     type: SWITCH_TAB,
     value: tab
