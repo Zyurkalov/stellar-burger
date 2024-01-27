@@ -87,12 +87,6 @@ export type TypeModalAction = TCloseModal | TOpenOrderModal | TOpenIngrModal | T
 
 ///////////////////////////////////////////////////////////////////////////// order-number
 
-// export const typeOrderAction = {
-//   actionAwait: AWAIT_ORDDER_DETAILS,
-//   actionError: ERROR_ORDDER_DETAILS,
-//   actionGet: GET_ORDDER_DETAILS,
-//   actionCompleted: COMPLETED_ORDDER_DETAILS,
-// }
 type TAwaitOrderDetails = {
   type: typeof AWAIT_ORDDER_DETAILS;
   request: boolean;
@@ -132,25 +126,6 @@ export type TUserAuthAction = TSetUserData | TUserLogout | TLoadingStatus
 
 ///////////////////////////////////////////////////////////////////////////// ws-action
 
-// const CONNECTING: 'CONNECTING' = 'CONNECTING';
-// const ONLINE: 'ONLINE' = 'ONLINE';
-// const OFFLINE: 'OFFLINE' = 'OFFLINE';
-
-// export const WebsocketStatus = {
-//   CONNECTING: CONNECTING,
-//   ONLINE: ONLINE,
-//   OFFLINE: OFFLINE,
-// };
-// const LIVE_CONNECT: 'LIVE_CONNECT' = 'LIVE_CONNECT'
-// const LIVE_DISCONNECT: 'LIVE_DISCONNECT' = 'LIVE_DISCONNECT'
-
-// const WS_CONNECTING: "WS_CONNECTING" = "WS_CONNECTING";
-// const WS_CONNECTION_OPEN: 'WS_CONNECTION_OPEN' = 'WS_CONNECTION_OPEN';
-// const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
-// const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
-// const WS_GET_MESSAGE: 'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
-// const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
-// LIVE_CONNECT, LIVE_DISCONNECT, WS_CONNECTING, WS_CONNECTION_OPEN, WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_GET_MESSAGE, WS_SEND_MESSAGE
 export type TypeWsStatus =
   typeof LIVE_CONNECT |
   typeof LIVE_DISCONNECT |
