@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useCookie } from "../../utils/useCookie";
-import { TProtectedRoute } from "../../types";
+import { TProtectedRoute } from "../../types/types";
 const { getCookie } = useCookie
 
 export const ProtectedRoute: FC<TProtectedRoute> = ({ element, anonymous = false }) => {

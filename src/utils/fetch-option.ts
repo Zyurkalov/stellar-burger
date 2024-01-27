@@ -1,4 +1,4 @@
-import { TRegistration, TUserAuth } from "../types";
+import { TRegistration, TUserAuth } from "../types/types";
 import { useCookie } from "./useCookie";
 const { getCookie } = useCookie
 

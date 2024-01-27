@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TIngredient } from '../../types';
+import { TIngredient } from '../../types/types';
 import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT, CLEANING_INGREDIENT_LIST } from '../../constatnts/actions';
 
 export const addIngredient = (ingr: TIngredient) => ({

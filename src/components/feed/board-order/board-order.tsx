@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TBoardOrder } from '../../../types';
+import { TBoardOrder } from '../../../types/types';
 
 import style from "./board-order.module.css"
 

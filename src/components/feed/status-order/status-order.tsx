@@ -1,7 +1,7 @@
 
 import { FC } from "react"
 import style from './status-order.module.css'
-import { TOrderStatus } from '../../../types';
+import { TOrderStatus } from '../../../types/types';
 export const StatusOrder: FC<{value: TOrderStatus}> = ({value}) => {
 
     let statusText = '';

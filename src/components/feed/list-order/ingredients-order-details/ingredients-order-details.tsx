@@ -2,7 +2,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { FC, useMemo } from "react";
 import { useAppSelector } from "../../../../utils/hooks/useAppStore";
 
-import { TIngredient } from "../../../../types";
+import { TIngredient } from "../../../../types/types";
 import style from "./ingredients-order-details.module.css";
 
 export const IngredientsOrderDetails: FC<{list: string[] | null}> = ({list}) => {

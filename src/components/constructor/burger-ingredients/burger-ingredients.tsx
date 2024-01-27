@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore
 import { switchTab } from "../../../service/actions/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { TType } from "../../../types";
+import { TType } from "../../../types/types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
 

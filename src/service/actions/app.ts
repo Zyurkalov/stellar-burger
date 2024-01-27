@@ -1,4 +1,4 @@
-import { TIngredient } from "../../types";
+import { TIngredient } from "../../types/types";
 import { AppDispatch } from "..";
 import request from "../../utils/request";
 import { AWAIT_DATA, GET_DATA_SUCCESS, GET_DATA_FAILED } from "../../constatnts/actions";

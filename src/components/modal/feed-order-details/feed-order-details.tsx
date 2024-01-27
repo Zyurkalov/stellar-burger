@@ -11,7 +11,7 @@ import { useTimezone } from "../../../utils/hooks/useTimezone";
 import appStyles from "../../app/app.module.css"
 import style from "./feed-order-details.module.css";
 
-import { TListOrders, TIngredient } from '../../../types'
+import { TListOrders, TIngredient } from '../../../types/types'
 
 const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
 

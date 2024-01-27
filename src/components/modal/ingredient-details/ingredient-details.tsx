@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from '../../../utils/hooks/useAppStore';
 
 import { NotFound404 } from '../../../page';
-import { TIngredient } from '../../../types';
+import { TIngredient } from '../../../types/types';
 
 import appStyles from "../../app/app.module.css"
 import styles from "./ingredient-details.module.css";

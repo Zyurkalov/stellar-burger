@@ -1,4 +1,4 @@
-import { TType } from "../../types"
+import { TType } from "../../types/types"
 import { TSwitchTab } from "./types"
 import { SWITCH_TAB } from "../../constatnts/actions"
 

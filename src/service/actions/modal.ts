@@ -1,4 +1,4 @@
-import { TIngredient } from "../../types";
+import { TIngredient } from "../../types/types";
 import { MODAL_ORDER_OPEN, MODAL_INGR_OPEN, MODAL_CLOSE, MODAL_ERROR_OPEN, MODAL_LOADING } from "../../constatnts/actions";
 
 export const openOrderModal = () => ({

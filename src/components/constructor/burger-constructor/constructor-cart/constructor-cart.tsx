@@ -5,7 +5,7 @@ import {
   deleteIngredient,
   moveIngredient,
 } from "../../../../service/actions/constructor";
-import { TIngredient } from "../../../../types";
+import { TIngredient } from "../../../../types/types";
 
 import {
   DragIcon,

@@ -3,7 +3,7 @@ import { ListOrder } from "../../feed/list-order/list-order"
 import { useCookie } from "../../../utils/useCookie"
 import { connect, disconnect } from "../../../service/actions/ws-action"
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
-import { TListOrders } from "../../../types";
+import { TListOrders } from "../../../types/types";
 
 
 const ProfileOrders = () => {

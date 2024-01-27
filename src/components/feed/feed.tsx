@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks/useAppStore";
 import { connect, disconnect } from "../../service/actions/ws-action";
 import { ListOrder } from "./list-order/list-order";
 import {BoardOrder} from "./board-order/board-order";
-import { TListOrders } from "../../types";
+import { TListOrders } from "../../types/types";
 import mainStyles from "../constructor/constructor.module.css"
 
 type TOrderData = {

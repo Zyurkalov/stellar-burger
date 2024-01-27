@@ -6,7 +6,7 @@ import { StatusOrder } from "../status-order/status-order";
 import { useTimezone } from "../../../utils/hooks/useTimezone";
 
 import { FC } from "react";
-import { TListOrders } from "../../../types";
+import { TListOrders } from "../../../types/types";
 
 import style from "./list-order.module.css";
 import mainStyle from "../../constructor/constructor.module.css"

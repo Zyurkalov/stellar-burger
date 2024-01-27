@@ -10,7 +10,7 @@ import { ConstructorCart } from "./constructor-cart/constructor-cart";
 import { openOrderModal } from "../../../service/actions/modal";
 import { useCookie } from "../../../utils/useCookie";
 
-import { TIngredient } from "../../../types";
+import { TIngredient } from "../../../types/types";
 import style from "./burger-constructor.module.css";
 
 function BurgerConstructor() {

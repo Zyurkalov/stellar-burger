@@ -2,7 +2,7 @@
 import request from "./request";
 import { userOption } from "./fetch-option";
 import { useCookie } from "./useCookie";
-import { TRegistration, TUserAuth } from "../types";
+import { TRegistration, TUserAuth } from "../types/types";
 
 const { getCookie, setCookie } = useCookie
 const accessToken = getCookie("accessToken")

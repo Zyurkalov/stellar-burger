@@ -1,4 +1,4 @@
-import { TIngredient, TType, TOrders } from "../../types";
+import { TIngredient, TType, TOrders } from "../../types/types";
 // import { TIngredient, TType, TOrders, TRegistration } from "../../types";
 
 export type TInitialStateApp = {

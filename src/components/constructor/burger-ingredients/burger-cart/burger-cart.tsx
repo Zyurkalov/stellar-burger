@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import {СounterComponent} from "./counter/counter"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../../../types";
+import { TIngredient } from "../../../../types/types";
 import style from "./burger-cart.module.css";
 
 const BurgerCart: FC<{ item: TIngredient }> = ({item}) => {

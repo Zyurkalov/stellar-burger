@@ -1,5 +1,5 @@
 import { AWAIT_ORDDER_DETAILS, ERROR_ORDDER_DETAILS, GET_ORDDER_DETAILS, COMPLETED_ORDDER_DETAILS } from "../../constatnts/actions";
-import { TAnswerDataIngredient } from "../../types";
+import { TAnswerDataIngredient } from "../../types/types";
 import request from "../../utils/request";
 import { AppDispatch } from "..";
 

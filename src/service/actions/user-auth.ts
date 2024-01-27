@@ -1,7 +1,7 @@
 import { api } from "../../utils/user-api";
 import { userState } from "../../utils/userState";
 import { useCookie } from "../../utils/useCookie";
-import { TRegistration, TUserAuth } from "../../types";
+import { TRegistration, TUserAuth } from "../../types/types";
 import { AppDispatch } from "..";
 import { closeModal, showLoading, showModalError } from "./modal";
 import { USER_DATA, USER_LOGOUT, LOADING_STATUS } from "../../constatnts/actions";
