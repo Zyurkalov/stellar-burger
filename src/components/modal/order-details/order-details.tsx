@@ -1,10 +1,17 @@
-
+import {FC} from 'react'
 import { useAppSelector } from "../../../utils/hooks/useAppStore";
 import image from "../../../images/done.svg";
 import style from "./order-details.module.css";
+import { useLocation, useParams } from "react-router-dom";
 
-function OrderDetails() {
+const OrderDetails = () => {
   const { orderNumber, orderRequest, orderFailed, orderSuccess, text } = useAppSelector((state) => state.makeOrder)
+  const { number } = useParams()
+  const location = useLocation()
+
+  console.log(location.state?.background)
+  console.log(location)
+
   return (
     <div className={`${style.mainCont}`}>
       {orderRequest ? (

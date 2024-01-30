@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks/useAppStore";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
 
 import {CurrencyIcon, Button, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -17,6 +17,7 @@ function BurgerConstructor() {
   // const ref = useRef(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
+  const location = useLocation()
   const { getCookie } = useCookie
   const refIngrList = useRef<HTMLUListElement>(null)
   const refreshToken = getCookie("refreshToken")
@@ -63,7 +64,7 @@ const [, dropTarget] = useDrop({
   const toggleModal = () => {
     if (refreshToken) {
       dispatch(openOrderModal());
-      dispatch(makeOrderApi(listIngrID));
+      dispatch(makeOrderApi(listIngrID, navigate, location.pathname));
     } else {
       navigate("/login");
     }

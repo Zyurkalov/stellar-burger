@@ -1,6 +1,9 @@
 .mainCont {
-    margin-bottom: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.errorText {
+  max-width: 720px;
+}

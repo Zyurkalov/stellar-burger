@@ -15,6 +15,7 @@ import { ProfileInputList } from "../profile/input-list/input-list";
 import { checkUserAuth } from "../../service/actions/user-auth";
 
 import appStyles from "./app.module.css";
+import OrderDetails from "../modal/order-details/order-details";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -79,6 +80,7 @@ function App() {
           <Route path='ingredients/:ingredientId' element={<IngredientDetails />}/>
           <Route path="feed/:number" element={<FeedOrderDetails item={order} />} />
           <Route path="profile/orders/:number" element={<FeedOrderDetails item={order} />} />
+          <Route path="orders/:number" element={<OrderDetails />} />
         </Route>
       </Routes>
 
@@ -99,6 +101,12 @@ function App() {
           <Route path='profile/orders/:number' element={<ProtectedRoute element={
 	            <Modal title={`#${location?.state?.order?.number}`} onClose={handleModalClose}>
 	              <FeedOrderDetails item={order}/>
+	            </Modal>
+	          } />}
+	        />
+          <Route path='orders/:number' element={<ProtectedRoute element={
+	            <Modal title={''} onClose={handleModalClose}>
+	              <OrderDetails />
 	            </Modal>
 	          } />}
 	        />
