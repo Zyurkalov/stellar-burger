@@ -30,3 +30,7 @@
     color: #F2F2F3;
     text-decoration: none;
 }
+.button {
+    margin: 0;
+    padding: 0;
+}
