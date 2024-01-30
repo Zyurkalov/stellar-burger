@@ -3,7 +3,7 @@ import { TAnswerDataIngredient } from "../../types/types";
 import request from "../../utils/request";
 import { AppDispatch } from "..";
 
-export const getOrderNumberDetails = (numb: number | string) => {
+export const getOrderNumberDetails = (numb: string | undefined) => {
     return function(dispatch: AppDispatch) {
         dispatch({
             type: AWAIT_ORDDER_DETAILS

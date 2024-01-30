@@ -13,10 +13,7 @@ const initialState: TReducer = {
   error: "",
 };
 
-export const getOrderDetailsReducer = (
-  state = initialState,
-  action: TAction
-) => {
+export const getOrderDetailsReducer = (state = initialState, action: TAction):TReducer => {
   switch (action.type) {
     case AWAIT_ORDDER_DETAILS: {
       return {

@@ -31,8 +31,8 @@ export type TInitialStateModal = {
 };
 export type TInitialStateOrderNumber = {
   request: boolean;
-  order: boolean;
-  error: string | null;
+  order: boolean | any;
+  error: string | boolean;
 };
 export type TInitialStateUserAuth = {
   userData: {email: string, name: string};

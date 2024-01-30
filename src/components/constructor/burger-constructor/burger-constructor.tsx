@@ -7,7 +7,7 @@ import {CurrencyIcon, Button, DragIcon, ConstructorElement } from "@ya.praktikum
 import { addIngredient } from "../../../service/actions/constructor";
 import { makeOrderApi } from "../../../service/actions/burger-constructor";
 import { ConstructorCart } from "./constructor-cart/constructor-cart";
-import { openOrderModal } from "../../../service/actions/modal";
+import { openOrderModal, showLoading } from "../../../service/actions/modal";
 import { useCookie } from "../../../utils/useCookie";
 
 import { TIngredient } from "../../../types/types";
@@ -63,7 +63,8 @@ const [, dropTarget] = useDrop({
   });
   const toggleModal = () => {
     if (refreshToken) {
-      dispatch(openOrderModal());
+      // dispatch(openOrderModal());
+      dispatch(showLoading("Собираем заказ..."))
       dispatch(makeOrderApi(listIngrID, navigate, location.pathname));
     } else {
       navigate("/login");

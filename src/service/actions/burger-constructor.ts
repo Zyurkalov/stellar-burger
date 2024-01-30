@@ -1,6 +1,6 @@
 import request from "../../utils/request";
 import { ingrOption } from "../../utils/fetch-option";
-import { AWAIT_ORDER, MAKE_ORDER_SUCCESS, MAKE_ORDER_FAILED, CLEANING_INGREDIENT_LIST } from "../../constatnts/actions";
+import { AWAIT_ORDER, MAKE_ORDER_SUCCESS, MAKE_ORDER_FAILED, CLEANING_INGREDIENT_LIST, MODAL_CLOSE } from "../../constatnts/actions";
 
 import { AppDispatch } from "..";
 import { NavigateFunction } from "react-router-dom";
@@ -17,6 +17,9 @@ export function makeOrderApi(value: string[] | number [], navigate: NavigateFunc
         return data
       })
       .then((data) => navigate(`orders/${data.order.number}`, { state: {background: location} }))
+      .then(() => {
+        dispatch( {type: MODAL_CLOSE})
+      })
       .then(() => {
         dispatch({
             type: CLEANING_INGREDIENT_LIST
