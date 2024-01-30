@@ -6,6 +6,5 @@
 - [макет](https://www.figma.com/file/Cw6N4OO8K4ewQ6I4xfzU3X/React_Stellar_Burger?node-id=724%3A432&mode=dev)
 
 ## Технологии
-- React
+- React / Redux
 - HTML / CSS / JS
-- Webpack
