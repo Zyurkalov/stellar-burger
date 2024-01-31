@@ -12,7 +12,7 @@ export const getOrderNumberDetails = (numb: string | undefined) => {
         .then((data: TAnswerDataIngredient) => {
             dispatch({
                 type: GET_ORDDER_DETAILS,
-                payload: data.orders[0],
+                payload: data?.orders[0],
             })
         })
         .catch((err) => {
