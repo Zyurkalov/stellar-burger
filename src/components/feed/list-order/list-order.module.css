@@ -51,6 +51,7 @@
   width: 8px;
   background-color: var(--background-element);
 }
+
 .scrollBar::-webkit-scrollbar-thumb {
   height: 200px;
   background-color: var(--text-inactive-color);
