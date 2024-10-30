@@ -51,11 +51,12 @@ const delayedExecution = (dispatch: AppDispatch) => {
 
 export const registration = (data: TRegistration) => {
   return (dispatch: AppDispatch) => {
-    dispatch(showLoading('запускаем|* идентификацию'))
+    dispatch(showLoading('запускаем|* регистрацию'))
     return api
       .registration(data)
       .then((res) => {
         if (res.success) {
+          // dispatch(showLoading('Регистрация прошла успешно|* стыковка...'))
           addUser(res)
           setCookie("accessToken", res.accessToken)
           setCookie("refreshToken", res.refreshToken, {expires: 10})

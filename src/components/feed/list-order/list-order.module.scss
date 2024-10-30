@@ -1,0 +1,71 @@
+.height {
+  max-height: calc(100vh - 220px);
+  min-width: 605px;
+}
+
+.cards {
+  padding: 24px;
+  width: 100%;
+  min-height: 214px;
+  box-sizing: border-box;
+
+  border-radius: var(--common-border-radius-s);
+  background-color: var(--background);
+  box-shadow: var(--box-shadow);
+
+  list-style-type: none;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    &__data {
+      display:flex;
+      gap: 10px;
+      color: var(--text-inactive-color);
+    }
+
+    &__info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__links {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    
+      text-decoration: none;
+      color:white;
+    }
+}
+
+
+.status {
+  color: var(--colors-interface-success);
+}
+
+// .scrollBar {
+//   box-sizing: border-box;
+//   padding-right: 8px;
+//   height: 100vh;
+//   max-height: calc(100vh - 210px); 
+//   overflow-y: scroll;
+// }
+/* .scrollBar::-webkit-scrollbar {
+  margin-bottom: 30px;
+  width: 8px;
+  background-color: var(--background-element);
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  height: 200px;
+  background-color: var(--text-inactive-color);
+} */
+ /* .scrollBar::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 6px;
+  background: #8585ad;
+} */
+ 
+

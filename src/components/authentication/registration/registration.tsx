@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent } from 'react';
 import { useAppDispatch } from '../../../utils/hooks/useAppStore';
-import { useNavigate } from "react-router-dom";
 import { useFormAndValidation } from "../../../utils/hooks/useFormAndValidation";
 import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../../service/actions/user-auth";

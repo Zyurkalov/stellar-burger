@@ -7,6 +7,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TType } from "../../../types/types";
 import BurgerCart from "./burger-cart/burger-cart";
 import style from "./burger-ingredients.module.css";
+import { ScrollBar } from "../../ui-kit/ScrollBar";
 
 function BurgerIngredients() {
   const dispatch = useAppDispatch();
@@ -84,10 +85,11 @@ function BurgerIngredients() {
       <nav style={{ display: "flex" }} className="mt-5" ref={tabRef}>
         {getTab()}
       </nav>
-      <section
+      <ScrollBar extraClass={style.height}>
+      {/* <section
         className={`${style.cardSection} ${style.scrollBar}`}
         onScroll={handleScroll}
-      >
+      > */}
         {dataRequest ? (
           <div className={`mb-6 text text_type_main-medium`}>
             Загрузка...
@@ -120,13 +122,14 @@ function BurgerIngredients() {
                   ? "Соусы"
                   : "Начинки"}
               </h2>
-              <div className={style.cardContainer}>
+              <li className={style.cardContainer}>
                 {decompositionArr(category)}
-              </div>
+              </li>
             </div>
           ))
         )}
-      </section>
+      {/* </section> */}
+      </ScrollBar>
     </div>
   );
 }

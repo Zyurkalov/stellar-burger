@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { TBoardOrder } from '../../../types/types';
-
 import style from "./board-order.module.css"
 
 export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, totalToday}) => {
@@ -43,10 +42,6 @@ export const BoardOrder: FC<TBoardOrder> = ({doneList, workingList, total, total
                                 <li key={index} className={`text text_type_digits-default ${value.header === "Готовы:" 
                                 ? style.orderStatus_done 
                                 : style.orderStatus_working}`}>{number}
-                            {/* <Link to={`/feed/${number}`} state={{ background: location }} className={`text text_type_digits-default ${mainStyle.link} ${value.header === "Готовы:" 
-                                ? style.orderStatus_done 
-                                : style.orderStatus_working}`} key={index}>{number}
-                            </Link> */}
                             </li>)
                             }}
                         )}

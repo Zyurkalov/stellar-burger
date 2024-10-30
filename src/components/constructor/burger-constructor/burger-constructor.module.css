@@ -60,18 +60,14 @@
   max-height: 40px;
 }
 .scrollBar {
+  padding-right: 4px;
   max-height: 384px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   border: none;
+  scrollbar-width: thin;
 }
-.scrollBar::-webkit-scrollbar {
-  width: 8px;
-  background-color: #2f2f37;
-}
-.scrollBar::-webkit-scrollbar-thumb {
-  height: 100px;
-  background-color: #8585ad;
-}
+
 .defaultBorder {
   margin-bottom: 16px;
   margin-left: 32px;

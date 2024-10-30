@@ -47,7 +47,7 @@ function FeedComponent()  {
         const [{ orders, total, totalToday }] = getOrders;
         setOrderData({ orders: orders, total: total, totalToday: totalToday }); 
       }
-    },[getOrders])
+    },[getOrders, dispatch])
 
     // переписать под отдельный хук:
     useEffect(() => {

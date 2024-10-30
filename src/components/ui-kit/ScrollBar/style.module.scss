@@ -1,0 +1,63 @@
+.scroll {
+    $scroll-padding-default: 4px;
+    $scroll-padding-Firefox: 10px;
+    // max-height: calc(100vh - 275px);
+
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    
+    ::-webkit-scrollbar {
+        width: 8px; 
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+        background: #8585ad;
+    }
+
+    &::-webkit-scrollbar-track {
+		background: transparent;
+    }
+
+    &_overflowY {
+        padding-right: $scroll-padding-default;
+        overflow-y: auto;
+    }
+
+    &_overflowX {
+        padding-bottom: $scroll-padding-default;
+        overflow-x: auto;
+    }
+
+    &_overflowBoth {
+        padding-right: $scroll-padding-default;
+        padding-bottom: $scroll-padding-default;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+	// отдельное правило для Firefox и Safari
+	@supports (-moz-appearance: none) {
+		scrollbar-width: thin; 
+        // scrollbar-color: #8585ad transparent;
+
+        &_overflowY {
+            padding-right: $scroll-padding-Firefox;
+        }
+
+        &_overflowX {
+            padding-bottom: $scroll-padding-Firefox;
+        }
+
+        &_overflowBoth {
+            padding-right: $scroll-padding-Firefox;
+            padding-bottom: $scroll-padding-Firefox;
+        }
+    }
+}
+

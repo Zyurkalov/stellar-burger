@@ -2,7 +2,8 @@
     min-width: 47%;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 15px;
   }
   .completedOrder {
     width: 100%
@@ -42,7 +43,7 @@
     text-decoration: none;
     color: var(--text-primary-color);
   }
-  .scrollBar {
+  /* .scrollBar {
     padding-right: 8px;
     max-height: 75vh;
     overflow-y: hidden; 
@@ -56,4 +57,4 @@
   .scrollBar::-webkit-scrollbar-thumb {
     width: 100px;
     background-color: #8585ad;
-  }
+  } */
