@@ -12,6 +12,7 @@ import appStyles from "../../app/app.module.css"
 import style from "./feed-order-details.module.css";
 
 import { TListOrders, TIngredient } from '../../../types/types'
+import { ScrollBar } from "../../ui-kit/ScrollBar";
 
 const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
 
@@ -66,7 +67,7 @@ const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
     } else {
       setDataOrder(item);
     }
-  }, [item, number]);
+  }, [item, number, dispatch]);
 
   useEffect(() => {
     if (order && item === undefined) {
@@ -93,7 +94,7 @@ const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
         <StatusOrder value={status}/>
       </div>
       <p className="text text_type_main-medium mb-6">Состав:</p>
-      <ul className={`mb-10 ${style.ingrList} ${filtered.length > 4 ? style.scrollBar : null}`}>
+      <ScrollBar extraClass={`mb-10 ${style.ingrList} ${filtered.length > 4 ? style.scrollBar : null}`}>
         {filtered.map((item, index) => {
           return (
             <li
@@ -116,7 +117,7 @@ const FeedOrderDetails: FC<{item: TListOrders}> = ({item}) => {
             </li>
           );
         })}
-      </ul>
+      </ScrollBar>
       <div className={`${style.ingrBottom} ${filtered.length > 4 ? style.ingrBottom_gradient : null }`}>
       <div className={`mt-1 text text_type_main-small ${style.data}`}>
         {updatedAt ?

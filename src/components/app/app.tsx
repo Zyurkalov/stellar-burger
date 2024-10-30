@@ -22,22 +22,14 @@ function App() {
 
   const {
     modal: {
-      modalOrderStatus,
-      modalIngrStatus,
       modalErrorStatus,
       errorMessage,
       modalLoadingStatus,
       loadingMessage,
     },
-    // dataList: { data },
 
   } = useAppSelector((state) => state);
 
-  const homeState = {
-    modalOrderStatus,
-    modalIngrStatus,
-    modalErrorStatus,
-  };
   const loadingState = {
     modalErrorStatus,
     modalLoadingStatus,
@@ -57,7 +49,7 @@ function App() {
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(checkUserAuth())
-  }, []);
+  }, [ingredient, order, dispatch]);
 
   return (
     <>

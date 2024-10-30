@@ -1,4 +1,4 @@
-import { useMemo, FC, ReactNode } from "react";
+import { useMemo, FC } from "react";
 import { useAppSelector } from "../../../../utils/hooks/useAppStore";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
